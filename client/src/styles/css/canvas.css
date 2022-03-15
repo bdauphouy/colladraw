@@ -1,4 +1,5 @@
 @import 'https://files.bdph.me/reset.css';
+@import '../../fonts/stylesheet.css';
 * {
   color: red;
 }
