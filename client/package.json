@@ -3,11 +3,16 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite",
+    "dev": "concurrently \"vite\" \"npm run watch:scss\"",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "watch:scss": "sass --watch src/styles/scss/:src/styles/css"
   },
   "devDependencies": {
+    "concurrently": "^7.0.0",
     "vite": "^2.8.0"
+  },
+  "dependencies": {
+    "sass": "^1.49.9"
   }
 }
