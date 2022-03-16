@@ -10,7 +10,7 @@ use App\Models\User;
 
 class AuthController extends Controller
 {
-    public function signup(Request $request) 
+    public function signup(Request $request)
     {
         $fields = $request->validate([
             'name' => 'required|string',
@@ -37,11 +37,11 @@ class AuthController extends Controller
         return response($response, 201);
     }
 
-    public function login(Request $request) 
+    public function login(Request $request)
     {
         $fields = $request->validate([
-            'email' => 'required|string|unique:users,email',
-            'password' => 'required|string|confirmed',
+            'email' => 'required|string',
+            'password' => 'required|string',
         ]);
 
         $user = User::where('email', '=', $fields['email'])->first();
@@ -54,7 +54,7 @@ class AuthController extends Controller
 
         $uuid = Str::orderedUuid()->toString();
         $token = $user->createToken("token-$uuid")->plainTextToken;
-        
+
         $response = [
             'user' => $user,
             'token' => $token,
