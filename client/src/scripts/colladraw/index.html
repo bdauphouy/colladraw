@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test Colladraw Lib</title>
+
+    <script defer type="module">
+        import Colladraw from "./build/module/index.js";
+
+        const canvas = document.querySelector('canvas');
+        const colladraw = new Colladraw(canvas);
+    </script>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        html, body, canvas {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <canvas></canvas>
+</body>
+</html>
