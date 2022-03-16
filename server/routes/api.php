@@ -29,4 +29,4 @@ Route::get('/users/{id}', [UserController::class, 'search']);
 Route::get('/drawings', [DrawingController::class, 'index']);
 Route::get('/drawings/{id}', [DrawingController::class, 'search']);
 Route::get('/users/{id}/drawings', [DrawingController::class, 'user']);
-Route::post('/users/{id}/drawings/create', [DrawingController::class, 'create']);
+Route::post('/users/{id}/drawings', [DrawingController::class, 'create']);
