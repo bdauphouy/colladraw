@@ -3,6 +3,7 @@ import {ShapeType} from "./enums/ShapeType";
 import Rectangle from "./shapes/Rectangle";
 import {State} from "../types/State";
 import Circle from "./shapes/Circle";
+import Triangle from "./shapes/Triangle";
 
 export default class Colladraw {
   canvas: HTMLCanvasElement;
@@ -63,6 +64,9 @@ export default class Colladraw {
           break;
         case ShapeType.CIRCLE:
           shape = new Circle(x, y, 0, 0);
+          break;
+        case ShapeType.TRIANGLE:
+          shape = new Triangle(x, y, 0, 0);
           break;
         default:
           shape = new Rectangle(x, y, 0, 0);
