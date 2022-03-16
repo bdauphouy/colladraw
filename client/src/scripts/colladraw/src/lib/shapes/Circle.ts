@@ -1,11 +1,6 @@
 import Shape from "./Shape";
 
 export default class Circle extends Shape {
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-
   constructor(x: number, y: number, width: number, height: number) {
     super();
     this.x = x;
