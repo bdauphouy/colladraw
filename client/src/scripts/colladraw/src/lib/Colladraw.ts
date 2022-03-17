@@ -1,10 +1,10 @@
 import Shape from "./shapes/Shape";
-import {ShapeType} from "./enums/ShapeType";
+import { ShapeType } from "./enums/ShapeType";
 import Rectangle from "./shapes/Rectangle";
-import {State} from "../types/State";
+import { State } from "../types/State";
 import Ellipse from "./shapes/Ellipse";
 import Triangle from "./shapes/Triangle";
-import {CanvasGrid} from "../types/CanvasGrid";
+import { CanvasGrid } from "../types/CanvasGrid";
 import AnchorConditions from "./utils/AnchorConditions";
 import kebabize from "./utils/kebabize";
 
@@ -164,7 +164,7 @@ export default class Colladraw {
           ...this.state,
           drawing: {
             ...this.state.drawing,
-            endPoint: {x, y},
+            endPoint: { x, y },
           },
         }
 
@@ -172,17 +172,17 @@ export default class Colladraw {
           this.state.drawing.shape.width = this.state.drawing.endPoint.x - this.state.drawing.startPoint.x;
           this.state.drawing.shape.height = this.state.drawing.endPoint.y - this.state.drawing.startPoint.y;
 
-        //   if (this.state.drawing.shape.width < 0) {
-        //     this.state.drawing.shape.width = Math.abs(this.state.drawing.shape.width);
-        //     [this.state.drawing.startPoint.x, this.state.drawing.endPoint.x] = [this.state.drawing.endPoint.x, this.state.drawing.startPoint.x];
-        //     this.state.drawing.shape.x = this.state.drawing.startPoint.x;
-        //   }
-        //
-        //   if (this.state.drawing.shape.height < 0) {
-        //     this.state.drawing.shape.height = Math.abs(this.state.drawing.shape.height);
-        //     [this.state.drawing.startPoint.y, this.state.drawing.endPoint.y] = [this.state.drawing.endPoint.y, this.state.drawing.startPoint.y];
-        //     this.state.drawing.shape.y = this.state.drawing.startPoint.y;
-        //   }
+          //   if (this.state.drawing.shape.width < 0) {
+          //     this.state.drawing.shape.width = Math.abs(this.state.drawing.shape.width);
+          //     [this.state.drawing.startPoint.x, this.state.drawing.endPoint.x] = [this.state.drawing.endPoint.x, this.state.drawing.startPoint.x];
+          //     this.state.drawing.shape.x = this.state.drawing.startPoint.x;
+          //   }
+          //
+          //   if (this.state.drawing.shape.height < 0) {
+          //     this.state.drawing.shape.height = Math.abs(this.state.drawing.shape.height);
+          //     [this.state.drawing.startPoint.y, this.state.drawing.endPoint.y] = [this.state.drawing.endPoint.y, this.state.drawing.startPoint.y];
+          //     this.state.drawing.shape.y = this.state.drawing.startPoint.y;
+          //   }
         }
       }
     } else if (this.state.selectionTransform) {
@@ -278,5 +278,13 @@ export default class Colladraw {
     return {
       shapes: this.shapes.map(shape => shape.toJSON()),
     };
+  }
+
+  savePNG(name?: string): void {
+    const image = this.canvas.toDataURL();
+    const aDownloadLink = document.createElement('a');
+    aDownloadLink.download = name ?? 'canvas.png';
+    aDownloadLink.href = image;
+    aDownloadLink.click();
   }
 }
