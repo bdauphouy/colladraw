@@ -194,6 +194,7 @@
 
 body {
   font-family: "Hellix", sans-serif;
+  background: #fafafa;
 }
 
 .button {
@@ -244,4 +245,9 @@ body {
 }
 .field::placeholder {
   color: #c1c1c1;
+}
+
+.error {
+  color: #f3b1af;
+  margin-top: 6px;
 }

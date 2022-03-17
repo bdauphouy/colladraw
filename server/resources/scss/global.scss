@@ -4,6 +4,7 @@
 
 body {
   font-family: "Hellix", sans-serif;
+  background: $white;
 }
 
 .button {
@@ -53,4 +54,9 @@ body {
   &::placeholder {
     color: $gray;
   }
+}
+
+.error {
+  color: $red;
+  margin-top: 6px;
 }

@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\DrawingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +15,3 @@ use App\Http\Controllers\UserController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-Route::get('/users', [ApiController::class, 'index']);
-Route::get('/drawings', [DrawingController::class, 'index']);
