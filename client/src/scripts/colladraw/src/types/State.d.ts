@@ -10,4 +10,14 @@ interface State {
     startPoint?: Point;
     endPoint?: Point;
   };
+  selectedShape?: false | Shape;
+  selectionTransform?: false | {
+    translate?: false | {
+      grip: Point;
+    };
+    resize?: false | {
+      grip: 'top' | 'bottom' | 'left' | 'right' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
+      // initialPosition: Point;
+    };
+  };
 }
