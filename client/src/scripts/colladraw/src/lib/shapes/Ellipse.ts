@@ -30,7 +30,16 @@ export default class Ellipse extends Shape {
     });
   }
 
-  get formatted() {
-    return `Ellipse: ${this.x}, ${this.y}, ${this.width}, ${this.height}`;
+  toJSON() {
+    return {
+      type: "Ellipse",
+      x: this.x,
+      y: this.y,
+      width: this.width,
+      height: this.height,
+      fillColor: this.fillColor,
+      strokeColor: this.strokeColor,
+      strokeWidth: this.strokeWidth,
+    };
   }
 }

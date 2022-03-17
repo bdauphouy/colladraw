@@ -36,7 +36,16 @@ export default class Polygon extends Shape {
     });
   }
 
-  get formatted() {
-    return (this.polygonName ?? `Polygon[${this.sidesNumber}]`) + `: ${this.x}, ${this.y}, ${this.width}, ${this.height}`;
+  toJSON() {
+    return {
+      type: this.polygonName ?? `Polygon[${this.sidesNumber}]`,
+      x: this.x,
+      y: this.y,
+      width: this.width,
+      height: this.height,
+      fillColor: this.fillColor,
+      strokeColor: this.strokeColor,
+      strokeWidth: this.strokeWidth,
+    };
   }
 }

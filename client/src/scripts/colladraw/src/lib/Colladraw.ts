@@ -274,7 +274,9 @@ export default class Colladraw {
     this.state.variables.shapeType = type;
   }
 
-  get formatted() {
-    return this.shapes.map(shape => shape.formatted).join('\n');
+  toJSON(): object {
+    return {
+      shapes: this.shapes.map(shape => shape.toJSON()),
+    };
   }
 }

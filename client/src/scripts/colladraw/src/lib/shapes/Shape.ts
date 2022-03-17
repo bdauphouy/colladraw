@@ -50,7 +50,7 @@ export default abstract class Shape {
   }
   abstract generateGrid(canvasGrid: CanvasGrid): void;
 
-  abstract get formatted(): string;
+  abstract toJSON(): object;
 
   select(): void {
     this.selected = true;
