@@ -1,0 +1,62 @@
+@import "variables";
+@import "https://files.bdph.me/reset.css";
+@import "../fonts/stylesheet.css";
+
+body {
+  font-family: "Hellix", sans-serif;
+  background: $white;
+}
+
+.button {
+  border-radius: 30px;
+  padding: 10px 20px;
+  font-weight: 500;
+  line-height: 1.5em;
+  font-size: 1.125rem;
+  cursor: pointer;
+  color: $black;
+  outline-width: 3px;
+  outline-offset: 3px;
+  outline-color: transparent;
+  outline-style: solid;
+  display: flex;
+  gap: 12px;
+
+  img {
+    width: 20px;
+  }
+
+  &.fill {
+    background: $purple;
+  }
+
+  &:focus {
+    outline-color: $purple;
+  }
+}
+
+.field {
+  background: $light-gray;
+  padding: 10px 20px;
+  font-size: 1.125rem;
+  line-height: 1.5em;
+  border-radius: 30px;
+  outline-width: 3px;
+  outline-offset: 3px;
+  color: $black;
+  outline-color: transparent;
+  outline-style: solid;
+
+  &:focus {
+    outline-color: $purple;
+  }
+
+  &::placeholder {
+    color: $gray;
+  }
+}
+
+.error {
+  color: $red;
+  margin-top: 6px;
+}

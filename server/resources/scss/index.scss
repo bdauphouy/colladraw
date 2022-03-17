@@ -1,0 +1,117 @@
+@import "variables";
+
+body {
+  height: 100vh;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 90px;
+  height: 120px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 100;
+
+  a {
+    cursor: pointer;
+
+    img {
+      width: 200px;
+
+      @media screen and (max-width: 768px) {
+        width: 120px;
+      }
+    }
+  }
+
+  div {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    a {
+      color: $black;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    padding: 0 24px;
+    height: 80px;
+  }
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  padding: 3px;
+  position: absolute;
+  left: 50%;
+  width: 100%;
+  max-width: 700px;
+  transform: translateX(-50%);
+  bottom: 0;
+  gap: 100px;
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 24px;
+
+    h1 {
+      font-weight: 700;
+      font-size: 3rem;
+      line-height: 1.2em;
+      text-align: center;
+
+      @media screen and (max-width: 768px) {
+        font-size: 38px;
+      }
+    }
+
+    h2 {
+      font-weight: 600;
+      font-size: 2.375rem;
+      line-height: 1.2em;
+      margin-top: 12px;
+      text-align: center;
+
+      @media screen and (max-width: 768px) {
+        font-size: 28px;
+      }
+    }
+
+    form {
+      display: flex;
+      gap: 1rem;
+      margin-top: 48px;
+
+      .field {
+        min-width: 300px;
+      }
+
+      @media screen and (max-width: 768px) {
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+      }
+    }
+  }
+
+  img {
+    height: max(25vw, 250px);
+    object-fit: contain;
+
+    @media screen and (orientation: portrait) {
+      display: none;
+    }
+  }
+
+  @media screen and (orientation: portrait) {
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+}

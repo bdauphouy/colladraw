@@ -9,16 +9,11 @@ class Drawing extends Model
 {
     use HasFactory;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
         'uuid',
-        'owner',
+        'creator',
         'members',
-        'canvas'
+        'history'
     ];
 
 }
