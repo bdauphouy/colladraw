@@ -9,6 +9,31 @@
 
         const canvas = document.querySelector('canvas');
         window.colladraw = new Colladraw(canvas);
+
+        // shape-clicked, shape-selected, shape-deselected, shape-moved, shape-transform, shape-created
+        canvas.addEventListener('shape-clicked', (e) => {
+            console.log('shape-clicked', e.detail);
+        });
+
+        canvas.addEventListener('shape-selected', (e) => {
+            console.log('shape-selected', e.detail);
+        });
+
+        canvas.addEventListener('shape-deselected', (e) => {
+            console.log('shape-deselected', e.detail);
+        });
+
+        canvas.addEventListener('shape-moved', (e) => {
+            console.log('shape-moved', e.detail);
+        });
+
+        canvas.addEventListener('shape-transform', (e) => {
+            console.log('shape-transform', e.detail);
+        });
+
+        canvas.addEventListener('shape-created', (e) => {
+            console.log('shape-created', e.detail);
+        });
     </script>
 
     <style>

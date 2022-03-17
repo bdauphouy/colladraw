@@ -9,6 +9,7 @@ import AnchorConditions from "./utils/AnchorConditions";
 import kebabize from "./utils/kebabize";
 import {ExportCanvas} from "../types/ExportCanvas";
 import Polygon from "./shapes/Polygon";
+import CanvasEvents from "./events/CanvasEvents";
 
 export default class Colladraw {
   canvas: HTMLCanvasElement;
@@ -69,6 +70,7 @@ export default class Colladraw {
   }
 
   addShape(shape: Shape) {
+    this.canvas.dispatchEvent(CanvasEvents.ShapeCreated(shape));
     this.shapes.push(shape);
   }
 
@@ -173,6 +175,7 @@ export default class Colladraw {
         if (this.state.drawing && this.state.drawing.shape) {
           this.state.drawing.shape.width = this.state.drawing.endPoint.x - this.state.drawing.startPoint.x;
           this.state.drawing.shape.height = this.state.drawing.endPoint.y - this.state.drawing.startPoint.y;
+          this.canvas.dispatchEvent(CanvasEvents.ShapeMoved(this.state.drawing.shape, event));
 
           //   if (this.state.drawing.shape.width < 0) {
           //     this.state.drawing.shape.width = Math.abs(this.state.drawing.shape.width);
@@ -189,9 +192,25 @@ export default class Colladraw {
       }
     } else if (this.state.selectionTransform) {
       if (this.state.selectionTransform.translate) {
+        const oldX = this.state.selectedShape.x;
+        const oldY = this.state.selectedShape.y;
+
         this.state.selectedShape.x = event.offsetX - this.state.selectionTransform.translate.grip.x;
         this.state.selectedShape.y = event.offsetY - this.state.selectionTransform.translate.grip.y;
+        this.canvas.dispatchEvent(CanvasEvents.ShapeMoved(this.state.selectedShape, event));
+        this.canvas.dispatchEvent(CanvasEvents.ShapeTransformed(this.state.selectedShape, {
+          type: 'translate',
+          x: this.state.selectionTransform.translate.grip.x,
+          y: this.state.selectionTransform.translate.grip.y,
+          oldX,
+          oldY,
+        }));
       } else if (this.state.selectionTransform.resize) {
+        const oldX = this.state.selectedShape.x;
+        const oldY = this.state.selectedShape.y;
+        const oldWidth = this.state.selectedShape.width;
+        const oldHeight = this.state.selectedShape.height;
+
         if (this.state.selectionTransform.resize.grip === 'top-left') {
           this.state.selectedShape.width = this.state.selectedShape.width + this.state.selectedShape.x - event.offsetX;
           this.state.selectedShape.height = this.state.selectedShape.height + this.state.selectedShape.y - event.offsetY;
@@ -219,6 +238,18 @@ export default class Colladraw {
           this.state.selectedShape.width = this.state.selectedShape.width + this.state.selectedShape.x - event.offsetX;
           this.state.selectedShape.x = event.offsetX;
         }
+
+        this.canvas.dispatchEvent((CanvasEvents.ShapeTransformed(this.state.selectedShape, {
+          type: 'resize',
+          x: this.state.selectedShape.x,
+          y: this.state.selectedShape.y,
+          width: this.state.selectedShape.width,
+          height: this.state.selectedShape.height,
+          oldX,
+          oldY,
+          oldWidth,
+          oldHeight,
+        })));
       }
     }
 
@@ -243,16 +274,22 @@ export default class Colladraw {
   }
 
   onClick(event: MouseEvent) {
-    if (!this.state.drawing && !this.onClickLocker) {
-      const clickedShape = this.grid[event.offsetX][event.offsetY];
+    const clickedShape = this.grid[event.offsetX][event.offsetY];
 
+    if (clickedShape) {
+      this.canvas.dispatchEvent(CanvasEvents.ShapeClicked(clickedShape, event));
+    }
+
+    if (!this.state.drawing && !this.onClickLocker) {
       if (clickedShape && (!this.state.selectedShape || this.state.selectedShape == clickedShape)) {
         clickedShape.select();
+        this.canvas.dispatchEvent(CanvasEvents.ShapeSelected(clickedShape));
         this.state.selectedShape = clickedShape;
         this.draw();
       } else {
         if (this.state.selectedShape) {
           this.state.selectedShape.deselect()
+          this.canvas.dispatchEvent(CanvasEvents.ShapeDeselected(this.state.selectedShape));
         }
         this.state.selectedShape = false;
         this.draw();

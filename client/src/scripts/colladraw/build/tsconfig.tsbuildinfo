@@ -156,8 +156,13 @@
         "signature": "f9659e2ef011adcc39b1de3583d1e7ec59b4602a695fcd9e76e6f449eaac78e2",
         "affectsGlobalScope": false
       },
+      "../src/lib/events/canvasevents.ts": {
+        "version": "89102b724194290363cec8990517d24f0973a28452edd8fe5c4621b24a6e51e4",
+        "signature": "fac96683817a3676bbc2a531e1d9cd89ed9981448e68a71bf8a5261b2c54b860",
+        "affectsGlobalScope": false
+      },
       "../src/lib/colladraw.ts": {
-        "version": "8eefb4ec4e0c65df0003a63c77a5a28a1bd855295d0e0e7d0a134fe7e9693a8e",
+        "version": "e8ef6433ba825b623847f93a485a7a278fbce3f5709f27087e8006920028f901",
         "signature": "3b77a7f58f7d2e708e8939f2e0eaee706e1322e1c3ece1d57ab6fb740114d035",
         "affectsGlobalScope": false
       },
@@ -214,6 +219,7 @@
       ],
       "../src/lib/colladraw.ts": [
         "../src/lib/enums/shapetype.ts",
+        "../src/lib/events/canvasevents.ts",
         "../src/lib/shapes/ellipse.ts",
         "../src/lib/shapes/polygon.ts",
         "../src/lib/shapes/rectangle.ts",
@@ -224,6 +230,9 @@
         "../src/types/canvasgrid.d.ts",
         "../src/types/exportcanvas.d.ts",
         "../src/types/state.d.ts"
+      ],
+      "../src/lib/events/canvasevents.ts": [
+        "../src/lib/shapes/shape.ts"
       ],
       "../src/lib/shapes/ellipse.ts": [
         "../src/lib/shapes/shape.ts",
@@ -270,6 +279,9 @@
         "../src/lib/shapes/shape.ts",
         "../src/types/canvasgrid.d.ts",
         "../src/types/exportcanvas.d.ts"
+      ],
+      "../src/lib/events/canvasevents.ts": [
+        "../src/lib/shapes/shape.ts"
       ],
       "../src/lib/shapes/ellipse.ts": [
         "../src/lib/shapes/shape.ts",
@@ -331,6 +343,7 @@
       "../src/index.ts",
       "../src/lib/colladraw.ts",
       "../src/lib/enums/shapetype.ts",
+      "../src/lib/events/canvasevents.ts",
       "../src/lib/shapes/ellipse.ts",
       "../src/lib/shapes/polygon.ts",
       "../src/lib/shapes/rectangle.ts",
