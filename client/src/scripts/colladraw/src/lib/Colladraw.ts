@@ -2,7 +2,7 @@ import Shape from "./shapes/Shape";
 import {ShapeType} from "./enums/ShapeType";
 import Rectangle from "./shapes/Rectangle";
 import {State} from "../types/State";
-import Circle from "./shapes/Circle";
+import Ellipse from "./shapes/Ellipse";
 import Triangle from "./shapes/Triangle";
 import {CanvasGrid} from "../types/CanvasGrid";
 import AnchorConditions from "./utils/AnchorConditions";
@@ -84,8 +84,8 @@ export default class Colladraw {
           case ShapeType.RECTANGLE:
             shape = new Rectangle(x, y, 0, 0);
             break;
-          case ShapeType.CIRCLE:
-            shape = new Circle(x, y, 0, 0);
+          case ShapeType.ELLIPSE:
+            shape = new Ellipse(x, y, 0, 0);
             break;
           case ShapeType.TRIANGLE:
             shape = new Triangle(x, y, 0, 0);
