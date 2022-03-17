@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\DrawingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +16,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Auth::routes();
+
+Route::get('/', [HomeController::class, 'index'])->name('home');
+
+Route::get('/profile', [UserController::class, 'search'])->middleware('auth');
+
+Route::get('/drawings/{id}', [DrawingController::class, 'search']);
+Route::get('/users/{id}/drawings', [DrawingController::class, 'user']);
+Route::post('/users/{id}/drawings', [DrawingController::class, 'create']);

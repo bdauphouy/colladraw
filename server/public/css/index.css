@@ -1,0 +1,113 @@
+body {
+  height: 100vh;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 90px;
+  height: 120px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 100;
+}
+header a {
+  cursor: pointer;
+}
+header a img {
+  width: 200px;
+}
+@media screen and (max-width: 768px) {
+  header a img {
+    width: 120px;
+  }
+}
+header div {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+header div a {
+  color: #111111;
+}
+@media screen and (max-width: 768px) {
+  header {
+    padding: 0 24px;
+    height: 80px;
+  }
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  padding: 3px;
+  position: absolute;
+  left: 50%;
+  width: 100%;
+  max-width: 700px;
+  transform: translateX(-50%);
+  bottom: 0;
+  gap: 100px;
+}
+main .content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 24px;
+}
+main .content h1 {
+  font-weight: 700;
+  font-size: 3rem;
+  line-height: 1.2em;
+  text-align: center;
+}
+@media screen and (max-width: 768px) {
+  main .content h1 {
+    font-size: 38px;
+  }
+}
+main .content h2 {
+  font-weight: 600;
+  font-size: 2.375rem;
+  line-height: 1.2em;
+  margin-top: 12px;
+  text-align: center;
+}
+@media screen and (max-width: 768px) {
+  main .content h2 {
+    font-size: 28px;
+  }
+}
+main .content div {
+  display: flex;
+  gap: 1rem;
+  margin-top: 48px;
+}
+main .content div .field {
+  min-width: 300px;
+}
+@media screen and (max-width: 768px) {
+  main .content div {
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+}
+main img {
+  height: max(25vw, 250px);
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+@media screen and (orientation: portrait) {
+  main img {
+    display: none;
+  }
+}
+@media screen and (orientation: portrait) {
+  main {
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+}

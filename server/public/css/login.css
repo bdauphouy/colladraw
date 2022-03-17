@@ -1,0 +1,38 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+body header {
+  position: fixed;
+  left: 90px;
+  top: 40px;
+}
+@media screen and (max-width: 768px) {
+  body header {
+    left: 24px;
+    top: 20px;
+  }
+}
+body .container {
+  border: solid 2px #f4f4f4;
+  border-radius: 8px;
+  width: max(400px, 30vw);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px;
+}
+body .container form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 40px;
+  width: 100%;
+}
+body .container form div {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
