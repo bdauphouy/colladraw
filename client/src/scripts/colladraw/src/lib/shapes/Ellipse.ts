@@ -3,11 +3,7 @@ import {CanvasGrid} from "../../types/CanvasGrid";
 
 export default class Ellipse extends Shape {
   constructor(x: number, y: number, width: number, height: number) {
-    super();
-    this.x = x;
-    this.y = y;
-    this.width = width;
-    this.height = height;
+    super(x, y, width, height);
   }
 
   generateGrid(canvasGrid: CanvasGrid) {

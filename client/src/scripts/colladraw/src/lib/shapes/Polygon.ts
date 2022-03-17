@@ -6,6 +6,12 @@ export default class Polygon extends Shape {
   polygonName?: string;
   private coordinates: number[][];
 
+  constructor(x: number, y: number, width: number, height: number, sidesNumber: number, polygonName?: string) {
+    super(x, y, width, height);
+    this.sidesNumber = sidesNumber;
+    this.polygonName = polygonName;
+  }
+
   getCoordinates(startX = this.x, startY = this.y): number[][] {
     const coordinates: number[][] = [];
     for (let i = 0; i < this.sidesNumber; i++) {

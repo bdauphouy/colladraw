@@ -10,6 +10,13 @@ export default abstract class Shape {
   strokeWidth?: number;
   selected: boolean = false;
 
+  protected constructor(x: number, y: number, width: number, height: number) {
+    this.x = x;
+    this.y = y;
+    this.width = width;
+    this.height = height;
+  }
+
   draw(context: CanvasRenderingContext2D, canvasGrid: CanvasGrid, _draw: Function = () => {}): void {
     context.lineWidth = this.strokeWidth || 0;
     context.strokeStyle = this.strokeColor || '#000';
