@@ -6,16 +6,16 @@
 }
 
 header {
-    position: absolute;
-    top: 40px;
-    left: 40px;
+    left: 90px;
+    top: 45px;
+    position: absolute
 }
 
 body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 100vH;
 }
 
 #logo {
@@ -24,17 +24,24 @@ body {
     padding-top: 50px;
 }
 
-.signin-box {
+.login-box {
     border: solid;
     width: 410px;
-    height: 523px;
+    height: 400px;
     border-radius: 8px;
     border-color: #C1C1C1;
     font: 18px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#logo {
+    margin-right: auto;
+    margin-left: auto
 }
 
 .box {
-    padding: 50px;
+    padding: 50px
 }
 
 input {
@@ -43,10 +50,10 @@ input {
     border-radius: 50px;
     background-color: #F4F4F4;
     padding: 20px 8px;
-    margin-bottom: 20px;
 }
 
-.confirmation-password {
+.password {
+    margin-top: 20px;
     margin-bottom: 50px;
 }
 
@@ -58,7 +65,7 @@ input {
     text-align: center;
 }
 
-.signup {
+.signin {
     width: 84px;
     height: 43px;
     background-color: #BBB2F9;
@@ -66,15 +73,7 @@ input {
     cursor: pointer;
 }
 
-.signup:hover {
-    transform: scale(1.06);
-}
-
-.signin {
+.signup {
     height: 43px;
     cursor: pointer;
-}
-
-.signin:hover {
-    transform: scale(1.07);
 }

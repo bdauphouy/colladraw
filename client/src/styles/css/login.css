@@ -1,0 +1,80 @@
+@import 'https://files.bdph.me/reset.css';
+@import '../../fonts/stylesheet.css';
+* {
+  font-family: sans-serif;
+}
+
+header {
+  left: 90px;
+  top: 45px;
+  position: absolute;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vH;
+}
+
+#logo {
+  padding-right: 108px;
+  padding-left: 108px;
+  padding-top: 50px;
+}
+
+.login-box {
+  border: solid;
+  width: 410px;
+  height: 400px;
+  border-radius: 8px;
+  border-color: #C1C1C1;
+  font: 18px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#logo {
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.box {
+  padding: 50px;
+}
+
+input {
+  height: 43px;
+  width: 310px;
+  border-radius: 50px;
+  background-color: #F4F4F4;
+  padding: 20px 8px;
+}
+
+.password {
+  margin-top: 20px;
+  margin-bottom: 50px;
+}
+
+.buttons {
+  width: 310px;
+  height: 43px;
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+}
+
+.signin {
+  width: 84px;
+  height: 43px;
+  background-color: #BBB2F9;
+  border-radius: 50px;
+  cursor: pointer;
+}
+
+.signup {
+  height: 43px;
+  cursor: pointer;
+}
+
+/*# sourceMappingURL=login.css.map */
