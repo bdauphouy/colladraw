@@ -80,16 +80,16 @@ main .content h2 {
     font-size: 28px;
   }
 }
-main .content div {
+main .content form {
   display: flex;
   gap: 1rem;
   margin-top: 48px;
 }
-main .content div .field {
+main .content form .field {
   min-width: 300px;
 }
 @media screen and (max-width: 768px) {
-  main .content div {
+  main .content form {
     flex-direction: column;
     align-items: center;
     gap: 2rem;

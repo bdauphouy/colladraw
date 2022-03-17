@@ -1,4 +1,4 @@
-const mix = require("laravel-mix");
+const mix = require("laravel-mix")
 
 /*
  |--------------------------------------------------------------------------
@@ -11,6 +11,8 @@ const mix = require("laravel-mix");
  |
  */
 
-mix.sass("resources/scss/index.scss", "public/css")
-    .sass("resources/scss/global.scss", "public/css")
-    .sass("resources/scss/login.scss", "public/css");
+mix
+  .sass("resources/scss/index.scss", "public/css")
+  .sass("resources/scss/global.scss", "public/css")
+  .sass("resources/scss/login.scss", "public/css")
+  .sass("resources/scss/drawing.scss", "public/css")

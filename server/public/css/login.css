@@ -34,5 +34,15 @@ body .container form {
 body .container form div {
   display: flex;
   justify-content: space-between;
+  width: 100%;
+}
+body .container form div:last-child {
   margin-top: 20px;
+}
+body .container form div.field-group {
+  display: flex;
+  flex-direction: column;
+}
+body .container form div.field-group .field {
+  width: 100%;
 }

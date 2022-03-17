@@ -11,7 +11,7 @@
             <a href="/login" class="button fill">Log in</a>
         @else
             <a id="logout" href="/logout" class="button">Log out</a>
-            <a href="/users/{{ Auth::user()->id }}" class="button fill">Profile</a>
+            <a href="/profile" class="button fill">Profile</a>
         @endif
     </div>
 
@@ -25,12 +25,13 @@
         <h1>Hi {{ Auth::user()->name }}!</h1>
         <h2>Start a new session now.</h2>
         @endif
-        <div>
+        <form action="/drawings" method="POST" id="create-session">
+            @csrf
             @if (!Auth::user())
-            <input class="field" type="text" placeholder="Username" />
+            <input id="username" class="field" type="text" placeholder="Username" />
             @endif
             <button class="button fill">Create a session</button>
-        </div>
+        </form>
     </div>
     <img src="/images/illustration.png" alt="illustration" />
 </main>
