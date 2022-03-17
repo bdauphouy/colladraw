@@ -1,0 +1,12 @@
+import {CanvasGrid} from "../../types/CanvasGrid";
+
+export default {
+  topLeft: (grid: CanvasGrid, gripMargin: number, event: MouseEvent) => grid.some(row => row.some(cell => cell && event.offsetX - gripMargin < cell.x && cell.x < event.offsetX + gripMargin && event.offsetY - gripMargin < cell.y && cell.y < event.offsetY + gripMargin)),
+  topRight: (grid: CanvasGrid, gripMargin: number, event: MouseEvent) => grid.some(row => row.some(cell => cell && event.offsetX - gripMargin < cell.x + cell.width && cell.x + cell.width < event.offsetX + gripMargin && event.offsetY - gripMargin < cell.y && cell.y < event.offsetY + gripMargin)),
+  bottomLeft: (grid: CanvasGrid, gripMargin: number, event: MouseEvent) => grid.some(row => row.some(cell => cell && event.offsetX - gripMargin < cell.x && cell.x < event.offsetX + gripMargin && event.offsetY - gripMargin < cell.y + cell.height && cell.y + cell.height < event.offsetY + gripMargin)),
+  bottomRight: (grid: CanvasGrid, gripMargin: number, event: MouseEvent) => grid.some(row => row.some(cell => cell && event.offsetX - gripMargin < cell.x + cell.width && cell.x + cell.width < event.offsetX + gripMargin && event.offsetY - gripMargin < cell.y + cell.height && cell.y + cell.height < event.offsetY + gripMargin)),
+  left: (grid: CanvasGrid, gripMargin: number, event: MouseEvent) => grid.some(row => row.some(cell => cell && event.offsetX - gripMargin < cell.x && cell.x < event.offsetX + gripMargin && event.offsetY - gripMargin < cell.y + cell.height / 2 && cell.y + cell.height / 2 < event.offsetY + gripMargin)),
+  right: (grid: CanvasGrid, gripMargin: number, event: MouseEvent) => grid.some(row => row.some(cell => cell && event.offsetX - gripMargin < cell.x + cell.width && cell.x + cell.width < event.offsetX + gripMargin && event.offsetY - gripMargin < cell.y + cell.height / 2 && cell.y + cell.height / 2 < event.offsetY + gripMargin)),
+  bottom: (grid: CanvasGrid, gripMargin: number, event: MouseEvent) => grid.some(row => row.some(cell => cell && event.offsetX - gripMargin < cell.x + cell.width / 2 && cell.x + cell.width / 2 < event.offsetX + gripMargin && event.offsetY - gripMargin < cell.y + cell.height && cell.y + cell.height < event.offsetY + gripMargin)),
+  top: (grid: CanvasGrid, gripMargin: number, event: MouseEvent) => grid.some(row => row.some(cell => cell && event.offsetX - gripMargin < cell.x + cell.width / 2 && cell.x + cell.width / 2 < event.offsetX + gripMargin && event.offsetY - gripMargin < cell.y)),
+}
