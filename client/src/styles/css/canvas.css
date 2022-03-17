@@ -1,4 +1,3 @@
-@charset "UTF-8";
 @import 'https://files.bdph.me/reset.css';
 @import '../../fonts/stylesheet.css';
 body {
@@ -185,25 +184,16 @@ body .typo-choices {
   position: absolute;
   left: 0;
   top: 4rem;
-  width: 300px;
+  width: 250px;
   border-radius: 8px;
 }
-body .typo-choices option:nth-child(1) {
-  display: none;
-}
-body .typo-choices:after {
-  content: "▼";
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  border-radius: 8px;
+body .typo-choices summary {
   font-size: 25px;
   font-family: "Hellix", sans-serif;
   background: #F4F4F4;
   color: #BBB2F9;
   padding: 5px 15px;
-  pointer-events: none;
+  cursor: pointer;
 }
 body .typo-choices .select-fonts {
   appearance: none;
@@ -214,6 +204,15 @@ body .typo-choices .select-fonts {
   padding: 10px 20px;
   font-size: 22px;
   font-weight: 700;
+}
+body .typo-choices #Helvetica {
+  font-family: Helvetica, sans-serif;
+}
+body .typo-choices #Courier-new {
+  font-family: "Courier New", sans-serif;
+}
+body .typo-choices #Time-new-roman {
+  font-family: "Times New Roman", sans-serif;
 }
 body .color-1 {
   background-color: #F3B1AF;

@@ -253,32 +253,19 @@ section {
     position:absolute;
     left:0;
     top: 4rem;
-    width: 300px;
-
+    width: 250px;
     border-radius: 8px;
 
-   option:nth-child(1) {
-      display:none;
-    }
-
-    &:after {
-    
-      content: '\25BC';
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-
-      border-radius: 8px;
-
+    summary {
       font-size: 25px;
       font-family: "Hellix", sans-serif;
       background: $light-grey-color;
       color: $purple-color;
       padding: 5px 15px;
-      pointer-events: none;
-  
-  }
+      cursor: pointer;
+    }
+// 2573 la croix
+ 
   .select-fonts {
     appearance: none;
     background: $light-grey-color;
@@ -290,6 +277,19 @@ section {
     font-size: 22px;
     font-weight: 700;
   }
+
+  #Helvetica {
+    font-family: Helvetica, sans-serif;
+  }
+
+  #Courier-new{
+    font-family: 'Courier New', sans-serif;
+  }
+
+  #Time-new-roman {
+    font-family: 'Times New Roman', sans-serif;
+  }
+
 }
 
 
