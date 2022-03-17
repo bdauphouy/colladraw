@@ -5,11 +5,49 @@ export default abstract class Shape {
   y: number;
   width: number;
   height: number;
-  color?: string;
+  fillColor?: string;
   strokeColor?: string;
+  strokeWidth?: number;
   selected: boolean = false;
 
-  abstract draw(context: CanvasRenderingContext2D, canvasGrid: CanvasGrid): void;
+  draw(context: CanvasRenderingContext2D, canvasGrid: CanvasGrid, _draw: Function = () => {}): void {
+    context.lineWidth = this.strokeWidth || 0;
+    context.strokeStyle = this.strokeColor || '#000';
+    context.fillStyle = this.fillColor || '#000';
+
+    context.beginPath();
+
+    _draw();
+
+    context.closePath();
+
+    this.generateGrid(canvasGrid);
+
+    if (this.selected) {
+      context.fillStyle = '#ff0000';
+      context.strokeStyle = '#ff0000';
+      context.lineWidth = 2;
+
+      context.beginPath();
+      context.lineTo(this.x, this.y);
+      context.lineTo(this.x + this.width, this.y);
+      context.lineTo(this.x + this.width, this.y + this.height);
+      context.lineTo(this.x, this.y + this.height);
+      context.closePath();
+
+      const anchorSize = 6;
+
+      context.fillRect(this.x - (anchorSize / 2), this.y - (anchorSize / 2), anchorSize, anchorSize);
+      context.fillRect(this.x - (anchorSize / 2), this.y + this.height - (anchorSize / 2), anchorSize, anchorSize);
+      context.fillRect(this.x + this.width - (anchorSize / 2), this.y - (anchorSize / 2), anchorSize, anchorSize);
+      context.fillRect(this.x + this.width - (anchorSize / 2), this.y + this.height - (anchorSize / 2), anchorSize, anchorSize);
+      context.fillRect(this.x + this.width / 2 - (anchorSize / 2), this.y - (anchorSize / 2), anchorSize, anchorSize);
+      context.fillRect(this.x + this.width / 2 - (anchorSize / 2), this.y + this.height - (anchorSize / 2), anchorSize, anchorSize);
+      context.fillRect(this.x - (anchorSize / 2), this.y + this.height / 2 - (anchorSize / 2), anchorSize, anchorSize);
+      context.fillRect(this.x + this.width - (anchorSize / 2), this.y + this.height / 2 - (anchorSize / 2), anchorSize, anchorSize);
+      context.fillRect(this.x + this.width / 2 - (anchorSize / 2), this.y + this.height / 2 - (anchorSize / 2), anchorSize, anchorSize);
+    }
+  }
   abstract generateGrid(canvasGrid: CanvasGrid): void;
 
   abstract get formatted(): string;

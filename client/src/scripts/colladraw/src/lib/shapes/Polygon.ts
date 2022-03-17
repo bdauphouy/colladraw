@@ -25,38 +25,15 @@ export default class Polygon extends Shape {
   draw(context: CanvasRenderingContext2D, canvasGrid: CanvasGrid) {
     this.coordinates = this.getCoordinates();
 
-    if (this.selected) {
-      context.strokeStyle = '#ff0000';
-      context.lineWidth = 2;
-    } else {
-      context.strokeStyle = this.strokeColor;
-      context.lineWidth = 1;
-    }
+    super.draw(context, canvasGrid, () => {
+      context.moveTo(this.coordinates[0][0], this.coordinates[0][1]);
 
-    context.beginPath();
-    context.moveTo(this.coordinates[0][0], this.coordinates[0][1]);
-
-    [...this.coordinates.slice(1, this.coordinates.length), this.coordinates[0]].forEach(([x, y]) => {
-      context.lineTo(x, y);
-      context.stroke(); // TODO: adjust according to what is in the state
+      [...this.coordinates.slice(1, this.coordinates.length), this.coordinates[0]].forEach(([x, y]) => {
+        context.lineTo(x, y);
+        context.stroke();
+        context.fill();
+      });
     });
-
-    context.closePath();
-
-    this.generateGrid(canvasGrid);
-
-    if (this.selected) {
-      context.fillStyle = '#ff0000';
-      context.fillRect(this.x - 2, this.y - 2, 4, 4);
-      context.fillRect(this.x - 2, this.y + this.height - 2, 4, 4);
-      context.fillRect(this.x + this.width - 2, this.y - 2, 4, 4);
-      context.fillRect(this.x + this.width - 2, this.y + this.height - 2, 4, 4);
-      context.fillRect(this.x + this.width / 2 - 2, this.y - 2, 4, 4);
-      context.fillRect(this.x + this.width / 2 - 2, this.y + this.height - 2, 4, 4);
-      context.fillRect(this.x - 2, this.y + this.height / 2 - 2, 4, 4);
-      context.fillRect(this.x + this.width - 2, this.y + this.height / 2 - 2, 4, 4);
-      context.fillRect(this.x + this.width / 2 - 2, this.y + this.height / 2 - 2, 4, 4);
-    }
   }
 
   get formatted() {

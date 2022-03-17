@@ -23,27 +23,11 @@ export default class Ellipse extends Shape {
       this.width = 0;
     }
 
-    context.beginPath();
-    // context.arc(this.x + this.width / 2, this.y + this.width / 2, this.width / 2, 0, 2 * Math.PI, false);
-    context.ellipse(this.x + this.width / 2, this.y + this.height / 2, this.width / 2, this.height / 2, 0, 0, 2 * Math.PI);
-    context.stroke(); // TODO: adjust according to what is in the state
-
-    context.closePath();
-
-    this.generateGrid(canvasGrid);
-
-    if (this.selected) {
-      context.fillStyle = '#ff0000';
-      context.fillRect(this.x - 2, this.y - 2, 4, 4);
-      context.fillRect(this.x - 2, this.y + this.height - 2, 4, 4);
-      context.fillRect(this.x + this.width - 2, this.y - 2, 4, 4);
-      context.fillRect(this.x + this.width - 2, this.y + this.height - 2, 4, 4);
-      context.fillRect(this.x + this.width / 2 - 2, this.y - 2, 4, 4);
-      context.fillRect(this.x + this.width / 2 - 2, this.y + this.height - 2, 4, 4);
-      context.fillRect(this.x - 2, this.y + this.height / 2 - 2, 4, 4);
-      context.fillRect(this.x + this.width - 2, this.y + this.height / 2 - 2, 4, 4);
-      context.fillRect(this.x + this.width / 2 - 2, this.y + this.height / 2 - 2, 4, 4);
-    }
+    super.draw(context, canvasGrid, () => {
+      context.ellipse(this.x + this.width / 2, this.y + this.height / 2, this.width / 2, this.height / 2, 0, 0, 2 * Math.PI);
+      context.stroke();
+      context.fill();
+    });
   }
 
   get formatted() {
