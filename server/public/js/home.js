@@ -28,7 +28,7 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-var APP_URL = 'https://colladraw.fun';
+var APP_URL = "https://colladraw.fun";
 var logoutButton = document.querySelector("#logout");
 var createSessionForm = document.querySelector("#create-session");
 var usernameField = document.querySelector("#username");
@@ -43,7 +43,7 @@ var logout = /*#__PURE__*/function () {
           case 0:
             e.preventDefault();
             _context.next = 3;
-            return fetch('/logout', {
+            return fetch("/logout", {
               method: "POST",
               headers: {
                 "X-CSRF-TOKEN": csrfToken
@@ -79,7 +79,7 @@ var createSession = /*#__PURE__*/function () {
           case 0:
             e.preventDefault();
             _context2.next = 3;
-            return fetch('/drawings', {
+            return fetch("/drawings", {
               method: "POST",
               body: JSON.stringify({
                 name: usernameField ? usernameField.value : ""
