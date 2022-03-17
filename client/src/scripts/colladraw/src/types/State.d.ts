@@ -2,6 +2,12 @@ import {ShapeType} from "../lib/enums/ShapeType";
 import Shape from "../lib/shapes/Shape";
 
 interface State {
+  variables: {
+    fillColor?: string;
+    strokeColor?: string;
+    strokeWidth?: number;
+    shapeType?: ShapeType;
+  },
   drawing?: false | {
     color?: string;
     shapeType?: ShapeType;

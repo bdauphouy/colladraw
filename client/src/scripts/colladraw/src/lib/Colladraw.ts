@@ -13,7 +13,9 @@ export default class Colladraw {
   grid: CanvasGrid;
   context: CanvasRenderingContext2D;
   shapes: Shape[];
-  private state: State = {};
+  private state: State = {
+    variables: {},
+  };
   private onClickLocker: boolean = false;
 
   constructor(canvas: HTMLCanvasElement) {
@@ -48,6 +50,18 @@ export default class Colladraw {
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
     this.shapes.concat(this.state.drawing ? this.state.drawing.shape : []).forEach(shape => {
+      if (this.state.variables.fillColor) {
+        shape.fillColor = this.state.variables.fillColor;
+      }
+
+      if (this.state.variables.strokeColor) {
+        shape.strokeColor = this.state.variables.strokeColor;
+      }
+
+      if (this.state.variables.strokeWidth) {
+        shape.strokeWidth = this.state.variables.strokeWidth;
+      }
+
       shape.draw(this.context, this.grid);
     });
   }
@@ -69,7 +83,7 @@ export default class Colladraw {
           ...this.state.drawing,
           color: '#000',
           strokeWidth: 1,
-          shapeType: ShapeType.RECTANGLE,
+          shapeType: this.state.variables.shapeType ?? ShapeType.RECTANGLE,
           startPoint: {
             x: event.offsetX,
             y: event.offsetY,
@@ -242,6 +256,22 @@ export default class Colladraw {
         this.draw();
       }
     }
+  }
+
+  changeFillColor(color: string) {
+    this.state.variables.fillColor = color;
+  }
+
+  changeStrokeColor(color: string) {
+    this.state.variables.strokeColor = color;
+  }
+
+  changeStrokeWidth(width: number) {
+    this.state.variables.strokeWidth = width;
+  }
+
+  changeShapeType(type: ShapeType) {
+    this.state.variables.shapeType = type;
   }
 
   get formatted() {
