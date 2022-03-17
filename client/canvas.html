@@ -7,5 +7,95 @@
     <link rel="stylesheet" href="/src/styles/css/canvas.css" />
     <title>Colladraw - Canvas</title>
   </head>
-  <body></body>
+
+  <body>
+
+
+    <header>
+
+        <div class="colladraw-logo">
+            <img src="public/icons/colladraw-logo.svg" alt="colladraw-icon" id="colladraw-logo-image">
+        </div>
+
+        <ul class="cta-icons">
+            <li class="cta-items-trash"><img src="public/icons/icon-trash.svg" alt="trash"></li>
+            <li class="cta-items-download"><img src="public/icons/icon-download.svg" alt="download"></li>
+            <li class="cta-items-upload"><img src="public/icons/icon-upload.svg" alt="upload"></li>
+            <li class="cta-items-profile"><img src="public/icons/PersonCircle.svg" alt="profile"></li>
+        </ul>
+
+        <div class="members">
+
+        </div>
+
+        <ul class="profile-panel">
+          <li><a href="#">Profile</a></li>
+          <li><a href="#">Deconnexion</a></li>
+        </ul>
+
+    </header>
+
+    <main>
+
+       
+
+        <aside class="color-left-panel">
+            <img src="public/icons/icon-tools-chevron.svg" alt="to-show-colors" class="arrow-show-colors"> 
+            <img src="public/icons/icon-colors-chevron.svg" alt="to-hide-colors" class="arrow-left-panel"> 
+        
+            <ul class="color-palette">  
+              <li class="color-1"></li>
+              <li class="color-2"></li>
+              <li class="color-3"></li>
+              <li class="color-4"></li>
+              <li class="color-5"></li>
+              <li class="color-6"></li>
+              <li class="color-7"></li>
+              <li class="color-8"></li>
+              <li class="color-9"></li>
+              <li class="color-10"></li>
+              <div class="color-spectrum-space">
+              <input type="color">
+              </div>
+            </ul>
+              
+              
+        </aside>
+
+        <section>
+          <canvas id="canvas"></canvas>
+        </section>
+
+        <aside class="tools-right-panel">
+            <img src="public/icons/icon-colors-chevron.svg" alt="to-show-tools" class="arrow-show-tools">
+            <img src="public/icons/icon-tools-chevron.svg" alt="to-hide-tools" class="arrow-right-panel">
+
+            <ul class="tools-icons">
+                <li class="pen"><img src="public/icons/icon-pen.svg" alt="pen"></li>
+                <li class="rubber"><img src="public/icons/icon-rubber.svg" alt="rubber"></li>
+                <li class="rectangle"><img src="public/icons/icon-rectangle.svg" alt="rectangle"></li>
+                <li class="ellipse"><img src="public/icons/icon-ellipse.svg" alt="ellipse"></li>
+                <li class="triangle"><img src="public/icons/icone_triangle.svg" alt="triangle"></li>
+                <li class="line"><img src="public/icons/icon-line.svg" alt="line-tool"></li>
+                <li class="typo"><img src="public/icons/icon-text.svg" alt="text-tool"></li>
+                <li class="paint-bucket"><img src="public/icons/icon-bucket.svg" alt="paint-bucket"></li>
+                <li class="to-left-arrow"><img src="public/icons/arrow-left.svg" alt="arrow-to-go-back"></li>
+                <li class="to-right-arrow"><img src="public/icons/arrow-right.svg" alt="arrow-to-restore"></li>
+            </ul>
+ 
+        </aside> 
+
+        <div class="typo-choices">
+          <select name="fonts" class="select-fonts" id="select-fonts"> 
+            <option value="">Select your font</option>
+            <option value="font-1">Helvetica Neue</option>
+            <option value="font-2">Time New Roman</option>
+            <option value="font-3">Century Gothic</option>
+          </select>
+        </div>
+
+    </main>
+
+    <script type="module" src="/src/scripts/canvas.js"></script>
+  </body>
 </html>

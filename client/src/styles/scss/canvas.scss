@@ -2,6 +2,338 @@
 @import 'https://files.bdph.me/reset.css';
 @import '../../fonts/stylesheet.css';
 
-* {
-  color: red;
+
+body {
+  display:grid;
+  grid-template-rows: 10rem auto;
+
+  header {
+ 
+    height:10rem;
+    grid-row:1;
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+
+    .colladraw-logo {
+      width: 10em;
+      height:3em;
+
+      justify-self: center;
+      align-self: center; 
+      grid-column:2;
+      grid-row: 1;
+    }
+
+    .cta-icons {
+      width: 10em;
+      height:2em;
+
+      align-self:center;
+      justify-self: end;
+      margin-right:5em;
+
+      grid-column:3;
+      grid-row: 1;
+
+      display:flex;
+      justify-content: space-around;
+    }
+  }
+
+
+.profile-panel {
+  position: absolute;
+  z-index:99;
+  right: 4em;
+  top: 7rem;
+  background-color: $light-grey-color;
+  opacity: 0.8;
+  border-radius: 8px;
+  box-shadow: 0 5px 3px -3px black;
+  margin: 0 auto;
+  display: none;
+  flex-direction:column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 10em;
+  height: 5em;
+
+  li {
+    font-family: "Hellix ExtraBold", sans-serif;
+  }
+
+}
+
+main {
+    
+    grid-row:2;
+  
+section {
+  
+  grid-row: 2;
+  grid-column: 1 / span 2;
+  width: 100%;
+  margin: 0 auto;
+
+    #canvas {
+      
+      border:1px solid $light-grey-color;
+      border-radius: 8px;
+      width:100%;
+      height:100%;
+    }
+
+}
+
+// Panneau des outils à droite
+
+.tools-right-panel {  
+  position: absolute;
+  top: 50%;
+  right:0;
+  transform: translateY(-50%);
+
+  background-color: $light-grey-color;
+  border-radius: 8px 0 0 8px;
+  box-shadow: 0 5px 3px -3px black;
+
+  display:grid;
+  grid-template-rows: 60px auto;
+  grid-template-columns: 1fr 1fr;
+  
+  padding-bottom: 3rem;
+
+.arrow-right-panel {
+  grid-row: 1;
+  grid-column: 1;
+  justify-self: center;
+  align-self: center;
+  display:block;
+}
+
+.arrow-show-tools {
+  display:none;
+  padding:0.8em;
+}
+
+.tools-icons {
+  
+  grid-row:2;
+  grid-column: 1 / span 2;
+
+  width:auto;
+  height:auto;
+  padding:1rem;
+
+  display:grid;  
+  gap:24px 24px;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(5, 60px);
+
+    li {
+      width:60px;
+      height:60px;
+      border: 1px solid $white-color;
+      box-shadow: 0 2px 3px -3px black;
+      border-radius: 8px;
+      background-color: $white-color;
+      display:flex;
+      padding: 0.5em;
+    }
+
+    
+
+  } 
+}
+
+.to-right-arrow {
+  padding: 10px;
+  border-radius: 8px;
+  background-color: $purple-color !important;
+  
+}  
+
+.to-left-arrow {
+  padding:10px;
+  border-radius: 8px;
+  background-color: $purple-color !important;
+
+}
+
+// Panneau des couleurs à gauche
+
+
+
+.color-left-panel {
+
+  position: absolute;
+  top: 50%;
+  left:0;
+  transform: translateY(-50%);
+
+  background-color: $light-grey-color;
+  border-radius: 0 8px 8px 0;
+  box-shadow: 0 5px 3px -3px black;
+
+  display:grid;
+  grid-template-rows: 60px auto;
+  grid-template-columns: 1fr 1fr;
+  
+  
+
+  .arrow-left-panel {
+    display:block;
+    grid-column:2;
+    align-self: center;
+    justify-self: center;
+  }
+
+  .arrow-show-colors {
+    display:none;
+    grid-column:2;
+    padding:0.8em;
+  }
+
+  .color-palette { 
+    
+    grid-row:2;
+    grid-column: 1 / span 2;
+
+    width:auto;
+    height:auto;
+    padding:1rem;
+
+    display:grid; 
+    
+    gap: 24px;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(5, 55px) auto;
+    justify-content: center;
+    
+    li {
+    width:55px;
+    height:55px;
+    border: 1px solid $white-color;
+    border-radius: 8px; 
+    box-shadow: 0 2px 3px -3px black;
+    }
+
+
+  }
+
+  .color-spectrum-space {
+    width:120px;
+    height:60px;
+    margin: 0 auto;
+
+    border: 2px solid $white-color;
+    background-color:$white-color;
+    border-radius: 8px;
+
+    grid-row:6;
+    grid-column: 1 / span 2;
+    align-self: center;
+    justify-self: center;
+
+    input {
+      display:none;
+      width:100%;
+      height:100%;
+    }
+}
+}
+
+}
+
+// div qui sera cachée tant que l'on ne clique pas dessus
+
+.typo-choices {
+    display:none;
+    position:absolute;
+    left:0;
+    top: 4rem;
+    width: 300px;
+
+    border-radius: 8px;
+
+   option:nth-child(1) {
+      display:none;
+    }
+
+    &:after {
+    
+      content: '\25BC';
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+
+      border-radius: 8px;
+
+      font-size: 25px;
+      font-family: "Hellix", sans-serif;
+      background: $light-grey-color;
+      color: $purple-color;
+      padding: 5px 15px;
+      pointer-events: none;
+  
+  }
+  .select-fonts {
+    appearance: none;
+    background: $light-grey-color;
+    border-radius: 8px;
+
+    color: $purple-color;
+    width: 100%;
+    padding: 10px 20px;
+    font-size: 22px;
+    font-weight: 700;
+  }
+}
+
+
+
+// Pourra se faire via une boucle @each (modifications ultérieures)
+
+.color-1 {
+  background-color: $palette-red;
+}
+
+.color-2 {
+  background-color: $palette-orange;
+}
+
+.color-3 {
+  background-color: $palette-yellow;
+}
+
+.color-4 {
+  background-color: $palette-green;
+}
+
+.color-5 {
+  background-color: $palette-cyan;
+}
+
+.color-6 {
+  background-color: $palette-blue;
+}
+
+.color-7 {
+  background-color: $palette-purple;
+}
+
+.color-8 {
+  background-color: $palette-pink;
+}
+
+.color-9 {
+  background-color: $palette-grey;
+}
+
+.color-10 {
+  background-color: $palette-black;
+}
+
 }
