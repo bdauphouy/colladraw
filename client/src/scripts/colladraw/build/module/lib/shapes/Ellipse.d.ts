@@ -1,5 +1,6 @@
 import Shape from "./Shape";
 import { CanvasGrid } from "../../types/CanvasGrid";
+import { ExportShape } from "../../types/ExportCanvas";
 export default class Ellipse extends Shape {
     constructor(x: number, y: number, width: number, height: number);
     generateGrid(canvasGrid: CanvasGrid): void;
@@ -14,4 +15,5 @@ export default class Ellipse extends Shape {
         strokeColor: string;
         strokeWidth: number;
     };
+    static fromJSON(json: ExportShape): Ellipse;
 }

@@ -1,6 +1,7 @@
 import Shape from "./shapes/Shape";
 import { ShapeType } from "./enums/ShapeType";
 import { CanvasGrid } from "../types/CanvasGrid";
+import { ExportCanvas } from "../types/ExportCanvas";
 export default class Colladraw {
     canvas: HTMLCanvasElement;
     grid: CanvasGrid;
@@ -20,5 +21,7 @@ export default class Colladraw {
     changeStrokeColor(color: string): void;
     changeStrokeWidth(width: number): void;
     changeShapeType(type: ShapeType): void;
-    toJSON(): object;
+    toJSON(): ExportCanvas;
+    load(json: ExportCanvas): void;
+    savePNG(name?: string): void;
 }

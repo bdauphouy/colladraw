@@ -1,4 +1,5 @@
 import {CanvasGrid} from "../../types/CanvasGrid";
+import {ExportShape} from "../../types/ExportCanvas";
 
 export default abstract class Shape {
   x: number;
@@ -57,7 +58,10 @@ export default abstract class Shape {
   }
   abstract generateGrid(canvasGrid: CanvasGrid): void;
 
-  abstract toJSON(): object;
+  abstract toJSON(): ExportShape;
+  static fromJSON(_json: ExportShape): Shape {
+    throw new Error('Not implemented');
+  };
 
   select(): void {
     this.selected = true;

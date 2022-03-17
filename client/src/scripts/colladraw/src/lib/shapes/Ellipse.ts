@@ -1,5 +1,6 @@
 import Shape from "./Shape";
 import {CanvasGrid} from "../../types/CanvasGrid";
+import {ExportShape} from "../../types/ExportCanvas";
 
 export default class Ellipse extends Shape {
   constructor(x: number, y: number, width: number, height: number) {
@@ -37,5 +38,13 @@ export default class Ellipse extends Shape {
       strokeColor: this.strokeColor,
       strokeWidth: this.strokeWidth,
     };
+  }
+
+  static fromJSON(json: ExportShape): Ellipse {
+    const ellipse = new Ellipse(json.x, json.y, json.width, json.height);
+    ellipse.fillColor = json.fillColor;
+    ellipse.strokeColor = json.strokeColor;
+    ellipse.strokeWidth = json.strokeWidth;
+    return ellipse;
   }
 }

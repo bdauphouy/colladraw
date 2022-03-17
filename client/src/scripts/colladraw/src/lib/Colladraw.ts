@@ -7,6 +7,8 @@ import Triangle from "./shapes/Triangle";
 import { CanvasGrid } from "../types/CanvasGrid";
 import AnchorConditions from "./utils/AnchorConditions";
 import kebabize from "./utils/kebabize";
+import {ExportCanvas} from "../types/ExportCanvas";
+import Polygon from "./shapes/Polygon";
 
 export default class Colladraw {
   canvas: HTMLCanvasElement;
@@ -274,10 +276,30 @@ export default class Colladraw {
     this.state.variables.shapeType = type;
   }
 
-  toJSON(): object {
+  toJSON(): ExportCanvas {
     return {
-      shapes: this.shapes.map(shape => shape.toJSON()),
+      timestamp: new Date().getTime(),
+      data: {
+        shapes: this.shapes.map(shape => shape.toJSON()),
+      }
     };
+  }
+
+  load(json: ExportCanvas) {
+    this.shapes = json.data.shapes.map(shape => {
+      if (shape.type === 'Rectangle') {
+        return Rectangle.fromJSON(shape);
+      } else if (shape.type === 'Ellipse') {
+        return Ellipse.fromJSON(shape);
+      } else if (shape.type === 'Triangle') {
+        return Triangle.fromJSON(shape);
+      } else if (shape.type.match(/Polygon\[\d+]/)) {
+        return Polygon.fromJSON(shape);
+      }
+
+      return Shape.fromJSON(shape)
+    });
+    this.draw();
   }
 
   savePNG(name?: string): void {

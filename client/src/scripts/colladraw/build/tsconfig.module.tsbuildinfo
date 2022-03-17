@@ -106,24 +106,29 @@
         "signature": "206a85c93631fc7c285c250e5b6051ba915021a49186219857dd5d4ce30623fb",
         "affectsGlobalScope": false
       },
-      "../src/lib/shapes/shape.ts": {
-        "version": "6d98217d02d6be8338fdd5b8e3e079e51f48b307afaa137bcb04dcc773a14b85",
-        "signature": "277c469387e9abbbb03be1d0eba764e58b85b7f37382e50ebdac26ca33ce399f",
+      "../src/lib/enums/shapetype.ts": {
+        "version": "f2e83ffa24b6df63a663ec3188feeb04ec39046cccd76134d5bc1a54f5f8357e",
+        "signature": "986363e3e6d365f156fc52332834131f5b0d9404fd418558f03257349715a3e4",
         "affectsGlobalScope": false
       },
-      "../src/lib/enums/shapetype.ts": {
-        "version": "37e9ad0acd5d6bb1b1d6a026e7518ec6421b5d5e61a867d8d7b4df1600db778b",
-        "signature": "f3a55e90b2b5466fb5310899217b9636101bcd730174fa1c6c0e89c51adccb33",
+      "../src/types/exportcanvas.d.ts": {
+        "version": "32484dfb7bac9d05ab9098de522154d9f33c68c9e0625285df15d802e2ab0767",
+        "signature": "32484dfb7bac9d05ab9098de522154d9f33c68c9e0625285df15d802e2ab0767",
+        "affectsGlobalScope": false
+      },
+      "../src/lib/shapes/shape.ts": {
+        "version": "ca5852e23cbb3f60ba618e0ce06266b77cab695d86577780854a6dc41011e26a",
+        "signature": "cce60c79bff402bebf652bc128c82c4deb77ac3f5d449616a341a8255ea56a89",
         "affectsGlobalScope": false
       },
       "../src/lib/shapes/polygon.ts": {
-        "version": "8a1c227cfad59a7ecfcbf2f7bff3f9036469dbc7f7b2f24f2371efac4ce24516",
-        "signature": "c33b0c9f08b3ed0a4d01c91793fbafa2a0ccfdc279b8790dc4d32bf939f711f2",
+        "version": "bb7f42ab8688036372b3610da6910c4bc9405adc230eabdd0c31c3aa25c4fd4d",
+        "signature": "4a66b21dcfd3e5dc930be636a50db6448929dd11a0c9c850509a12664a613ada",
         "affectsGlobalScope": false
       },
       "../src/lib/shapes/rectangle.ts": {
-        "version": "24f9237706ced5b3987a7c79e61ee9f818f95ed2fbbffd9d789e015f430b31f3",
-        "signature": "f63cb2f796acf58cb860935c2194879ed96f16c87a227a3ee47cbc826ec087ad",
+        "version": "280c28af8aaa192e2ecfe145ee56e23d1ae0e8c4dec621ab56b7e913790b9fce",
+        "signature": "361ba464cb559784d28cde6a765f808177623135fbb80d0c65b0d9f7f6d0ec95",
         "affectsGlobalScope": false
       },
       "../src/types/state.d.ts": {
@@ -132,13 +137,13 @@
         "affectsGlobalScope": false
       },
       "../src/lib/shapes/ellipse.ts": {
-        "version": "af3f8557543cb1b19df43dbb80e0b812b4837479f9ef024a591039a2a4dac366",
-        "signature": "d716c2834a77a64e4d5700adbad5c07bfd3d7e9b099a9d3cb08c9081235ce938",
+        "version": "7fef672a8ed21519bdfff31314891cd39593fd21c04c34a32e16a64600a2b250",
+        "signature": "de48c2c3f6baf6a3538c08bc11ca0b72a589db50847705343ae286c493ffcb7c",
         "affectsGlobalScope": false
       },
       "../src/lib/shapes/triangle.ts": {
-        "version": "6a8ffb1553c8f9c5d84a756d6d1b3d07a641db48ae315059e181fdf2ea164906",
-        "signature": "a12b9580ad3adf30638d4fdb1f689626b4bb6e7e2cb3aec9970d52404a281c62",
+        "version": "0402ae307e20fa45da77f8195301b6b1e7b12d7c4c16e545fabcfde31632739f",
+        "signature": "83812d161a669abe087e3cd45139da05c5abfd4e038ea8aca03424d1410fee22",
         "affectsGlobalScope": false
       },
       "../src/lib/utils/anchorconditions.ts": {
@@ -152,8 +157,8 @@
         "affectsGlobalScope": false
       },
       "../src/lib/colladraw.ts": {
-        "version": "f6d2824a1969e9323c63229ae82c57b9ffc97d772bdbbadb1ddfb987dc4c57c1",
-        "signature": "d6647a7f90acc5bcd7dfd91ff3db1d65d5fe726fea7cd8be62ad5a5e025961ce",
+        "version": "8eefb4ec4e0c65df0003a63c77a5a28a1bd855295d0e0e7d0a134fe7e9693a8e",
+        "signature": "3b77a7f58f7d2e708e8939f2e0eaee706e1322e1c3ece1d57ab6fb740114d035",
         "affectsGlobalScope": false
       },
       "../src/index.ts": {
@@ -210,36 +215,46 @@
       "../src/lib/colladraw.ts": [
         "../src/lib/enums/shapetype.ts",
         "../src/lib/shapes/ellipse.ts",
+        "../src/lib/shapes/polygon.ts",
         "../src/lib/shapes/rectangle.ts",
         "../src/lib/shapes/shape.ts",
         "../src/lib/shapes/triangle.ts",
         "../src/lib/utils/anchorconditions.ts",
         "../src/lib/utils/kebabize.ts",
         "../src/types/canvasgrid.d.ts",
+        "../src/types/exportcanvas.d.ts",
         "../src/types/state.d.ts"
       ],
       "../src/lib/shapes/ellipse.ts": [
         "../src/lib/shapes/shape.ts",
-        "../src/types/canvasgrid.d.ts"
+        "../src/types/canvasgrid.d.ts",
+        "../src/types/exportcanvas.d.ts"
       ],
       "../src/lib/shapes/polygon.ts": [
         "../src/lib/shapes/shape.ts",
-        "../src/types/canvasgrid.d.ts"
+        "../src/types/canvasgrid.d.ts",
+        "../src/types/exportcanvas.d.ts"
       ],
       "../src/lib/shapes/rectangle.ts": [
-        "../src/lib/shapes/polygon.ts"
+        "../src/lib/shapes/polygon.ts",
+        "../src/types/exportcanvas.d.ts"
       ],
       "../src/lib/shapes/shape.ts": [
-        "../src/types/canvasgrid.d.ts"
+        "../src/types/canvasgrid.d.ts",
+        "../src/types/exportcanvas.d.ts"
       ],
       "../src/lib/shapes/triangle.ts": [
-        "../src/lib/shapes/polygon.ts"
+        "../src/lib/shapes/polygon.ts",
+        "../src/types/exportcanvas.d.ts"
       ],
       "../src/lib/utils/anchorconditions.ts": [
         "../src/types/canvasgrid.d.ts"
       ],
       "../src/types/canvasgrid.d.ts": [
         "../src/lib/shapes/shape.ts"
+      ],
+      "../src/types/exportcanvas.d.ts": [
+        "../src/lib/enums/shapetype.ts"
       ],
       "../src/types/state.d.ts": [
         "../src/lib/enums/shapetype.ts",
@@ -253,30 +268,39 @@
       "../src/lib/colladraw.ts": [
         "../src/lib/enums/shapetype.ts",
         "../src/lib/shapes/shape.ts",
-        "../src/types/canvasgrid.d.ts"
+        "../src/types/canvasgrid.d.ts",
+        "../src/types/exportcanvas.d.ts"
       ],
       "../src/lib/shapes/ellipse.ts": [
         "../src/lib/shapes/shape.ts",
-        "../src/types/canvasgrid.d.ts"
+        "../src/types/canvasgrid.d.ts",
+        "../src/types/exportcanvas.d.ts"
       ],
       "../src/lib/shapes/polygon.ts": [
         "../src/lib/shapes/shape.ts",
-        "../src/types/canvasgrid.d.ts"
+        "../src/types/canvasgrid.d.ts",
+        "../src/types/exportcanvas.d.ts"
       ],
       "../src/lib/shapes/rectangle.ts": [
-        "../src/lib/shapes/polygon.ts"
+        "../src/lib/shapes/polygon.ts",
+        "../src/types/exportcanvas.d.ts"
       ],
       "../src/lib/shapes/shape.ts": [
-        "../src/types/canvasgrid.d.ts"
+        "../src/types/canvasgrid.d.ts",
+        "../src/types/exportcanvas.d.ts"
       ],
       "../src/lib/shapes/triangle.ts": [
-        "../src/lib/shapes/polygon.ts"
+        "../src/lib/shapes/polygon.ts",
+        "../src/types/exportcanvas.d.ts"
       ],
       "../src/lib/utils/anchorconditions.ts": [
         "../src/types/canvasgrid.d.ts"
       ],
       "../src/types/canvasgrid.d.ts": [
         "../src/lib/shapes/shape.ts"
+      ],
+      "../src/types/exportcanvas.d.ts": [
+        "../src/lib/enums/shapetype.ts"
       ],
       "../src/types/state.d.ts": [
         "../src/lib/enums/shapetype.ts",
@@ -316,6 +340,7 @@
       "../src/lib/utils/kebabize.ts",
       "../src/lib/utils/pythagore.ts",
       "../src/types/canvasgrid.d.ts",
+      "../src/types/exportcanvas.d.ts",
       "../src/types/point.d.ts",
       "../src/types/state.d.ts"
     ]

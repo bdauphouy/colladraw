@@ -1,5 +1,6 @@
 import Shape from "./Shape";
 import {CanvasGrid} from "../../types/CanvasGrid";
+import {ExportShape} from "../../types/ExportCanvas";
 
 export default class Polygon extends Shape {
   sidesNumber: number;
@@ -53,5 +54,13 @@ export default class Polygon extends Shape {
       strokeColor: this.strokeColor,
       strokeWidth: this.strokeWidth,
     };
+  }
+
+  static fromJSON(json: ExportShape): Polygon {
+    const polygon = new Polygon(json.x, json.y, json.width, json.height, parseInt(json.type.match(/\d+/)[0]), json.type);
+    polygon.fillColor = json.fillColor;
+    polygon.strokeColor = json.strokeColor;
+    polygon.strokeWidth = json.strokeWidth;
+    return polygon;
   }
 }
