@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 
+
 class DrawingController extends Controller
 {
     public function index() 
@@ -15,14 +16,46 @@ class DrawingController extends Controller
         return Drawing::all();
     }
 
-    public function search($id) 
+    public function search(Request $request, $id) 
     {
         $drawing = Drawing::where('uuid', '=', $id)->first();
+
+        $drawing_members_array = json_decode($drawing->members);
         
+
+        if (Auth::user()) {
+            $user = User::where('id', '=', Auth::user()->id)->first();
+
+            if (!in_array($user->name, $drawing_members_array)) {
+                
+    
+                array_push($drawing_members_array, $user->name);
+                
+                $user_drawings = json_decode($user->drawings);
+                array_push($user_drawings, $drawing->uuid);
+                
+                $user->drawings = json_encode($user_drawings);
+                $user->save();
+
+                dd($user);
+
+            }
+        } else {
+
+            $name = $request->query()['name'];
+            
+            if (!in_array($name, $drawing_members_array)) {
+                array_push($drawing_members_array, $name);
+            }   
+        }
+
+        $drawing->members = json_encode($drawing_members_array);
+        $drawing->save();
+
         return view('drawing', [
             'title' => 'Drawing',
             'css' => 'drawing',
-            'drawing' => $drawing
+            'drawing' => $drawing,
         ]);
 
     }
@@ -39,14 +72,21 @@ class DrawingController extends Controller
         $drawing;
 
         if (Auth::user()) {
+            $user = User::where('id', '=', Auth::user()->id)->first();
+
             $drawing = Drawing::create([
                 'uuid' => $uuid,
-                'creator' => Auth::user()->id,
+                'creator' => $user->id,
                 'members' => json_encode([
-                    Auth::user(),
+                    $user->name,
                 ]),
                 'history' => json_encode([]),
             ]);
+
+            $user_drawings_array = json_decode($user->drawings);
+            array_push($user_drawings_array, $drawing->uuid);
+            $user->drawings = json_encode($user_drawings_array);
+            $user->save();
         } else {
             $creator = json_decode($request->getContent())->name;
             

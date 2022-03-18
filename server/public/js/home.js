@@ -28,7 +28,6 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-var APP_URL = "https://colladraw.fun";
 var logoutButton = document.querySelector("#logout");
 var createSessionForm = document.querySelector("#create-session");
 var usernameField = document.querySelector("#username");
@@ -42,7 +41,12 @@ var logout = /*#__PURE__*/function () {
         switch (_context.prev = _context.next) {
           case 0:
             e.preventDefault();
-            _context.next = 3;
+
+            if (location.protocol === "http:") {
+              location.pathname = "/";
+            }
+
+            _context.next = 4;
             return fetch("/logout", {
               method: "POST",
               headers: {
@@ -50,14 +54,14 @@ var logout = /*#__PURE__*/function () {
               }
             });
 
-          case 3:
+          case 4:
             res = _context.sent;
 
             if (res.ok) {
               location.pathname = "/";
             }
 
-          case 5:
+          case 6:
           case "end":
             return _context.stop();
         }
@@ -104,7 +108,12 @@ var createSession = /*#__PURE__*/function () {
           case 7:
             data = _context2.sent;
             drawing = data.drawing;
-            location.pathname = "/drawings/".concat(drawing.uuid);
+
+            if (usernameField) {
+              location = "/drawings/".concat(drawing.uuid, "?name=").concat(usernameField.value);
+            } else {
+              location = "/drawings/".concat(drawing.uuid);
+            }
 
           case 10:
           case "end":
@@ -169,6 +178,19 @@ __webpack_require__.r(__webpack_exports__);
 /***/ "./resources/scss/drawing.scss":
 /*!*************************************!*\
   !*** ./resources/scss/drawing.scss ***!
+  \*************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
+/***/ "./resources/scss/profile.scss":
+/*!*************************************!*\
+  !*** ./resources/scss/profile.scss ***!
   \*************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -1055,6 +1077,7 @@ try {
 /******/ 		var installedChunks = {
 /******/ 			"/js/home": 0,
 /******/ 			"css/global": 0,
+/******/ 			"css/profile": 0,
 /******/ 			"css/drawing": 0,
 /******/ 			"css/login": 0,
 /******/ 			"css/index": 0
@@ -1107,11 +1130,12 @@ try {
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	__webpack_require__.O(undefined, ["css/global","css/drawing","css/login","css/index"], () => (__webpack_require__("./resources/js/home.js")))
-/******/ 	__webpack_require__.O(undefined, ["css/global","css/drawing","css/login","css/index"], () => (__webpack_require__("./resources/scss/index.scss")))
-/******/ 	__webpack_require__.O(undefined, ["css/global","css/drawing","css/login","css/index"], () => (__webpack_require__("./resources/scss/global.scss")))
-/******/ 	__webpack_require__.O(undefined, ["css/global","css/drawing","css/login","css/index"], () => (__webpack_require__("./resources/scss/login.scss")))
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/global","css/drawing","css/login","css/index"], () => (__webpack_require__("./resources/scss/drawing.scss")))
+/******/ 	__webpack_require__.O(undefined, ["css/global","css/profile","css/drawing","css/login","css/index"], () => (__webpack_require__("./resources/js/home.js")))
+/******/ 	__webpack_require__.O(undefined, ["css/global","css/profile","css/drawing","css/login","css/index"], () => (__webpack_require__("./resources/scss/index.scss")))
+/******/ 	__webpack_require__.O(undefined, ["css/global","css/profile","css/drawing","css/login","css/index"], () => (__webpack_require__("./resources/scss/global.scss")))
+/******/ 	__webpack_require__.O(undefined, ["css/global","css/profile","css/drawing","css/login","css/index"], () => (__webpack_require__("./resources/scss/login.scss")))
+/******/ 	__webpack_require__.O(undefined, ["css/global","css/profile","css/drawing","css/login","css/index"], () => (__webpack_require__("./resources/scss/drawing.scss")))
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/global","css/profile","css/drawing","css/login","css/index"], () => (__webpack_require__("./resources/scss/profile.scss")))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()

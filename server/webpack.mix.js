@@ -13,7 +13,10 @@ const mix = require("laravel-mix")
 
 mix
   .js("resources/js/home.js", "public/js")
+  .js("resources/js/canvas.js", "public/js")
+  .js("resources/js/bootstrap.js", "public/js")
   .sass("resources/scss/index.scss", "public/css")
   .sass("resources/scss/global.scss", "public/css")
   .sass("resources/scss/login.scss", "public/css")
   .sass("resources/scss/drawing.scss", "public/css")
+  .sass("resources/scss/profile.scss", "public/css")
