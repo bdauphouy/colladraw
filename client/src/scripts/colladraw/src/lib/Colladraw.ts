@@ -95,7 +95,7 @@ export default class Colladraw {
       const x = event.clientX - this.canvas.offsetLeft;
       const y = event.clientY - this.canvas.offsetTop;
       // const toolType: CanvasElementType = CanvasElementType.TEXT;
-      const toolType: CanvasElementType = CanvasElementType.RECTANGLE;
+      const toolType: CanvasElementType = this.state.variables.toolType ?? CanvasElementType.RECTANGLE;
 
       this.state = {
         ...this.state,
