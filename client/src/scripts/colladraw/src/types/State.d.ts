@@ -3,6 +3,7 @@ import Shape from "../lib/canvas_elements/Shape";
 import CanvasText from "../lib/canvas_elements/CanvasText";
 import CanvasElement from "../lib/canvas_elements/CanvasElement";
 import Line from "../lib/canvas_elements/Line";
+import {ExportCanvas} from "./ExportCanvas";
 
 interface State {
   variables: {
@@ -37,5 +38,10 @@ interface State {
       grip: 'top' | 'bottom' | 'left' | 'right' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
       // initialPosition: Point;
     };
+  };
+  history: {
+    undo: ExportCanvas[],
+    redo: ExportCanvas[],
+    current?: ExportCanvas,
   };
 }

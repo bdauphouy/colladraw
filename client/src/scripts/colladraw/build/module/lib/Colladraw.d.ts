@@ -13,6 +13,10 @@ export default class Colladraw {
     private initGrid;
     draw(): void;
     addElement(element: CanvasElement): void;
+    removeElement(elementToDelete: CanvasElement): void;
+    addToHistory(): void;
+    undo(): void;
+    redo(): void;
     onMouseDown(event: MouseEvent): void;
     onMouseMove(event: MouseEvent): void;
     onMouseUp(_event: MouseEvent): void;

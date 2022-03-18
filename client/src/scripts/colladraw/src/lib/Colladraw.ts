@@ -7,7 +7,7 @@ import Triangle from "./canvas_elements/Triangle";
 import {CanvasGrid} from "../types/CanvasGrid";
 import AnchorConditions from "./utils/AnchorConditions";
 import kebabize from "./utils/kebabize";
-import {ExportCanvas, ExportShape} from "../types/ExportCanvas";
+import {ExportCanvas, ExportLine, ExportShape} from "../types/ExportCanvas";
 import Polygon from "./canvas_elements/Polygon";
 import CanvasEvents from "./events/CanvasEvents";
 import CanvasElement from "./canvas_elements/CanvasElement";
@@ -22,6 +22,10 @@ export default class Colladraw {
   elements: CanvasElement[];
   private state: State = {
     variables: {},
+    history: {
+      undo: [],
+      redo: [],
+    },
   };
   private onClickLocker: boolean = false;
 
@@ -31,6 +35,8 @@ export default class Colladraw {
 
     this.elements = [];
 
+    this.addToHistory();
+
     this.canvas.addEventListener('mousedown', this.onMouseDown.bind(this));
     this.canvas.addEventListener('mouseup', this.onMouseUp.bind(this));
     this.canvas.addEventListener('mousemove', this.onMouseMove.bind(this));
@@ -38,12 +44,20 @@ export default class Colladraw {
     window.addEventListener('keydown', (e) => {
       if (e.key === 'Backspace') {
         if (this.state.selectedElement) {
-          this.elements = this.elements.filter(element => element !== this.state.selectedElement);
+          this.removeElement(this.state.selectedElement);
+          this.draw();
           this.state.selectedElement.deselect();
           this.state.selectedElement = false;
           this.state.selectionTransform = false;
-          this.draw();
         }
+      }
+
+      if (e.key === 'z' && e.ctrlKey) {
+        this.undo();
+      }
+
+      if (e.key === 'y' && e.ctrlKey) {
+        this.redo();
       }
     });
 
@@ -103,6 +117,40 @@ export default class Colladraw {
   addElement(element: CanvasElement) {
     this.canvas.dispatchEvent(CanvasEvents.CanvasElementCreated(element));
     this.elements.push(element);
+    this.addToHistory();
+  }
+
+  removeElement(elementToDelete: CanvasElement) {
+    this.elements = this.elements.filter(element => element !== elementToDelete);
+    this.addToHistory();
+  }
+
+  addToHistory() {
+    this.state.history.current = {
+      timestamp: Date.now(),
+      data: {
+        shapes: this.elements.map(shape => shape.toJSON()),
+      },
+    };
+    this.state.history.undo.push(this.state.history.current);
+  }
+
+  undo() {
+    this.state.history.redo.push(this.state.history.current);
+    this.state.history.current = this.state.history.undo.pop();
+    if (this.state.history.current) {
+      this.load(this.state.history.current);
+    }
+    this.draw();
+  }
+
+  redo() {
+    this.state.history.undo.push(this.state.history.current);
+    this.state.history.current = this.state.history.redo.pop();
+    if (this.state.history.current) {
+      this.load(this.state.history.current);
+    }
+    this.draw();
   }
 
   onMouseDown(event: MouseEvent) {
@@ -390,7 +438,7 @@ export default class Colladraw {
 
   toJSON(): ExportCanvas {
     return {
-      timestamp: new Date().getTime(),
+      timestamp: Date.now(),
       data: {
         shapes: this.elements.map(shape => shape.toJSON()),
       }
@@ -407,6 +455,8 @@ export default class Colladraw {
         return Triangle.fromJSON(shape);
       } else if (shape.type.match(/Polygon\[\d+]/)) {
         return Polygon.fromJSON(shape as ExportShape);
+      } else if (shape.type === 'Line') {
+        return Line.fromJSON(shape as ExportLine);
       } else if (shape.type === 'Text') {
         return CanvasText.fromJSON(shape);
       }
