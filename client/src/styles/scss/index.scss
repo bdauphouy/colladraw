@@ -36,7 +36,7 @@ header {
     gap: 0.5rem;
 
     a {
-      color: $black;
+      color: $black-color;
     }
   }
 
@@ -132,16 +132,16 @@ main {
   outline-style: solid;
 
   &.fill {
-    background: $purple;
+    background: $purple-color;
 
     &:focus {
-      outline-color: $purple;
+      outline-color: $purple-color;
     }
   }
 }
 
 .field {
-  background: $light-gray;
+  background: $light-grey-color;
   padding: 8px 20px;
   font-size: 1.125rem;
   line-height: 1.5em;
@@ -152,10 +152,10 @@ main {
   outline-style: solid;
 
   &:focus {
-    outline-color: $purple;
+    outline-color: $purple-color;
   }
 
   &::placeholder {
-    color: $gray;
+    color: $grey-color;
   }
 }
