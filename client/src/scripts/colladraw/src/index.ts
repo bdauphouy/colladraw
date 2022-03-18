@@ -6,6 +6,7 @@ import Polygon from "./lib/canvas_elements/Polygon";
 import Triangle from "./lib/canvas_elements/Triangle";
 import CanvasElement from "./lib/canvas_elements/CanvasElement";
 import CanvasText  from "./lib/canvas_elements/CanvasText";
+import {CanvasElementType} from "./lib/enums/CanvasElementType";
 
 export default Colladraw;
 export {
@@ -15,5 +16,6 @@ export {
     Polygon,
     Triangle,
     CanvasElement,
-    CanvasText
+    CanvasText,
+    CanvasElementType
 };
