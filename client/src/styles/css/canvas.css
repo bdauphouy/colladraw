@@ -1,7 +1,296 @@
 @import 'https://files.bdph.me/reset.css';
 @import '../../fonts/stylesheet.css';
-* {
-  color: red;
+body {
+  display: grid;
+  grid-template-rows: 10rem auto;
+}
+body header {
+  height: 10rem;
+  grid-row: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+}
+body header .colladraw-logo {
+  width: 10em;
+  height: 3em;
+  justify-self: center;
+  align-self: center;
+  grid-column: 2;
+  grid-row: 1;
+}
+body header .cta-icons {
+  width: 10em;
+  height: 2em;
+  align-self: center;
+  justify-self: end;
+  margin-right: 5em;
+  grid-column: 3;
+  grid-row: 1;
+  display: flex;
+  justify-content: space-around;
+}
+body .profile-panel {
+  position: absolute;
+  z-index: 99;
+  right: 4em;
+  top: 7rem;
+  background-color: #F4F4F4;
+  opacity: 0.8;
+  border-radius: 8px;
+  box-shadow: 0 5px 3px -3px black;
+  margin: 0 auto;
+  display: none;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 10em;
+  height: 5em;
+}
+body .profile-panel li {
+  font-family: "Hellix ExtraBold", sans-serif;
+}
+body main {
+  grid-row: 2;
+}
+body main section {
+  grid-row: 2;
+  grid-column: 1/span 2;
+  width: 100%;
+  margin: 0 auto;
+}
+body main section #canvas {
+  border: 3px solid;
+  border-color: #F4F4F4;
+  border-radius: 8px;
+  width: 100%;
+  height: 100%;
+}
+body main .tools-right-panel {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  background-color: #F4F4F4;
+  border-radius: 8px 0 0 8px;
+  box-shadow: 0 5px 3px -3px black;
+  display: grid;
+  grid-template-rows: 60px auto;
+  grid-template-columns: 1fr 1fr;
+  padding-bottom: 3rem;
+}
+body main .tools-right-panel .arrow-right-panel {
+  grid-row: 1;
+  grid-column: 1;
+  justify-self: center;
+  align-self: center;
+  display: block;
+}
+body main .tools-right-panel .arrow-show-tools {
+  display: none;
+  padding: 0.8em;
+}
+body main .tools-right-panel .tools-icons {
+  grid-row: 2;
+  grid-column: 1/span 2;
+  width: auto;
+  height: auto;
+  padding: 1rem;
+  display: grid;
+  gap: 24px 24px;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(5, 60px);
+}
+body main .tools-right-panel .tools-icons li {
+  width: 60px;
+  height: 60px;
+  border: 1px solid #FFFFFC;
+  box-shadow: 0 2px 3px -3px black;
+  border-radius: 8px;
+  background-color: #FFFFFC;
+  display: flex;
+  padding: 0.5em;
+}
+body main .to-right-arrow {
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #BBB2F9 !important;
+}
+body main .to-left-arrow {
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #BBB2F9 !important;
+}
+body main .color-left-panel {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  background-color: #F4F4F4;
+  border-radius: 0 8px 8px 0;
+  box-shadow: 0 5px 3px -3px black;
+  display: grid;
+  grid-template-rows: 60px auto;
+  grid-template-columns: 1fr 1fr;
+}
+body main .color-left-panel .arrow-left-panel {
+  display: block;
+  grid-column: 2;
+  align-self: center;
+  justify-self: center;
+}
+body main .color-left-panel .arrow-show-colors {
+  display: none;
+  grid-column: 2;
+  padding: 0.8em;
+}
+body main .color-left-panel .color-palette {
+  grid-row: 2;
+  grid-column: 1/span 2;
+  width: auto;
+  height: auto;
+  padding: 1rem;
+  display: grid;
+  gap: 24px;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(5, 55px) auto;
+  justify-content: center;
+}
+body main .color-left-panel .color-palette li {
+  width: 55px;
+  height: 55px;
+  border: 1px solid #FFFFFC;
+  border-radius: 8px;
+  box-shadow: 0 2px 3px -3px black;
+}
+body main .color-left-panel .color-piker-covering {
+  width: 120px;
+  height: 60px;
+  margin: 0 auto;
+  border: 2px solid #FFFFFC;
+  background-color: #FFFFFC;
+  border-radius: 8px;
+  grid-row: 6;
+  grid-column: 1/span 2;
+  align-self: center;
+  justify-self: center;
+}
+body main .color-left-panel .color-piker-covering .color-piker {
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+}
+body .typo-choices {
+  display: none;
+  position: absolute;
+  right: 0;
+  bottom: 15rem;
+  width: 20em;
+  border-radius: 8px;
+  box-shadow: 0 2px 3px -3px black;
+}
+body .typo-choices summary {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  background: #BBB2F9;
+  color: #111111;
+  padding: 5px 15px;
+  cursor: pointer;
+  border-radius: 8px 0 0 8px;
+}
+body .typo-choices summary h1 {
+  font-size: 30px;
+  font-family: "Hellix ExtraBold", sans-serif;
+}
+body .typo-choices summary .icon-open {
+  cursor: pointer;
+  display: block;
+  width: 10%;
+  height: 10%;
+  position: relative;
+  left: 0.2em;
+  bottom: -0.1em;
+  text-align: center;
+  padding: 0.1em;
+}
+body .typo-choices .select-fonts {
+  appearance: none;
+  background: #BBB2F9;
+  border-radius: 8px;
+  color: #111111;
+  width: 100%;
+  padding: 10px 20px;
+  font-size: 22px;
+  font-weight: 700;
+}
+body .typo-choices .select-fonts li {
+  color: black;
+}
+body .typo-choices #first-font {
+  font-family: Helvetica, sans-serif;
+}
+body .typo-choices #second-font {
+  font-family: "Courier New", sans-serif;
+}
+body .typo-choices #third-font {
+  font-family: "Times New Roman", sans-serif;
+}
+body .sentence-mobile {
+  display: none;
+}
+@media screen and (max-width: 425px) {
+  body .color-left-panel {
+    display: none !important;
+  }
+  body .tools-right-panel {
+    display: none !important;
+  }
+  body .cta-icons {
+    display: none !important;
+  }
+  body .message-mobile {
+    background-color: #F4F4F4;
+    border-radius: 8px;
+    grid-column: 2;
+    grid-row: 2;
+    text-align: center;
+  }
+  body .message-mobile .sentence-mobile {
+    display: block !important;
+    font-family: "Hellix ExtraBold", sans-serif;
+    padding: 5px;
+  }
+}
+body .color-1 {
+  background-color: #F3B1AF;
+}
+body .color-2 {
+  background-color: #F6D09A;
+}
+body .color-3 {
+  background-color: #FAFD90;
+}
+body .color-4 {
+  background-color: #B0D9A0;
+}
+body .color-5 {
+  background-color: #9FD7DE;
+}
+body .color-6 {
+  background-color: #A6C3FA;
+}
+body .color-7 {
+  background-color: #BBB2F9;
+}
+body .color-8 {
+  background-color: #E4ACEC;
+}
+body .color-9 {
+  background-color: #C1C1C1;
+}
+body .color-10 {
+  background-color: #111111;
 }
 
 /*# sourceMappingURL=canvas.css.map */
