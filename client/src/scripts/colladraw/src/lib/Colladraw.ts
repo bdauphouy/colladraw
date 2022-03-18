@@ -35,6 +35,17 @@ export default class Colladraw {
     this.canvas.addEventListener('mouseup', this.onMouseUp.bind(this));
     this.canvas.addEventListener('mousemove', this.onMouseMove.bind(this));
     this.canvas.addEventListener('click', this.onClick.bind(this));
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Backspace') {
+        if (this.state.selectedElement) {
+          this.elements = this.elements.filter(element => element !== this.state.selectedElement);
+          this.state.selectedElement.deselect();
+          this.state.selectedElement = false;
+          this.state.selectionTransform = false;
+          this.draw();
+        }
+      }
+    });
 
     this.canvas.width = window.innerWidth;
     this.canvas.height = window.innerHeight;
@@ -56,31 +67,37 @@ export default class Colladraw {
   draw() {
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-    this.elements.concat(this.state.drawing && (this.state.drawing.shape || this.state.drawing.line) ? this.state.drawing.shape ?? this.state.drawing.line : []).forEach(element => {
-      if (element instanceof Shape) {
-        if (this.state.variables.fillColor) {
-          element.fillColor = this.state.variables.fillColor;
+    const elementsToDraw = this.elements.concat(this.state.drawing && (this.state.drawing.shape || this.state.drawing.line) ? this.state.drawing.shape ?? this.state.drawing.line : []);
+
+    if (elementsToDraw.length > 0) {
+      elementsToDraw.forEach(element => {
+        if (element instanceof Shape) {
+          if (this.state.variables.fillColor) {
+            element.fillColor = this.state.variables.fillColor;
+          }
+
+          if (this.state.variables.strokeColor) {
+            element.strokeColor = this.state.variables.strokeColor;
+          }
+
+          if (this.state.variables.strokeWidth) {
+            element.strokeWidth = this.state.variables.strokeWidth;
+          }
+        } else if (element instanceof CanvasText) {
+          if (this.state.variables.fillColor) {
+            element.color = this.state.variables.fillColor;
+          }
+
+          if (this.state.variables.font) {
+            element.font = this.state.variables.font;
+          }
         }
 
-        if (this.state.variables.strokeColor) {
-          element.strokeColor = this.state.variables.strokeColor;
-        }
-
-        if (this.state.variables.strokeWidth) {
-          element.strokeWidth = this.state.variables.strokeWidth;
-        }
-      } else if (element instanceof CanvasText) {
-        if (this.state.variables.fillColor) {
-          element.color = this.state.variables.fillColor;
-        }
-
-        if (this.state.variables.font) {
-          element.font = this.state.variables.font;
-        }
-      }
-
-      element.draw(this.context, this.grid);
-    });
+        element.draw(this.context, this.grid);
+      });
+    } else {
+      this.initGrid();
+    }
   }
 
   addElement(element: CanvasElement) {
