@@ -1,7 +1,7 @@
-import {ShapeTypeString} from "../lib/enums/ShapeType";
+import {CanvasElementTypeString} from "../lib/enums/CanvasElementType";
 
 export interface ExportShape {
-    type: ShapeTypeString | string;
+    type: Exclude<CanvasElementTypeString, 'Text'>;
     x: number;
     y: number;
     width: number;
@@ -11,10 +11,21 @@ export interface ExportShape {
     strokeWidth: number;
 }
 
+export interface ExportCanvasText {
+    type: 'Text';
+    x: number;
+    y: number;
+    text: string;
+    font: string;
+    color: string;
+}
+
+export type ExportCanvasElement = ExportShape | ExportCanvasText;
+
 export interface ExportCanvas {
     timestamp: number;
     data: {
         [key: string]: any;
-        shapes: ExportShape[];
+        shapes: ExportCanvasElement[];
     };
 }

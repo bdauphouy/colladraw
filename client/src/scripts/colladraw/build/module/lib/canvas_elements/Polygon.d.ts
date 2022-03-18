@@ -1,16 +1,17 @@
 import Shape from "./Shape";
 import { CanvasGrid } from "../../types/CanvasGrid";
 import { ExportShape } from "../../types/ExportCanvas";
+import { PolygonTypeString } from "../enums/CanvasElementType";
 export default class Polygon extends Shape {
     sidesNumber: number;
-    polygonName?: string;
+    polygonName?: PolygonTypeString;
     private coordinates;
-    constructor(x: number, y: number, width: number, height: number, sidesNumber: number, polygonName?: string);
+    constructor(x: number, y: number, width: number, height: number, sidesNumber: number, polygonName?: PolygonTypeString);
     getCoordinates(startX?: number, startY?: number): number[][];
     generateGrid(canvasGrid: CanvasGrid): void;
     draw(context: CanvasRenderingContext2D, canvasGrid: CanvasGrid): void;
     toJSON(): {
-        type: string;
+        type: PolygonTypeString;
         x: number;
         y: number;
         width: number;

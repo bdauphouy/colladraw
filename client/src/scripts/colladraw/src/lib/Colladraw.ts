@@ -1,21 +1,23 @@
-import Shape from "./shapes/Shape";
-import { ShapeType } from "./enums/ShapeType";
-import Rectangle from "./shapes/Rectangle";
-import { State } from "../types/State";
-import Ellipse from "./shapes/Ellipse";
-import Triangle from "./shapes/Triangle";
-import { CanvasGrid } from "../types/CanvasGrid";
+import Shape from "./canvas_elements/Shape";
+import {CanvasElementType} from "./enums/CanvasElementType";
+import Rectangle from "./canvas_elements/Rectangle";
+import {State} from "../types/State";
+import Ellipse from "./canvas_elements/Ellipse";
+import Triangle from "./canvas_elements/Triangle";
+import {CanvasGrid} from "../types/CanvasGrid";
 import AnchorConditions from "./utils/AnchorConditions";
 import kebabize from "./utils/kebabize";
-import {ExportCanvas} from "../types/ExportCanvas";
-import Polygon from "./shapes/Polygon";
+import {ExportCanvas, ExportShape} from "../types/ExportCanvas";
+import Polygon from "./canvas_elements/Polygon";
 import CanvasEvents from "./events/CanvasEvents";
+import CanvasElement from "./canvas_elements/CanvasElement";
+import CanvasText from "./canvas_elements/CanvasText";
 
 export default class Colladraw {
   canvas: HTMLCanvasElement;
   grid: CanvasGrid;
   context: CanvasRenderingContext2D;
-  shapes: Shape[];
+  elements: CanvasElement[];
   private state: State = {
     variables: {},
   };
@@ -25,7 +27,7 @@ export default class Colladraw {
     this.canvas = canvas;
     this.context = canvas.getContext('2d');
 
-    this.shapes = [];
+    this.elements = [];
 
     this.canvas.addEventListener('mousedown', this.onMouseDown.bind(this));
     this.canvas.addEventListener('mouseup', this.onMouseUp.bind(this));
@@ -52,83 +54,125 @@ export default class Colladraw {
   draw() {
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-    this.shapes.concat(this.state.drawing ? this.state.drawing.shape : []).forEach(shape => {
-      if (this.state.variables.fillColor) {
-        shape.fillColor = this.state.variables.fillColor;
+    this.elements.concat(this.state.drawing ? this.state.drawing.shape : []).forEach(element => {
+      if (element instanceof Shape) {
+        if (this.state.variables.fillColor) {
+          element.fillColor = this.state.variables.fillColor;
+        }
+
+        if (this.state.variables.strokeColor) {
+          element.strokeColor = this.state.variables.strokeColor;
+        }
+
+        if (this.state.variables.strokeWidth) {
+          element.strokeWidth = this.state.variables.strokeWidth;
+        }
+      } else if (element instanceof CanvasText) {
+        if (this.state.variables.fillColor) {
+          element.color = this.state.variables.fillColor;
+        }
+
+        if (this.state.variables.font) {
+          element.font = this.state.variables.font;
+        }
       }
 
-      if (this.state.variables.strokeColor) {
-        shape.strokeColor = this.state.variables.strokeColor;
-      }
-
-      if (this.state.variables.strokeWidth) {
-        shape.strokeWidth = this.state.variables.strokeWidth;
-      }
-
-      shape.draw(this.context, this.grid);
+      element.draw(this.context, this.grid);
     });
   }
 
-  addShape(shape: Shape) {
-    this.canvas.dispatchEvent(CanvasEvents.ShapeCreated(shape));
-    this.shapes.push(shape);
+  addElement(element: CanvasElement) {
+    this.canvas.dispatchEvent(CanvasEvents.CanvasElementCreated(element));
+    this.elements.push(element);
   }
 
   onMouseDown(event: MouseEvent) {
-    if (!this.state.selectedShape) {
+    const clickedShape = this.grid[event.offsetY][event.offsetX];
+
+    if (!clickedShape && !this.state.selectedElement) {
       this.onClickLocker = true;
 
       const x = event.clientX - this.canvas.offsetLeft;
       const y = event.clientY - this.canvas.offsetTop;
+      // const toolType: CanvasElementType = CanvasElementType.TEXT;
+      const toolType: CanvasElementType = CanvasElementType.RECTANGLE;
 
       this.state = {
         ...this.state,
-        drawing: {
+        variables: {toolType},
+        // @ts-ignore
+        typing: toolType === CanvasElementType.TEXT ? {
+          ...this.state.typing,
+          text: 'Hello World',
+          font: '20px Arial',
+        } : false,
+        // @ts-ignore
+        drawing: toolType != CanvasElementType.TEXT ? {
           ...this.state.drawing,
           color: '#000',
           strokeWidth: 1,
-          shapeType: this.state.variables.shapeType ?? ShapeType.RECTANGLE,
           startPoint: {
             x: event.offsetX,
             y: event.offsetY,
           },
-        },
+        } : false,
       }
 
-      if (this.state.drawing) {
-        let shape: Shape;
+      // console.log(this.state)
 
-        switch (this.state.drawing?.shapeType) {
-          case ShapeType.RECTANGLE:
-            shape = new Rectangle(x, y, 0, 0);
+      if (this.state.variables.toolType) {
+        let element: CanvasElement;
+
+        switch (this.state.variables.toolType) {
+          case CanvasElementType.RECTANGLE:
+            element = new Rectangle(x, y, 0, 0);
             break;
-          case ShapeType.ELLIPSE:
-            shape = new Ellipse(x, y, 0, 0);
+          case CanvasElementType.ELLIPSE:
+            element = new Ellipse(x, y, 0, 0);
             break;
-          case ShapeType.TRIANGLE:
-            shape = new Triangle(x, y, 0, 0);
+          case CanvasElementType.TRIANGLE:
+            element = new Triangle(x, y, 0, 0);
+            break;
+          case CanvasElementType.TEXT:
+            element = new CanvasText('Hello world', x, y, this.state.variables.font ?? '12px Arial');
+            element.y += parseInt((element as CanvasText).font.match(/\d+/)[0] ?? '20');
             break;
           default:
-            shape = new Rectangle(x, y, 0, 0);
+            element = new Rectangle(x, y, 0, 0);
             break;
         }
 
-        shape.strokeColor = '#000';
+        if (element instanceof Shape) {
+          element.strokeColor = '#000';
 
-        this.state = {
-          ...this.state,
-          drawing: {
-            ...this.state.drawing,
-            shape,
-          },
-        };
+          this.state = {
+            ...this.state,
+            drawing: {
+              ...this.state.drawing,
+              shape: element,
+            },
+          };
+        } else if (element instanceof CanvasText) {
+          element.color = '#000';
+
+          this.state = {
+            ...this.state,
+            typing: {
+              ...this.state.typing,
+              text: element.text,
+              textElement: element,
+            },
+          };
+
+          this.draw();
+        }
       }
     } else {
       const gripMargin = 10;
 
       let anchorFound = false;
       Object.entries(AnchorConditions).forEach(([anchorConditionName, anchorCondition]) => {
-        if (!anchorFound && anchorCondition(this.grid, gripMargin, event)) {
+        if (!anchorFound && !(this.state.selectedElement instanceof CanvasText) && anchorCondition(this.grid, gripMargin, event)) {
           this.state = {
             ...this.state,
             selectionTransform: {
@@ -142,14 +186,14 @@ export default class Colladraw {
         }
       })
 
-      if (!anchorFound && this.grid[event.offsetX][event.offsetY] === this.state.selectedShape) {
+      if (!anchorFound && this.grid[event.offsetY][event.offsetX] === this.state.selectedElement) {
         this.state = {
           ...this.state,
           selectionTransform: {
             translate: {
               grip: {
-                x: event.offsetX - this.state.selectedShape.x,
-                y: event.offsetY - this.state.selectedShape.y,
+                x: event.offsetX - this.state.selectedElement.x,
+                y: event.offsetY - this.state.selectedElement.y,
               },
             },
           },
@@ -159,7 +203,7 @@ export default class Colladraw {
   }
 
   onMouseMove(event: MouseEvent) {
-    if (!this.state.selectedShape) {
+    if (!this.state.selectedElement) {
       if (this.state.drawing) {
         const x = event.clientX - this.canvas.offsetLeft;
         const y = event.clientY - this.canvas.offsetTop;
@@ -168,14 +212,14 @@ export default class Colladraw {
           ...this.state,
           drawing: {
             ...this.state.drawing,
-            endPoint: { x, y },
+            endPoint: {x, y},
           },
         }
 
         if (this.state.drawing && this.state.drawing.shape) {
           this.state.drawing.shape.width = this.state.drawing.endPoint.x - this.state.drawing.startPoint.x;
           this.state.drawing.shape.height = this.state.drawing.endPoint.y - this.state.drawing.startPoint.y;
-          this.canvas.dispatchEvent(CanvasEvents.ShapeMoved(this.state.drawing.shape, event));
+          this.canvas.dispatchEvent(CanvasEvents.CanvasElementMoved(this.state.drawing.shape, event));
 
           //   if (this.state.drawing.shape.width < 0) {
           //     this.state.drawing.shape.width = Math.abs(this.state.drawing.shape.width);
@@ -192,13 +236,13 @@ export default class Colladraw {
       }
     } else if (this.state.selectionTransform) {
       if (this.state.selectionTransform.translate) {
-        const oldX = this.state.selectedShape.x;
-        const oldY = this.state.selectedShape.y;
+        const oldX = this.state.selectedElement.x;
+        const oldY = this.state.selectedElement.y;
 
-        this.state.selectedShape.x = event.offsetX - this.state.selectionTransform.translate.grip.x;
-        this.state.selectedShape.y = event.offsetY - this.state.selectionTransform.translate.grip.y;
-        this.canvas.dispatchEvent(CanvasEvents.ShapeMoved(this.state.selectedShape, event));
-        this.canvas.dispatchEvent(CanvasEvents.ShapeTransformed(this.state.selectedShape, {
+        this.state.selectedElement.x = event.offsetX - this.state.selectionTransform.translate.grip.x;
+        this.state.selectedElement.y = event.offsetY - this.state.selectionTransform.translate.grip.y;
+        this.canvas.dispatchEvent(CanvasEvents.CanvasElementMoved(this.state.selectedElement, event));
+        this.canvas.dispatchEvent(CanvasEvents.CanvasElementTransformed(this.state.selectedElement, {
           type: 'translate',
           x: this.state.selectionTransform.translate.grip.x,
           y: this.state.selectionTransform.translate.grip.y,
@@ -206,45 +250,45 @@ export default class Colladraw {
           oldY,
         }));
       } else if (this.state.selectionTransform.resize) {
-        const oldX = this.state.selectedShape.x;
-        const oldY = this.state.selectedShape.y;
-        const oldWidth = this.state.selectedShape.width;
-        const oldHeight = this.state.selectedShape.height;
+        const oldX = this.state.selectedElement.x;
+        const oldY = this.state.selectedElement.y;
+        const oldWidth = this.state.selectedElement.width;
+        const oldHeight = this.state.selectedElement.height;
 
         if (this.state.selectionTransform.resize.grip === 'top-left') {
-          this.state.selectedShape.width = this.state.selectedShape.width + this.state.selectedShape.x - event.offsetX;
-          this.state.selectedShape.height = this.state.selectedShape.height + this.state.selectedShape.y - event.offsetY;
-          this.state.selectedShape.x = event.offsetX;
-          this.state.selectedShape.y = event.offsetY;
+          this.state.selectedElement.width = this.state.selectedElement.width + this.state.selectedElement.x - event.offsetX;
+          this.state.selectedElement.height = this.state.selectedElement.height + this.state.selectedElement.y - event.offsetY;
+          this.state.selectedElement.x = event.offsetX;
+          this.state.selectedElement.y = event.offsetY;
         } else if (this.state.selectionTransform.resize.grip === 'top-right') {
-          this.state.selectedShape.width = event.offsetX - this.state.selectedShape.x;
-          this.state.selectedShape.height = this.state.selectedShape.height + this.state.selectedShape.y - event.offsetY;
-          this.state.selectedShape.y = event.offsetY;
+          this.state.selectedElement.width = event.offsetX - this.state.selectedElement.x;
+          this.state.selectedElement.height = this.state.selectedElement.height + this.state.selectedElement.y - event.offsetY;
+          this.state.selectedElement.y = event.offsetY;
         } else if (this.state.selectionTransform.resize.grip === 'bottom-left') {
-          this.state.selectedShape.width = this.state.selectedShape.width + this.state.selectedShape.x - event.offsetX;
-          this.state.selectedShape.height = event.offsetY - this.state.selectedShape.y;
-          this.state.selectedShape.x = event.offsetX;
+          this.state.selectedElement.width = this.state.selectedElement.width + this.state.selectedElement.x - event.offsetX;
+          this.state.selectedElement.height = event.offsetY - this.state.selectedElement.y;
+          this.state.selectedElement.x = event.offsetX;
         } else if (this.state.selectionTransform.resize.grip === 'bottom-right') {
-          this.state.selectedShape.width = event.offsetX - this.state.selectedShape.x;
-          this.state.selectedShape.height = event.offsetY - this.state.selectedShape.y;
+          this.state.selectedElement.width = event.offsetX - this.state.selectedElement.x;
+          this.state.selectedElement.height = event.offsetY - this.state.selectedElement.y;
         } else if (this.state.selectionTransform.resize.grip === 'top') {
-          this.state.selectedShape.height = this.state.selectedShape.height + this.state.selectedShape.y - event.offsetY;
-          this.state.selectedShape.y = event.offsetY;
+          this.state.selectedElement.height = this.state.selectedElement.height + this.state.selectedElement.y - event.offsetY;
+          this.state.selectedElement.y = event.offsetY;
         } else if (this.state.selectionTransform.resize.grip === 'right') {
-          this.state.selectedShape.width = event.offsetX - this.state.selectedShape.x;
+          this.state.selectedElement.width = event.offsetX - this.state.selectedElement.x;
         } else if (this.state.selectionTransform.resize.grip === 'bottom') {
-          this.state.selectedShape.height = event.offsetY - this.state.selectedShape.y;
+          this.state.selectedElement.height = event.offsetY - this.state.selectedElement.y;
         } else if (this.state.selectionTransform.resize.grip === 'left') {
-          this.state.selectedShape.width = this.state.selectedShape.width + this.state.selectedShape.x - event.offsetX;
-          this.state.selectedShape.x = event.offsetX;
+          this.state.selectedElement.width = this.state.selectedElement.width + this.state.selectedElement.x - event.offsetX;
+          this.state.selectedElement.x = event.offsetX;
         }
 
-        this.canvas.dispatchEvent((CanvasEvents.ShapeTransformed(this.state.selectedShape, {
+        this.canvas.dispatchEvent((CanvasEvents.CanvasElementTransformed(this.state.selectedElement, {
           type: 'resize',
-          x: this.state.selectedShape.x,
-          y: this.state.selectedShape.y,
-          width: this.state.selectedShape.width,
-          height: this.state.selectedShape.height,
+          x: this.state.selectedElement.x,
+          y: this.state.selectedElement.y,
+          width: this.state.selectedElement.width,
+          height: this.state.selectedElement.height,
           oldX,
           oldY,
           oldWidth,
@@ -253,6 +297,7 @@ export default class Colladraw {
       }
     }
 
+    // if (this.state.selectionTransform || this.state.selectedShape || this.state.typing || this.state.typing) {
     if (Object.values(this.state).some(value => value)) {
       this.draw();
     }
@@ -260,38 +305,41 @@ export default class Colladraw {
 
   onMouseUp(_event: MouseEvent) {
     if (this.state.drawing && this.state.drawing.shape.width !== 0 && this.state.drawing.shape.height !== 0) {
-      this.addShape(this.state.drawing.shape);
+      this.addElement(this.state.drawing.shape);
+    } else if (this.state.typing) {
+      this.addElement(this.state.typing.textElement);
     } else if (this.state.selectionTransform) {
       this.initGrid();
-      this.shapes.forEach(shape => {
+      this.elements.forEach(shape => {
         shape.generateGrid(this.grid);
       });
     }
 
     this.state.drawing = false;
+    this.state.typing = false;
     this.state.selectionTransform = false;
     this.onClickLocker = false;
   }
 
   onClick(event: MouseEvent) {
-    const clickedShape = this.grid[event.offsetX][event.offsetY];
+    const clickedElement = this.grid[event.offsetY][event.offsetX];
 
-    if (clickedShape) {
-      this.canvas.dispatchEvent(CanvasEvents.ShapeClicked(clickedShape, event));
+    if (clickedElement) {
+      this.canvas.dispatchEvent(CanvasEvents.CanvasElementClicked(clickedElement, event));
     }
 
-    if (!this.state.drawing && !this.onClickLocker) {
-      if (clickedShape && (!this.state.selectedShape || this.state.selectedShape == clickedShape)) {
-        clickedShape.select();
-        this.canvas.dispatchEvent(CanvasEvents.ShapeSelected(clickedShape));
-        this.state.selectedShape = clickedShape;
+    if (!this.state.drawing && !this.state.typing && !this.onClickLocker) {
+      if (clickedElement && (!this.state.selectedElement || this.state.selectedElement == clickedElement)) {
+        clickedElement.select();
+        this.canvas.dispatchEvent(CanvasEvents.CanvasElementSelected(clickedElement));
+        this.state.selectedElement = clickedElement;
         this.draw();
       } else {
-        if (this.state.selectedShape) {
-          this.state.selectedShape.deselect()
-          this.canvas.dispatchEvent(CanvasEvents.ShapeDeselected(this.state.selectedShape));
+        if (this.state.selectedElement) {
+          this.state.selectedElement.deselect()
+          this.canvas.dispatchEvent(CanvasEvents.CanvasElementDeselected(this.state.selectedElement));
         }
-        this.state.selectedShape = false;
+        this.state.selectedElement = false;
         this.draw();
       }
     }
@@ -309,21 +357,21 @@ export default class Colladraw {
     this.state.variables.strokeWidth = width;
   }
 
-  changeShapeType(type: ShapeType) {
-    this.state.variables.shapeType = type;
+  changeToolType(type: CanvasElementType) {
+    this.state.variables.toolType = type;
   }
 
   toJSON(): ExportCanvas {
     return {
       timestamp: new Date().getTime(),
       data: {
-        shapes: this.shapes.map(shape => shape.toJSON()),
+        shapes: this.elements.map(shape => shape.toJSON()),
       }
     };
   }
 
   load(json: ExportCanvas) {
-    this.shapes = json.data.shapes.map(shape => {
+    this.elements = json.data.shapes.map(shape => {
       if (shape.type === 'Rectangle') {
         return Rectangle.fromJSON(shape);
       } else if (shape.type === 'Ellipse') {
@@ -331,7 +379,9 @@ export default class Colladraw {
       } else if (shape.type === 'Triangle') {
         return Triangle.fromJSON(shape);
       } else if (shape.type.match(/Polygon\[\d+]/)) {
-        return Polygon.fromJSON(shape);
+        return Polygon.fromJSON(shape as ExportShape);
+      } else if (shape.type === 'Text') {
+        return CanvasText.fromJSON(shape);
       }
 
       return Shape.fromJSON(shape)

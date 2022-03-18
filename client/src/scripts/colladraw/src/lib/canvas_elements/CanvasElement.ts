@@ -1,34 +1,19 @@
 import {CanvasGrid} from "../../types/CanvasGrid";
-import {ExportShape} from "../../types/ExportCanvas";
+import {ExportCanvasElement} from "../../types/ExportCanvas";
 
-export default abstract class Shape {
+export default abstract class CanvasElement {
   x: number;
   y: number;
   width: number;
   height: number;
-  fillColor?: string;
-  strokeColor?: string;
-  strokeWidth?: number;
   selected: boolean = false;
 
-  protected constructor(x: number, y: number, width: number, height: number) {
+  protected constructor(x: number, y: number) {
     this.x = x;
     this.y = y;
-    this.width = width;
-    this.height = height;
   }
 
-  draw(context: CanvasRenderingContext2D, canvasGrid: CanvasGrid, _draw: Function = () => {}): void {
-    context.lineWidth = this.strokeWidth || 0;
-    context.strokeStyle = this.strokeColor || '#000';
-    context.fillStyle = this.fillColor || '#000';
-
-    context.beginPath();
-
-    _draw();
-
-    context.closePath();
-
+  draw(context: CanvasRenderingContext2D, canvasGrid: CanvasGrid) {
     this.generateGrid(canvasGrid);
 
     if (this.selected) {
@@ -36,11 +21,14 @@ export default abstract class Shape {
       context.strokeStyle = '#ff0000';
       context.lineWidth = 2;
 
+      context.moveTo(this.x, this.y);
       context.beginPath();
       context.lineTo(this.x, this.y);
       context.lineTo(this.x + this.width, this.y);
       context.lineTo(this.x + this.width, this.y + this.height);
       context.lineTo(this.x, this.y + this.height);
+      context.lineTo(this.x, this.y);
+      context.stroke();
       context.closePath();
 
       const anchorSize = 6;
@@ -56,10 +44,11 @@ export default abstract class Shape {
       context.fillRect(this.x + this.width / 2 - (anchorSize / 2), this.y + this.height / 2 - (anchorSize / 2), anchorSize, anchorSize);
     }
   }
+
   abstract generateGrid(canvasGrid: CanvasGrid): void;
 
-  abstract toJSON(): ExportShape;
-  static fromJSON(_json: ExportShape): Shape {
+  abstract toJSON(): ExportCanvasElement;
+  static fromJSON(_json: ExportCanvasElement): CanvasElement {
     throw new Error('Not implemented');
   };
 

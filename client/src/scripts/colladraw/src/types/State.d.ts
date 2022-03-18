@@ -1,12 +1,15 @@
-import {ShapeType} from "../lib/enums/ShapeType";
-import Shape from "../lib/shapes/Shape";
+import {CanvasElementType, ShapeType} from "../lib/enums/CanvasElementType";
+import Shape from "../lib/canvas_elements/Shape";
+import CanvasText from "../lib/canvas_elements/CanvasText";
+import CanvasElement from "../lib/canvas_elements/CanvasElement";
 
 interface State {
   variables: {
     fillColor?: string;
     strokeColor?: string;
     strokeWidth?: number;
-    shapeType?: ShapeType;
+    toolType?: CanvasElementType;
+    font?: string;
   },
   drawing?: false | {
     color?: string;
@@ -16,7 +19,14 @@ interface State {
     startPoint?: Point;
     endPoint?: Point;
   };
-  selectedShape?: false | Shape;
+  typing?: false | {
+    text?: string;
+    font?: string;
+    textElement?: CanvasText;
+    startPoint?: Point;
+    endPoint?: Point;
+  };
+  selectedElement?: false | CanvasElement;
   selectionTransform?: false | {
     translate?: false | {
       grip: Point;

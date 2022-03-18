@@ -8,7 +8,7 @@ export default class Ellipse extends Shape {
   }
 
   generateGrid(canvasGrid: CanvasGrid) {
-    for (let i = this.y; i <= this.y + this.width; i++) {
+    for (let i = this.y; i <= this.y + this.height; i++) {
       for (let j = this.x; j <= this.x + this.width; j++) {
         canvasGrid[i][j] = this;
       }
@@ -29,7 +29,7 @@ export default class Ellipse extends Shape {
 
   toJSON() {
     return {
-      type: "Ellipse",
+      type: 'Ellipse' as 'Ellipse',
       x: this.x,
       y: this.y,
       width: this.width,

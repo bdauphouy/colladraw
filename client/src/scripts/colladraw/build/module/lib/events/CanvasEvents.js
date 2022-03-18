@@ -1,21 +1,21 @@
 export default {
-    ShapeClicked: (shape, mouseevent) => new CustomEvent('shape-clicked', {
-        detail: { shape, mouseevent }
+    CanvasElementClicked: (element, mouseevent) => new CustomEvent('element-clicked', {
+        detail: { element, mouseevent }
     }),
-    ShapeSelected: (shape) => new CustomEvent('shape-selected', {
-        detail: { shape }
+    CanvasElementSelected: (element) => new CustomEvent('element-selected', {
+        detail: { element }
     }),
-    ShapeDeselected: (shape) => new CustomEvent('shape-deselected', {
-        detail: { shape }
+    CanvasElementDeselected: (element) => new CustomEvent('element-deselected', {
+        detail: { element }
     }),
-    ShapeMoved: (shape, mouseevent) => new CustomEvent('shape-moved', {
-        detail: { shape, mouseevent }
+    CanvasElementMoved: (element, mouseevent) => new CustomEvent('element-moved', {
+        detail: { element, mouseevent }
     }),
-    ShapeTransformed: (shape, transformation) => new CustomEvent('shape-transform', {
-        detail: { shape, transformation }
+    CanvasElementTransformed: (element, transformation) => new CustomEvent('element-transform', {
+        detail: { element, transformation }
     }),
-    ShapeCreated: (shape) => new CustomEvent('shape-created', {
-        detail: { shape }
+    CanvasElementCreated: (element) => new CustomEvent('element-created', {
+        detail: { element }
     }),
 };
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiQ2FudmFzRXZlbnRzLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vLi4vLi4vLi4vc3JjL2xpYi9ldmVudHMvQ2FudmFzRXZlbnRzLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQXdCQSxlQUFlO0lBQ2IsWUFBWSxFQUFFLENBQUMsS0FBWSxFQUFFLFVBQXNCLEVBQUUsRUFBRSxDQUFDLElBQUksV0FBVyxDQUEyQyxlQUFlLEVBQUU7UUFDakksTUFBTSxFQUFFLEVBQUUsS0FBSyxFQUFFLFVBQVUsRUFBRTtLQUM5QixDQUFDO0lBRUYsYUFBYSxFQUFFLENBQUMsS0FBWSxFQUFFLEVBQUUsQ0FBQyxJQUFJLFdBQVcsQ0FBbUIsZ0JBQWdCLEVBQUU7UUFDbkYsTUFBTSxFQUFFLEVBQUUsS0FBSyxFQUFFO0tBQ2xCLENBQUM7SUFFRixlQUFlLEVBQUUsQ0FBQyxLQUFZLEVBQUUsRUFBRSxDQUFDLElBQUksV0FBVyxDQUFtQixrQkFBa0IsRUFBRTtRQUN2RixNQUFNLEVBQUUsRUFBRSxLQUFLLEVBQUU7S0FDbEIsQ0FBQztJQUVGLFVBQVUsRUFBRSxDQUFDLEtBQVksRUFBRSxVQUFzQixFQUFFLEVBQUUsQ0FBQyxJQUFJLFdBQVcsQ0FBMkMsYUFBYSxFQUFFO1FBQzdILE1BQU0sRUFBRSxFQUFFLEtBQUssRUFBRSxVQUFVLEVBQUU7S0FDOUIsQ0FBQztJQUVGLGdCQUFnQixFQUFFLENBQUMsS0FBWSxFQUFFLGNBQW1DLEVBQUUsRUFBRSxDQUFDLElBQUksV0FBVyxDQUF3RCxpQkFBaUIsRUFBRTtRQUNqSyxNQUFNLEVBQUUsRUFBRSxLQUFLLEVBQUUsY0FBYyxFQUFFO0tBQ2xDLENBQUM7SUFFRixZQUFZLEVBQUUsQ0FBQyxLQUFZLEVBQUUsRUFBRSxDQUFDLElBQUksV0FBVyxDQUFtQixlQUFlLEVBQUU7UUFDakYsTUFBTSxFQUFFLEVBQUUsS0FBSyxFQUFFO0tBQ2xCLENBQUM7Q0FDSCxDQUFBIn0=
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiQ2FudmFzRXZlbnRzLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vLi4vLi4vLi4vc3JjL2xpYi9ldmVudHMvQ2FudmFzRXZlbnRzLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQXdCQSxlQUFlO0lBQ2Isb0JBQW9CLEVBQUUsQ0FBQyxPQUFzQixFQUFFLFVBQXNCLEVBQUUsRUFBRSxDQUFDLElBQUksV0FBVyxDQUFxRCxpQkFBaUIsRUFBRTtRQUMvSixNQUFNLEVBQUUsRUFBRSxPQUFPLEVBQUUsVUFBVSxFQUFFO0tBQ2hDLENBQUM7SUFFRixxQkFBcUIsRUFBRSxDQUFDLE9BQXNCLEVBQUUsRUFBRSxDQUFDLElBQUksV0FBVyxDQUE2QixrQkFBa0IsRUFBRTtRQUNqSCxNQUFNLEVBQUUsRUFBRSxPQUFPLEVBQUU7S0FDcEIsQ0FBQztJQUVGLHVCQUF1QixFQUFFLENBQUMsT0FBc0IsRUFBRSxFQUFFLENBQUMsSUFBSSxXQUFXLENBQTZCLG9CQUFvQixFQUFFO1FBQ3JILE1BQU0sRUFBRSxFQUFFLE9BQU8sRUFBRTtLQUNwQixDQUFDO0lBRUYsa0JBQWtCLEVBQUUsQ0FBQyxPQUFzQixFQUFFLFVBQXNCLEVBQUUsRUFBRSxDQUFDLElBQUksV0FBVyxDQUFxRCxlQUFlLEVBQUU7UUFDM0osTUFBTSxFQUFFLEVBQUUsT0FBTyxFQUFFLFVBQVUsRUFBRTtLQUNoQyxDQUFDO0lBRUYsd0JBQXdCLEVBQUUsQ0FBQyxPQUFzQixFQUFFLGNBQW1DLEVBQUUsRUFBRSxDQUFDLElBQUksV0FBVyxDQUFrRSxtQkFBbUIsRUFBRTtRQUMvTCxNQUFNLEVBQUUsRUFBRSxPQUFPLEVBQUUsY0FBYyxFQUFFO0tBQ3BDLENBQUM7SUFFRixvQkFBb0IsRUFBRSxDQUFDLE9BQXNCLEVBQUUsRUFBRSxDQUFDLElBQUksV0FBVyxDQUE2QixpQkFBaUIsRUFBRTtRQUMvRyxNQUFNLEVBQUUsRUFBRSxPQUFPLEVBQUU7S0FDcEIsQ0FBQztDQUNILENBQUEifQ==

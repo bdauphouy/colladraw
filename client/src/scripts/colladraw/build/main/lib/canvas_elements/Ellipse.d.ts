@@ -6,7 +6,7 @@ export default class Ellipse extends Shape {
     generateGrid(canvasGrid: CanvasGrid): void;
     draw(context: CanvasRenderingContext2D, canvasGrid: CanvasGrid): void;
     toJSON(): {
-        type: string;
+        type: "Ellipse";
         x: number;
         y: number;
         width: number;

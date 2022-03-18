@@ -1,4 +1,4 @@
-import Shape from "../shapes/Shape";
+import CanvasElement from "../canvas_elements/CanvasElement";
 
 interface TransformationTranslateEvent {
   type: 'translate';
@@ -23,27 +23,27 @@ interface TransformationResizeEvent {
 type TransformationEvent = TransformationTranslateEvent | TransformationResizeEvent;
 
 export default {
-  ShapeClicked: (shape: Shape, mouseevent: MouseEvent) => new CustomEvent<{ shape: Shape, mouseevent: MouseEvent }>('shape-clicked', {
-    detail: { shape, mouseevent }
+  CanvasElementClicked: (element: CanvasElement, mouseevent: MouseEvent) => new CustomEvent<{ element: CanvasElement, mouseevent: MouseEvent }>('element-clicked', {
+    detail: { element, mouseevent }
   }),
 
-  ShapeSelected: (shape: Shape) => new CustomEvent<{ shape: Shape }>('shape-selected', {
-    detail: { shape }
+  CanvasElementSelected: (element: CanvasElement) => new CustomEvent<{ element: CanvasElement }>('element-selected', {
+    detail: { element }
   }),
 
-  ShapeDeselected: (shape: Shape) => new CustomEvent<{ shape: Shape }>('shape-deselected', {
-    detail: { shape }
+  CanvasElementDeselected: (element: CanvasElement) => new CustomEvent<{ element: CanvasElement }>('element-deselected', {
+    detail: { element }
   }),
 
-  ShapeMoved: (shape: Shape, mouseevent: MouseEvent) => new CustomEvent<{ shape: Shape, mouseevent: MouseEvent }>('shape-moved', {
-    detail: { shape, mouseevent }
+  CanvasElementMoved: (element: CanvasElement, mouseevent: MouseEvent) => new CustomEvent<{ element: CanvasElement, mouseevent: MouseEvent }>('element-moved', {
+    detail: { element, mouseevent }
   }),
 
-  ShapeTransformed: (shape: Shape, transformation: TransformationEvent) => new CustomEvent<{ shape: Shape, transformation: TransformationEvent }>('shape-transform', {
-    detail: { shape, transformation }
+  CanvasElementTransformed: (element: CanvasElement, transformation: TransformationEvent) => new CustomEvent<{ element: CanvasElement, transformation: TransformationEvent }>('element-transform', {
+    detail: { element, transformation }
   }),
 
-  ShapeCreated: (shape: Shape) => new CustomEvent<{ shape: Shape }>('shape-created', {
-    detail: { shape }
+  CanvasElementCreated: (element: CanvasElement) => new CustomEvent<{ element: CanvasElement }>('element-created', {
+    detail: { element }
   }),
 }

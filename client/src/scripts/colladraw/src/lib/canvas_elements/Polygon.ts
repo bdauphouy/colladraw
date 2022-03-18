@@ -1,13 +1,14 @@
 import Shape from "./Shape";
 import {CanvasGrid} from "../../types/CanvasGrid";
 import {ExportShape} from "../../types/ExportCanvas";
+import {PolygonTypeString} from "../enums/CanvasElementType";
 
 export default class Polygon extends Shape {
   sidesNumber: number;
-  polygonName?: string;
+  polygonName?: PolygonTypeString;
   private coordinates: number[][];
 
-  constructor(x: number, y: number, width: number, height: number, sidesNumber: number, polygonName?: string) {
+  constructor(x: number, y: number, width: number, height: number, sidesNumber: number, polygonName?: PolygonTypeString) {
     super(x, y, width, height);
     this.sidesNumber = sidesNumber;
     this.polygonName = polygonName;
@@ -22,8 +23,8 @@ export default class Polygon extends Shape {
   }
 
   generateGrid(canvasGrid: CanvasGrid): void {
-    for (let i = Math.min(...this.coordinates.map(coordinate => coordinate[0])); i <= Math.max(...this.coordinates.map(coordinate => coordinate[0])); i++) {
-      for (let j = Math.min(...this.coordinates.map(coordinate => coordinate[1])); j <= Math.max(...this.coordinates.map(coordinate => coordinate[1])); j++) {
+    for (let i = Math.min(...this.coordinates.map(coordinate => coordinate[1])); i <= Math.max(...this.coordinates.map(coordinate => coordinate[1])); i++) {
+      for (let j = Math.min(...this.coordinates.map(coordinate => coordinate[0])); j <= Math.max(...this.coordinates.map(coordinate => coordinate[0])); j++) {
         canvasGrid[i][j] = this;
       }
     }
@@ -45,7 +46,7 @@ export default class Polygon extends Shape {
 
   toJSON() {
     return {
-      type: this.polygonName ?? `Polygon[${this.sidesNumber}]`,
+      type: this.polygonName ?? `Polygon[${this.sidesNumber}]` as `Polygon[${number}]`,
       x: this.x,
       y: this.y,
       width: this.width,
@@ -57,6 +58,10 @@ export default class Polygon extends Shape {
   }
 
   static fromJSON(json: ExportShape): Polygon {
+    if (json.type === 'Ellipse') {
+      throw new Error('Cannot convert ellipse to polygon');
+    }
+
     const polygon = new Polygon(json.x, json.y, json.width, json.height, parseInt(json.type.match(/\d+/)[0]), json.type);
     polygon.fillColor = json.fillColor;
     polygon.strokeColor = json.strokeColor;

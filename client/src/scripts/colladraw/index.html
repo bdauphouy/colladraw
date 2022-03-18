@@ -5,35 +5,49 @@
     <title>Test Colladraw Lib</title>
 
     <script defer type="module">
-        import Colladraw from "./build/module/index.js";
+      import Colladraw, {CanvasText} from "./build/module/index.js";
 
-        const canvas = document.querySelector('canvas');
-        window.colladraw = new Colladraw(canvas);
+      const canvas = document.querySelector('canvas');
+      window.colladraw = new Colladraw(canvas);
 
-        // shape-clicked, shape-selected, shape-deselected, shape-moved, shape-transform, shape-created
-        canvas.addEventListener('shape-clicked', (e) => {
-            console.log('shape-clicked', e.detail);
-        });
+      let selectedText = null;
 
-        canvas.addEventListener('shape-selected', (e) => {
-            console.log('shape-selected', e.detail);
-        });
+      // element-clicked, element-selected, element-deselected, element-moved, element-transform, element-created
+      canvas.addEventListener('element-clicked', (e) => {
+        console.log('element-clicked', e.detail);
+      });
 
-        canvas.addEventListener('shape-deselected', (e) => {
-            console.log('shape-deselected', e.detail);
-        });
+      canvas.addEventListener('element-selected', (e) => {
+        console.log('element-selected', e.detail);
 
-        canvas.addEventListener('shape-moved', (e) => {
-            console.log('shape-moved', e.detail);
-        });
+        if (e.detail.element instanceof CanvasText) {
+          selectedText = e.detail.element;
+        }
+      });
 
-        canvas.addEventListener('shape-transform', (e) => {
-            console.log('shape-transform', e.detail);
-        });
+      canvas.addEventListener('element-deselected', (e) => {
+        console.log('element-deselected', e.detail);
+        selectedText = null;
+      });
 
-        canvas.addEventListener('shape-created', (e) => {
-            console.log('shape-created', e.detail);
-        });
+      canvas.addEventListener('element-moved', (e) => {
+        console.log('element-moved', e.detail);
+      });
+
+      canvas.addEventListener('element-transform', (e) => {
+        console.log('element-transform', e.detail);
+      });
+
+      canvas.addEventListener('element-created', (e) => {
+        console.log('element-created', e.detail);
+      });
+
+      document.querySelector('#text-input').addEventListener('input', (e) => {
+        if (selectedText) {
+          selectedText.text = e.target.value;
+          colladraw.draw()
+        }
+      });
     </script>
 
     <style>
@@ -41,23 +55,35 @@
             margin: 0;
             padding: 0;
         }
+
         html, body, canvas {
             width: 100%;
             height: 100%;
         }
-        .buttons {
+
+        header {
             position: absolute;
             top: 0;
-            right: 0;
+            left: 0;
+            width: 100vw;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        label {
+            display: none;
         }
     </style>
 </head>
 <body>
-    <canvas></canvas>
+<canvas></canvas>
+<header>
+    <label for="text-input"></label><input type="text" id="text-input" placeholder="Type here...">
     <div class="buttons">
         <button onclick="window.saved = colladraw.toJSON()">Save</button>
-        <button onclick="colladraw.shapes = []; colladraw.draw()">Clear</button>
+        <button onclick="colladraw.elements = []; colladraw.draw()">Clear</button>
         <button onclick="colladraw.load(window.saved)">Load</button>
     </div>
+</header>
 </body>
 </html>

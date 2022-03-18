@@ -1,4 +1,4 @@
-import Shape from "../shapes/Shape";
+import CanvasElement from "../canvas_elements/CanvasElement";
 interface TransformationTranslateEvent {
     type: 'translate';
     x: number;
@@ -19,26 +19,26 @@ interface TransformationResizeEvent {
 }
 declare type TransformationEvent = TransformationTranslateEvent | TransformationResizeEvent;
 declare const _default: {
-    ShapeClicked: (shape: Shape, mouseevent: MouseEvent) => CustomEvent<{
-        shape: Shape;
+    CanvasElementClicked: (element: CanvasElement, mouseevent: MouseEvent) => CustomEvent<{
+        element: CanvasElement;
         mouseevent: MouseEvent;
     }>;
-    ShapeSelected: (shape: Shape) => CustomEvent<{
-        shape: Shape;
+    CanvasElementSelected: (element: CanvasElement) => CustomEvent<{
+        element: CanvasElement;
     }>;
-    ShapeDeselected: (shape: Shape) => CustomEvent<{
-        shape: Shape;
+    CanvasElementDeselected: (element: CanvasElement) => CustomEvent<{
+        element: CanvasElement;
     }>;
-    ShapeMoved: (shape: Shape, mouseevent: MouseEvent) => CustomEvent<{
-        shape: Shape;
+    CanvasElementMoved: (element: CanvasElement, mouseevent: MouseEvent) => CustomEvent<{
+        element: CanvasElement;
         mouseevent: MouseEvent;
     }>;
-    ShapeTransformed: (shape: Shape, transformation: TransformationEvent) => CustomEvent<{
-        shape: Shape;
+    CanvasElementTransformed: (element: CanvasElement, transformation: TransformationEvent) => CustomEvent<{
+        element: CanvasElement;
         transformation: TransformationEvent;
     }>;
-    ShapeCreated: (shape: Shape) => CustomEvent<{
-        shape: Shape;
+    CanvasElementCreated: (element: CanvasElement) => CustomEvent<{
+        element: CanvasElement;
     }>;
 };
 export default _default;
