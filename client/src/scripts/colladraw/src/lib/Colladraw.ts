@@ -13,6 +13,7 @@ import CanvasEvents from "./events/CanvasEvents";
 import CanvasElement from "./canvas_elements/CanvasElement";
 import CanvasText from "./canvas_elements/CanvasText";
 import Line from "./canvas_elements/Line";
+import ResizeFunctions from "./utils/ResizeFunctions";
 
 export default class Colladraw {
   canvas: HTMLCanvasElement;
@@ -273,48 +274,21 @@ export default class Colladraw {
         const oldHeight = this.state.selectedElement.height;
 
         if (this.state.selectionTransform.resize.grip === 'top-left') {
-          this.state.selectedElement.width = this.state.selectedElement.width + this.state.selectedElement.x - event.offsetX;
-          this.state.selectedElement.height = this.state.selectedElement.height + this.state.selectedElement.y - event.offsetY;
-          this.state.selectedElement.x = event.offsetX;
-          this.state.selectedElement.y = event.offsetY;
+          ResizeFunctions.topLeft(this.state, event);
         } else if (this.state.selectionTransform.resize.grip === 'top-right') {
-          this.state.selectedElement.width = event.offsetX - this.state.selectedElement.x;
-          this.state.selectedElement.height = this.state.selectedElement.height + this.state.selectedElement.y - event.offsetY;
-          this.state.selectedElement.y = event.offsetY;
-          if (this.state.selectedElement instanceof Line) {
-            this.state.selectedElement.endX = event.offsetX;
-          }
+          ResizeFunctions.topRight(this.state, event);
         } else if (this.state.selectionTransform.resize.grip === 'bottom-left') {
-          this.state.selectedElement.width = this.state.selectedElement.width + this.state.selectedElement.x - event.offsetX;
-          this.state.selectedElement.height = event.offsetY - this.state.selectedElement.y;
-          this.state.selectedElement.x = event.offsetX;
-          if (this.state.selectedElement instanceof Line) {
-            this.state.selectedElement.endY = event.offsetY;
-          }
-          this.state.selectedElement.x = event.offsetX;
+          ResizeFunctions.bottomLeft(this.state, event);
         } else if (this.state.selectionTransform.resize.grip === 'bottom-right') {
-          this.state.selectedElement.width = event.offsetX - this.state.selectedElement.x;
-          this.state.selectedElement.height = event.offsetY - this.state.selectedElement.y;
-          if (this.state.selectedElement instanceof Line) {
-            this.state.selectedElement.endX = event.offsetX;
-            this.state.selectedElement.endY = event.offsetY;
-          }
+          ResizeFunctions.bottomRight(this.state, event);
         } else if (this.state.selectionTransform.resize.grip === 'top') {
-          this.state.selectedElement.height = this.state.selectedElement.height + this.state.selectedElement.y - event.offsetY;
-          this.state.selectedElement.y = event.offsetY;
+          ResizeFunctions.top(this.state, event);
         } else if (this.state.selectionTransform.resize.grip === 'right') {
-          this.state.selectedElement.width = event.offsetX - this.state.selectedElement.x;
-          if (this.state.selectedElement instanceof Line) {
-            this.state.selectedElement.endX = event.offsetX;
-          }
+          ResizeFunctions.right(this.state, event);
         } else if (this.state.selectionTransform.resize.grip === 'bottom') {
-          this.state.selectedElement.height = event.offsetY - this.state.selectedElement.y;
-          if (this.state.selectedElement instanceof Line) {
-            this.state.selectedElement.endY = event.offsetY;
-          }
+          ResizeFunctions.bottom(this.state, event);
         } else if (this.state.selectionTransform.resize.grip === 'left') {
-          this.state.selectedElement.width = this.state.selectedElement.width + this.state.selectedElement.x - event.offsetX;
-          this.state.selectedElement.x = event.offsetX;
+          ResizeFunctions.left(this.state, event);
         }
 
         this.canvas.dispatchEvent((CanvasEvents.CanvasElementTransformed(this.state.selectedElement, {
