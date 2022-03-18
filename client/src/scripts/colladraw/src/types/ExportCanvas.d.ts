@@ -20,7 +20,16 @@ export interface ExportCanvasText {
     color: string;
 }
 
-export type ExportCanvasElement = ExportShape | ExportCanvasText;
+export interface ExportLine {
+   type: 'Line';
+   x: number;
+   y: number;
+   endX: number;
+   endY: number;
+   color: string;
+}
+
+export type ExportCanvasElement = ExportShape | ExportCanvasText | ExportLine;
 
 export interface ExportCanvas {
     timestamp: number;

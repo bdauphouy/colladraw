@@ -7,7 +7,7 @@ export default abstract class Shape extends CanvasElement {
   strokeWidth?: number;
 
   protected constructor(x: number, y: number, width: number, height: number) {
-    super(x, y);
+    super(x, y, width, height);
     this.width = width;
     this.height = height;
   }

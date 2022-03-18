@@ -13,7 +13,7 @@ export default class CanvasText extends CanvasElement {
     y: number,
     font: string,
   ) {
-    super(x, y);
+    super(x, y, 0, 0);
     this.text = text;
     this.font = font;
   }

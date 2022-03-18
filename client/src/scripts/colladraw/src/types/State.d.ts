@@ -2,6 +2,7 @@ import {CanvasElementType, ShapeType} from "../lib/enums/CanvasElementType";
 import Shape from "../lib/canvas_elements/Shape";
 import CanvasText from "../lib/canvas_elements/CanvasText";
 import CanvasElement from "../lib/canvas_elements/CanvasElement";
+import Line from "../lib/canvas_elements/Line";
 
 interface State {
   variables: {
@@ -15,6 +16,7 @@ interface State {
     color?: string;
     shapeType?: ShapeType;
     shape?: Shape;
+    line?: Line;
     strokeWidth?: number;
     startPoint?: Point;
     endPoint?: Point;

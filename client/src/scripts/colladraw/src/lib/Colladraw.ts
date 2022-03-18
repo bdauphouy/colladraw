@@ -12,6 +12,7 @@ import Polygon from "./canvas_elements/Polygon";
 import CanvasEvents from "./events/CanvasEvents";
 import CanvasElement from "./canvas_elements/CanvasElement";
 import CanvasText from "./canvas_elements/CanvasText";
+import Line from "./canvas_elements/Line";
 
 export default class Colladraw {
   canvas: HTMLCanvasElement;
@@ -54,7 +55,7 @@ export default class Colladraw {
   draw() {
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-    this.elements.concat(this.state.drawing ? this.state.drawing.shape : []).forEach(element => {
+    this.elements.concat(this.state.drawing && (this.state.drawing.shape || this.state.drawing.line) ? this.state.drawing.shape ?? this.state.drawing.line : []).forEach(element => {
       if (element instanceof Shape) {
         if (this.state.variables.fillColor) {
           element.fillColor = this.state.variables.fillColor;
@@ -95,7 +96,7 @@ export default class Colladraw {
       const x = event.clientX - this.canvas.offsetLeft;
       const y = event.clientY - this.canvas.offsetTop;
       // const toolType: CanvasElementType = CanvasElementType.TEXT;
-      const toolType: CanvasElementType = this.state.variables.toolType ?? CanvasElementType.RECTANGLE;
+      const toolType: CanvasElementType = this.state.variables.toolType ?? CanvasElementType.LINE;
 
       this.state = {
         ...this.state,
@@ -118,8 +119,6 @@ export default class Colladraw {
         } : false,
       }
 
-      // console.log(this.state)
-
       if (this.state.variables.toolType) {
         let element: CanvasElement;
 
@@ -133,6 +132,9 @@ export default class Colladraw {
           case CanvasElementType.TRIANGLE:
             element = new Triangle(x, y, 0, 0);
             break;
+          case CanvasElementType.LINE:
+            element = new Line(x, y, 0, 0);
+            break;
           case CanvasElementType.TEXT:
             element = new CanvasText('Hello world', x, y, this.state.variables.font ?? '12px Arial');
             element.y += parseInt((element as CanvasText).font.match(/\d+/)[0] ?? '20');
@@ -142,14 +144,19 @@ export default class Colladraw {
             break;
         }
 
-        if (element instanceof Shape) {
-          element.strokeColor = '#000';
+        if (element instanceof Shape || element instanceof Line) {
+          if (element instanceof Shape) {
+            element.strokeColor = '#000';
+          } else if (element instanceof Line) {
+            element.color = '#000';
+          }
 
           this.state = {
             ...this.state,
             drawing: {
               ...this.state.drawing,
-              shape: element,
+              shape: element instanceof Shape ? element : undefined,
+              line: element instanceof Line ? element : undefined,
             },
           };
         } else if (element instanceof CanvasText) {
@@ -232,6 +239,10 @@ export default class Colladraw {
           //     [this.state.drawing.startPoint.y, this.state.drawing.endPoint.y] = [this.state.drawing.endPoint.y, this.state.drawing.startPoint.y];
           //     this.state.drawing.shape.y = this.state.drawing.startPoint.y;
           //   }
+        } else if (this.state.drawing && this.state.drawing.line) {
+          this.state.drawing.line.endX = this.state.drawing.endPoint.x;
+          this.state.drawing.line.endY = this.state.drawing.endPoint.y;
+          this.canvas.dispatchEvent(CanvasEvents.CanvasElementMoved(this.state.drawing.line, event));
         }
       }
     } else if (this.state.selectionTransform) {
@@ -241,6 +252,12 @@ export default class Colladraw {
 
         this.state.selectedElement.x = event.offsetX - this.state.selectionTransform.translate.grip.x;
         this.state.selectedElement.y = event.offsetY - this.state.selectionTransform.translate.grip.y;
+
+        if (this.state.selectedElement instanceof Line) {
+          this.state.selectedElement.endX = this.state.selectedElement.endX + (this.state.selectedElement.x - oldX);
+          this.state.selectedElement.endY = this.state.selectedElement.endY + (this.state.selectedElement.y - oldY);
+        }
+
         this.canvas.dispatchEvent(CanvasEvents.CanvasElementMoved(this.state.selectedElement, event));
         this.canvas.dispatchEvent(CanvasEvents.CanvasElementTransformed(this.state.selectedElement, {
           type: 'translate',
@@ -264,20 +281,37 @@ export default class Colladraw {
           this.state.selectedElement.width = event.offsetX - this.state.selectedElement.x;
           this.state.selectedElement.height = this.state.selectedElement.height + this.state.selectedElement.y - event.offsetY;
           this.state.selectedElement.y = event.offsetY;
+          if (this.state.selectedElement instanceof Line) {
+            this.state.selectedElement.endX = event.offsetX;
+          }
         } else if (this.state.selectionTransform.resize.grip === 'bottom-left') {
           this.state.selectedElement.width = this.state.selectedElement.width + this.state.selectedElement.x - event.offsetX;
           this.state.selectedElement.height = event.offsetY - this.state.selectedElement.y;
           this.state.selectedElement.x = event.offsetX;
+          if (this.state.selectedElement instanceof Line) {
+            this.state.selectedElement.endY = event.offsetY;
+          }
+          this.state.selectedElement.x = event.offsetX;
         } else if (this.state.selectionTransform.resize.grip === 'bottom-right') {
           this.state.selectedElement.width = event.offsetX - this.state.selectedElement.x;
           this.state.selectedElement.height = event.offsetY - this.state.selectedElement.y;
+          if (this.state.selectedElement instanceof Line) {
+            this.state.selectedElement.endX = event.offsetX;
+            this.state.selectedElement.endY = event.offsetY;
+          }
         } else if (this.state.selectionTransform.resize.grip === 'top') {
           this.state.selectedElement.height = this.state.selectedElement.height + this.state.selectedElement.y - event.offsetY;
           this.state.selectedElement.y = event.offsetY;
         } else if (this.state.selectionTransform.resize.grip === 'right') {
           this.state.selectedElement.width = event.offsetX - this.state.selectedElement.x;
+          if (this.state.selectedElement instanceof Line) {
+            this.state.selectedElement.endX = event.offsetX;
+          }
         } else if (this.state.selectionTransform.resize.grip === 'bottom') {
           this.state.selectedElement.height = event.offsetY - this.state.selectedElement.y;
+          if (this.state.selectedElement instanceof Line) {
+            this.state.selectedElement.endY = event.offsetY;
+          }
         } else if (this.state.selectionTransform.resize.grip === 'left') {
           this.state.selectedElement.width = this.state.selectedElement.width + this.state.selectedElement.x - event.offsetX;
           this.state.selectedElement.x = event.offsetX;
@@ -304,8 +338,10 @@ export default class Colladraw {
   }
 
   onMouseUp(_event: MouseEvent) {
-    if (this.state.drawing && this.state.drawing.shape.width !== 0 && this.state.drawing.shape.height !== 0) {
+    if (this.state.drawing && this.state.drawing.shape && this.state.drawing.shape.width !== 0 && this.state.drawing.shape.height !== 0) {
       this.addElement(this.state.drawing.shape);
+    } else if (this.state.drawing && this.state.drawing.line) {
+      this.addElement(this.state.drawing.line);
     } else if (this.state.typing) {
       this.addElement(this.state.typing.textElement);
     } else if (this.state.selectionTransform) {
