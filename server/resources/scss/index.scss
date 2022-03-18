@@ -105,12 +105,12 @@ main {
     height: max(25vw, 250px);
     object-fit: contain;
 
-    @media screen and (orientation: portrait) {
+    @media screen and (orientation: portrait), (max-height: 800px) {
       display: none;
     }
   }
 
-  @media screen and (orientation: portrait) {
+  @media screen and (orientation: portrait), (max-height: 800px) {
     top: 50%;
     transform: translate(-50%, -50%);
   }

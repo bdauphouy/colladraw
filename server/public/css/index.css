@@ -100,12 +100,12 @@ main img {
   -o-object-fit: contain;
      object-fit: contain;
 }
-@media screen and (orientation: portrait) {
+@media screen and (orientation: portrait), (max-height: 800px) {
   main img {
     display: none;
   }
 }
-@media screen and (orientation: portrait) {
+@media screen and (orientation: portrait), (max-height: 800px) {
   main {
     top: 50%;
     transform: translate(-50%, -50%);

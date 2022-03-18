@@ -1,4 +1,3 @@
-const APP_URL = "https://colladraw.fun"
 const logoutButton = document.querySelector("#logout")
 const createSessionForm = document.querySelector("#create-session")
 const usernameField = document.querySelector("#username")
@@ -9,6 +8,11 @@ const csrfToken = document
 
 const logout = async (e) => {
   e.preventDefault()
+
+  if (location.protocol === "http:") {
+    location.pathname = "/"
+  }
+
   const res = await fetch("/logout", {
     method: "POST",
     headers: {
@@ -23,6 +27,7 @@ const logout = async (e) => {
 
 const createSession = async (e) => {
   e.preventDefault()
+
   const res = await fetch("/drawings", {
     method: "POST",
     body: JSON.stringify({
@@ -37,7 +42,12 @@ const createSession = async (e) => {
   if (res.ok) {
     const data = await res.json()
     const drawing = data.drawing
-    location.pathname = `/drawings/${drawing.uuid}`
+
+    if (usernameField) {
+      location = `/drawings/${drawing.uuid}?name=${usernameField.value}`
+    } else {
+      location = `/drawings/${drawing.uuid}`
+    }
   }
 }
 

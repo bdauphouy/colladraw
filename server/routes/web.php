@@ -24,7 +24,3 @@ Route::get('/profile', [UserController::class, 'search'])->middleware('auth');
 
 Route::post('/drawings', [DrawingController::class, 'create']);
 Route::get('/drawings/{id}', [DrawingController::class, 'search']);
-
-// Route::get('/drawings/{id}', [DrawingController::class, 'search']);
-// Route::get('/drawings', [DrawingController::class, 'user']);
-// Route::post('/drawings', [DrawingController::class, 'create']);

@@ -10,7 +10,7 @@
             <a href="/register" class="button">Register</a>
             <a href="/login" class="button fill">Log in</a>
         @else
-            <a id="logout" href="/logout" class="button">Log out</a>
+            <button id="logout" class="button">Log out</button>
             <a href="/profile" class="button fill">Profile</a>
         @endif
     </div>

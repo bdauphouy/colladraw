@@ -1,0 +1,162 @@
+header .thumbnail {
+  background-color: #f4f4f4;
+  background-size: cover;
+  width: 100%;
+  height: 230px;
+}
+header .profile {
+  display: flex;
+  padding: 0 90px;
+  align-items: center;
+  justify-content: space-between;
+}
+@media screen and (max-width: 1024px) {
+  header .profile {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+  header .profile .button {
+    align-self: flex-end;
+  }
+}
+@media screen and (max-width: 768px) {
+  header .profile {
+    padding: 0 24px;
+  }
+  header .profile .button {
+    align-self: center;
+  }
+}
+header .profile > div {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+}
+@media screen and (max-width: 768px) {
+  header .profile > div {
+    gap: 20px;
+    flex-direction: column;
+    width: 100%;
+  }
+}
+header .profile > div .picture {
+  background-color: #c1c1c1;
+  background-size: cover;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  margin-top: -60px;
+}
+@media screen and (max-width: 768px) {
+  header .profile > div .picture {
+    width: 120px;
+    height: 120px;
+  }
+}
+header .profile > div .info h2 {
+  font-size: 2.375rem;
+  line-height: 1.2em;
+  font-weight: 600;
+  color: #111111;
+}
+@media screen and (max-width: 768px) {
+  header .profile > div .info h2 {
+    font-size: 1.75rem;
+    line-height: 1.3em;
+    text-align: center;
+  }
+}
+header .profile > div .info p {
+  font-size: 1.125rem;
+  line-height: 1.5em;
+  color: #c1c1c1;
+  margin-top: 4px;
+}
+
+.drawings {
+  display: flex;
+  flex-direction: row-reverse;
+  flex-wrap: wrap-reverse;
+  padding: 0 90px;
+  gap: 20px;
+  margin: 60px 0;
+  cursor: pointer;
+}
+.drawings > p {
+  width: 100%;
+  text-align: center;
+  align-self: center;
+  color: #c1c1c1;
+}
+@media screen and (max-width: 768px) {
+  .drawings {
+    padding: 0 24px;
+  }
+}
+.drawings .drawing {
+  border-radius: 8px;
+  border: solid 1px #c1c1c1;
+  min-width: 400px;
+  flex: 1;
+}
+@media screen and (max-width: 768px) {
+  .drawings .drawing {
+    min-width: unset;
+    flex: auto;
+    width: 100%;
+  }
+}
+.drawings .drawing .thumbnail {
+  height: 300px;
+  background: #c1c1c1;
+}
+.drawings .drawing footer {
+  padding: 20px;
+}
+.drawings .drawing footer h2 {
+  font-size: 1.75rem;
+  font-weight: 500;
+  line-height: 1.2em;
+  color: #111111;
+}
+.drawings .drawing footer p {
+  font-size: 1.125rem;
+  line-height: 1.5em;
+  color: #c1c1c1;
+  margin-top: 4px;
+}
+
+.settings {
+  border: none;
+  background-color: #fff;
+  cursor: pointer;
+  height: 5px;
+  width: 30px;
+  position: relative;
+}
+.settings div {
+  position: absolute;
+  width: 5px;
+  height: 100%;
+  transform: translateX(-50%);
+  background-color: #aca0f8;
+  top: 0;
+  left: 50%;
+  border-radius: 50%;
+}
+.settings div:before, .settings div:after {
+  content: "";
+  position: absolute;
+  width: 5px;
+  height: 100%;
+  background-color: #aca0f8;
+  top: 0;
+  border-radius: 50%;
+}
+.settings div:before {
+  transform: translateX(-200%);
+}
+.settings div:after {
+  transform: translateX(200%);
+}
