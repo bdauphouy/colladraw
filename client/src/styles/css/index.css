@@ -127,14 +127,14 @@ main img {
   outline-style: solid;
 }
 .button.fill {
-  background: #bbb2f9;
+  background: #BBB2F9;
 }
 .button.fill:focus {
-  outline-color: #bbb2f9;
+  outline-color: #BBB2F9;
 }
 
 .field {
-  background: #f4f4f4;
+  background: #F4F4F4;
   padding: 8px 20px;
   font-size: 1.125rem;
   line-height: 1.5em;
@@ -145,10 +145,10 @@ main img {
   outline-style: solid;
 }
 .field:focus {
-  outline-color: #bbb2f9;
+  outline-color: #BBB2F9;
 }
 .field::placeholder {
-  color: #c1c1c1;
+  color: #C1C1C1;
 }
 
 /*# sourceMappingURL=index.css.map */

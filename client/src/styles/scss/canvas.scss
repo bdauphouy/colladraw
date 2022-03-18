@@ -2,6 +2,402 @@
 @import 'https://files.bdph.me/reset.css';
 @import '../../fonts/stylesheet.css';
 
-* {
-  color: red;
+
+body {
+  display:grid;
+  grid-template-rows: 10rem auto;
+
+  header {
+ 
+    height:10rem;
+    grid-row:1;
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+
+    .colladraw-logo {
+      width: 10em;
+      height:3em;
+
+      justify-self: center;
+      align-self: center; 
+      grid-column:2;
+      grid-row: 1;
+    }
+
+    .cta-icons {
+      width: 10em;
+      height:2em;
+
+      align-self:center;
+      justify-self: end;
+      margin-right:5em;
+
+      grid-column:3;
+      grid-row: 1;
+
+      display:flex;
+      justify-content: space-around;
+    }
+  }
+
+
+.profile-panel {
+  position: absolute;
+  z-index:99;
+  right: 4em;
+  top: 7rem;
+  background-color: $light-grey-color;
+  opacity: 0.8;
+  border-radius: 8px;
+  box-shadow: 0 5px 3px -3px black;
+  margin: 0 auto;
+  display: none;
+  flex-direction:column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 10em;
+  height: 5em;
+
+  li {
+    font-family: "Hellix ExtraBold", sans-serif;
+  }
+
 }
+
+main {
+    
+    grid-row:2;
+  
+section {
+  
+  grid-row: 2;
+  grid-column: 1 / span 2;
+  width: 100%;
+  margin: 0 auto;
+
+    #canvas {
+      border:3px solid;
+      border-color: $light-grey-color;
+      border-radius: 8px;
+      width:100%;
+      height:100%;
+    }
+
+}
+
+// Panneau des outils à droite
+
+.tools-right-panel { 
+  
+  position: absolute;
+  top: 50%;
+  right:0;
+  transform: translateY(-50%);
+
+  background-color: $light-grey-color;
+  border-radius: 8px 0 0 8px;
+  box-shadow: 0 5px 3px -3px black;
+
+  display:grid;
+  grid-template-rows: 60px auto;
+  grid-template-columns: 1fr 1fr;
+  
+  padding-bottom: 3rem;
+
+.arrow-right-panel {
+  grid-row: 1;
+  grid-column: 1;
+  justify-self: center;
+  align-self: center;
+  display:block;
+}
+
+.arrow-show-tools {
+  display:none;
+  padding:0.8em;
+}
+
+.tools-icons {
+  
+  grid-row:2;
+  grid-column: 1 / span 2;
+
+  width:auto;
+  height:auto;
+  padding:1rem;
+
+  display:grid;  
+  gap:24px 24px;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(5, 60px);
+
+    li {
+      width:60px;
+      height:60px;
+      border: 1px solid $white-color;
+      box-shadow: 0 2px 3px -3px black;
+      border-radius: 8px;
+      background-color: $white-color;
+      display:flex;
+      padding: 0.5em;
+    }
+
+    
+
+  } 
+}
+
+.to-right-arrow {
+  padding: 10px;
+  border-radius: 8px;
+  background-color: $purple-color !important;
+  
+}  
+
+.to-left-arrow {
+  padding:10px;
+  border-radius: 8px;
+  background-color: $purple-color !important;
+
+}
+
+// Panneau des couleurs à gauche
+
+
+
+.color-left-panel {
+
+  position: absolute;
+  top: 50%;
+  left:0;
+  transform: translateY(-50%);
+
+  background-color: $light-grey-color;
+  border-radius: 0 8px 8px 0;
+  box-shadow: 0 5px 3px -3px black;
+
+  display:grid;
+  grid-template-rows: 60px auto;
+  grid-template-columns: 1fr 1fr;
+  
+  
+
+  .arrow-left-panel {
+    display:block;
+    grid-column:2;
+    align-self: center;
+    justify-self: center;
+  }
+
+  .arrow-show-colors {
+    display:none;
+    grid-column:2;
+    padding:0.8em;
+  }
+
+  .color-palette { 
+    
+    grid-row:2;
+    grid-column: 1 / span 2;
+
+    width:auto;
+    height:auto;
+    padding:1rem;
+
+    display:grid; 
+    
+    gap: 24px;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(5, 55px) auto;
+    justify-content: center;
+    
+    li {
+    width:55px;
+    height:55px;
+    border: 1px solid $white-color;
+    border-radius: 8px; 
+    box-shadow: 0 2px 3px -3px black;
+    }
+
+
+  }
+
+  .color-piker-covering {
+    width:120px;
+    height:60px;
+    margin: 0 auto;
+
+    border: 2px solid $white-color;
+    background-color:$white-color;
+    border-radius: 8px;
+
+    grid-row:6;
+    grid-column: 1 / span 2;
+    align-self: center;
+    justify-self: center;
+
+    .color-piker {
+      opacity:0;
+      width:100%;
+      height:100%;
+      
+    }
+}
+}
+
+}
+
+// div qui sera cachée tant que l'on ne clique pas dessus
+
+.typo-choices {
+    
+    display:none;
+    position:absolute;
+    right:0;
+    bottom: 15rem;
+    width: 20em;
+    border-radius: 8px;
+    box-shadow: 0 2px 3px -3px black;
+    
+    summary {
+      // pointer-events: none;
+      display:flex;
+      justify-content: space-around;
+      align-items: flex-end;
+      background: $purple-color;
+      color: $black-color;
+      padding: 5px 15px;
+      cursor: pointer;
+      border-radius: 8px 0 0 8px;
+
+      h1 {
+        
+        font-size: 30px;
+        font-family: "Hellix ExtraBold", sans-serif;
+      }
+
+      .icon-open {
+         cursor: pointer;
+         display:block;
+         width: 10%;
+         height: 10%;
+         position: relative;
+         left: 0.2em;
+         bottom: -0.1em;
+         text-align: center;
+         padding: 0.1em;
+         
+      }
+
+    }
+// 2573 la croix
+ 
+  .select-fonts {
+    appearance: none;
+    background: $purple-color;
+    border-radius: 8px;
+
+    color: $black-color;
+    width: 100%;
+    padding: 10px 20px;
+    font-size: 22px;
+    font-weight: 700;
+
+      li {
+        color: black;
+      }
+  }
+
+  #first-font {
+    font-family: Helvetica, sans-serif;
+  }
+
+  #second-font{
+    font-family: 'Courier New', sans-serif;
+  }
+
+  #third-font {
+    font-family: 'Times New Roman', sans-serif;
+  }
+
+}
+
+.sentence-mobile {
+  display:none;
+}
+
+@media screen and (max-width: 425px) {
+    .color-left-panel {
+      display: none !important;
+    }
+
+    .tools-right-panel {
+      display: none !important;
+    }
+
+    .cta-icons {
+      display:none !important;
+    }
+
+    .message-mobile {
+        background-color: $light-grey-color;
+        border-radius: 8px;
+        grid-column: 2;
+        grid-row: 2;
+        text-align: center;
+        
+      .sentence-mobile {
+        display:block !important;
+        font-family: "Hellix ExtraBold", sans-serif;
+        padding:5px;
+      }
+    }
+
+
+}
+
+// Pourra se faire via une boucle @each (modifications ultérieures)
+
+.color-1 {
+  background-color: $palette-red;
+}
+
+.color-2 {
+  background-color: $palette-orange;
+}
+
+.color-3 {
+  background-color: $palette-yellow;
+}
+
+.color-4 {
+  background-color: $palette-green;
+}
+
+.color-5 {
+  background-color: $palette-cyan;
+}
+
+.color-6 {
+  background-color: $palette-blue;
+}
+
+.color-7 {
+  background-color: $palette-purple;
+}
+
+.color-8 {
+  background-color: $palette-pink;
+}
+
+.color-9 {
+  background-color: $palette-grey;
+}
+
+.color-10 {
+  background-color: $palette-black;
+}
+
+}
+
