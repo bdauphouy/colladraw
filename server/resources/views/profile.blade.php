@@ -1,4 +1,8 @@
 @extends('layouts.app')
+<head>
+    <link rel="stylesheet" href="{{ asset("/css/profile.css") }}">
+    <title>Colladraw - Profile</title>
+</head>
 
 @section('content')
 <header>

@@ -6,8 +6,6 @@
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="/css/global.css">
-    <link rel="stylesheet" href="/css/{{ $css }}.css">
-    <title>Colladraw - {{ $title }}</title>
 </head>
 <body>
 @yield('content')   

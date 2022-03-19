@@ -1,0 +1,33 @@
+@import 'variables';
+
+header {
+  height: 120px;
+  padding: 0 90px;
+  display: flex;
+  align-items: center;
+
+  a {
+    img {
+      width: 200px;
+    }
+  }
+}
+
+main {
+  padding: 0 90px;
+  height: calc(100vh - 120px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  h1 {
+    font-size: $h1;
+    line-height: 1.2em;
+    font-weight: 700;
+  }
+
+  .button {
+    margin-top: 60px;
+  }
+}

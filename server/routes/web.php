@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DrawingController;
+use App\Http\Controllers\NotFoundController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,11 +17,18 @@ use App\Http\Controllers\DrawingController;
 |
 */
 
+// Auth router
 Auth::routes();
 
+// Home page
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
+// Profile page
 Route::get('/profile', [UserController::class, 'search'])->middleware('auth');
 
+// Drawing pages
 Route::post('/drawings', [DrawingController::class, 'create']);
 Route::get('/drawings/{id}', [DrawingController::class, 'search']);
+
+// 404 page
+Route::get('/{path}', [NotFoundController::class, 'index']);

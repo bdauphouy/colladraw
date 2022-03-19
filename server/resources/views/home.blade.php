@@ -1,5 +1,10 @@
 @extends('layouts.app')
 
+<head>
+    <link rel="stylesheet" href="{{ asset("/css/index.css") }}">
+    <title>Colladraw - The collaborative online whiteboard.</title>
+</head>
+
 @section('content')
 <header>
     <a href="/">

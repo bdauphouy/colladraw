@@ -182,6 +182,19 @@ new HandleHome();
 
 /***/ }),
 
+/***/ "./resources/scss/not-found.scss":
+/*!***************************************!*\
+  !*** ./resources/scss/not-found.scss ***!
+  \***************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
 /***/ "./resources/scss/index.scss":
 /*!***********************************!*\
   !*** ./resources/scss/index.scss ***!
@@ -1126,7 +1139,8 @@ try {
 /******/ 			"css/profile": 0,
 /******/ 			"css/drawing": 0,
 /******/ 			"css/login": 0,
-/******/ 			"css/index": 0
+/******/ 			"css/index": 0,
+/******/ 			"css/not-found": 0
 /******/ 		};
 /******/ 		
 /******/ 		// no chunk on demand loading
@@ -1176,12 +1190,13 @@ try {
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	__webpack_require__.O(undefined, ["css/global","css/profile","css/drawing","css/login","css/index"], () => (__webpack_require__("./resources/js/home.js")))
-/******/ 	__webpack_require__.O(undefined, ["css/global","css/profile","css/drawing","css/login","css/index"], () => (__webpack_require__("./resources/scss/index.scss")))
-/******/ 	__webpack_require__.O(undefined, ["css/global","css/profile","css/drawing","css/login","css/index"], () => (__webpack_require__("./resources/scss/global.scss")))
-/******/ 	__webpack_require__.O(undefined, ["css/global","css/profile","css/drawing","css/login","css/index"], () => (__webpack_require__("./resources/scss/login.scss")))
-/******/ 	__webpack_require__.O(undefined, ["css/global","css/profile","css/drawing","css/login","css/index"], () => (__webpack_require__("./resources/scss/drawing.scss")))
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/global","css/profile","css/drawing","css/login","css/index"], () => (__webpack_require__("./resources/scss/profile.scss")))
+/******/ 	__webpack_require__.O(undefined, ["css/global","css/profile","css/drawing","css/login","css/index","css/not-found"], () => (__webpack_require__("./resources/js/home.js")))
+/******/ 	__webpack_require__.O(undefined, ["css/global","css/profile","css/drawing","css/login","css/index","css/not-found"], () => (__webpack_require__("./resources/scss/index.scss")))
+/******/ 	__webpack_require__.O(undefined, ["css/global","css/profile","css/drawing","css/login","css/index","css/not-found"], () => (__webpack_require__("./resources/scss/global.scss")))
+/******/ 	__webpack_require__.O(undefined, ["css/global","css/profile","css/drawing","css/login","css/index","css/not-found"], () => (__webpack_require__("./resources/scss/login.scss")))
+/******/ 	__webpack_require__.O(undefined, ["css/global","css/profile","css/drawing","css/login","css/index","css/not-found"], () => (__webpack_require__("./resources/scss/drawing.scss")))
+/******/ 	__webpack_require__.O(undefined, ["css/global","css/profile","css/drawing","css/login","css/index","css/not-found"], () => (__webpack_require__("./resources/scss/profile.scss")))
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/global","css/profile","css/drawing","css/login","css/index","css/not-found"], () => (__webpack_require__("./resources/scss/not-found.scss")))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()

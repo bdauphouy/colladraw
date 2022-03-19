@@ -211,12 +211,22 @@ body {
   outline-style: solid;
   display: flex;
   gap: 12px;
+  transition-property: filter, gap, color;
+  transition-duration: 200ms;
+  filter: brightness(1);
 }
 .button img {
   width: 20px;
 }
+.button:hover:not(.fill) {
+  color: #bbb2f9;
+}
 .button.fill {
   background: #bbb2f9;
+}
+.button.fill:hover {
+  filter: brightness(1.1);
+  gap: 20px;
 }
 .button:focus {
   outline-color: #bbb2f9;

@@ -1,5 +1,10 @@
 @extends('layouts.login')
 
+<head>
+    <link rel="stylesheet" href="{{ asset("/css/login.css") }}">
+    <title>Colladraw - Login</title>
+</head>
+
 @section('form')
 <form action="/login" method="POST">
   @csrf

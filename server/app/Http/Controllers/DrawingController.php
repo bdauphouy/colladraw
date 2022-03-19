@@ -20,9 +20,12 @@ class DrawingController extends Controller
     {
         $drawing = Drawing::where('uuid', '=', $id)->first();
 
+        if (!$drawing) {
+            return view('404', ['type' => 'drawing']);
+        }
+
         $drawing_members_array = json_decode($drawing->members);
         
-
         if (Auth::user()) {
             $user = User::where('id', '=', Auth::user()->id)->first();
 
@@ -53,8 +56,6 @@ class DrawingController extends Controller
         $drawing->save();
 
         return view('drawing', [
-            'title' => 'Drawing',
-            'css' => 'drawing',
             'drawing' => $drawing,
         ]);
 

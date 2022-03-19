@@ -1,4 +1,4 @@
-@import "variables";
+@import 'variables';
 
 header {
   .thumbnail {
@@ -61,7 +61,7 @@ header {
 
       .info {
         h2 {
-          font-size: 2.375rem;
+          font-size: $h2;
           line-height: 1.2em;
           font-weight: 600;
           color: $black;
@@ -74,7 +74,7 @@ header {
         }
 
         p {
-          font-size: 1.125rem;
+          font-size: $p;
           line-height: 1.5em;
           color: $gray;
           margin-top: 4px;
@@ -131,7 +131,7 @@ header {
       }
 
       p {
-        font-size: 1.125rem;
+        font-size: $p;
         line-height: 1.5em;
         color: $gray;
         margin-top: 4px;
@@ -160,7 +160,7 @@ header {
 
     &:before,
     &:after {
-      content: "";
+      content: '';
       position: absolute;
       width: 5px;
       height: 100%;

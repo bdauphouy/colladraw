@@ -6,9 +6,7 @@ $black: #111111;
 $red: #f3b1af;
 $white: #fafafa;
 
-$dark-purple: #6b036b;
-
-// 10 colors for the color palette, from top to bottom :
+// Palette
 $palette-1: #f3b1af;
 $palette-2: #f6d09a;
 $palette-3: #fafd90;
@@ -19,6 +17,10 @@ $palette-7: #e4acec;
 $palette-8: #bbb2f9;
 $palette-9: #c1c1c1;
 $palette-10: #111111;
-
 $palette: $palette-1 $palette-2 $palette-3 $palette-4 $palette-5 $palette-6
   $palette-7 $palette-8 $palette-9 $palette-10;
+
+// Font sizes
+$h1: 3rem;
+$h2: 2.375rem;
+$p: 1.125rem;

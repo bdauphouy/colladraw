@@ -63,7 +63,7 @@ main {
 
     h1 {
       font-weight: 700;
-      font-size: 3rem;
+      font-size: $h1;
       line-height: 1.2em;
       text-align: center;
 
@@ -74,7 +74,7 @@ main {
 
     h2 {
       font-weight: 600;
-      font-size: 2.375rem;
+      font-size: $h2;
       line-height: 1.2em;
       margin-top: 12px;
       text-align: center;
