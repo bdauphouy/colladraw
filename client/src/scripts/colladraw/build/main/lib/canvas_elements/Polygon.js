@@ -17,16 +17,24 @@ class Polygon extends Shape_1.default {
         }
         return coordinates;
     }
-    generateGrid(canvasGrid) {
-        for (let i = Math.min(...this.coordinates.map(coordinate => coordinate[1])); i <= Math.max(...this.coordinates.map(coordinate => coordinate[1])); i++) {
-            for (let j = Math.min(...this.coordinates.map(coordinate => coordinate[0])); j <= Math.max(...this.coordinates.map(coordinate => coordinate[0])); j++) {
+    generateGrid(canvasGrid, gridPixelMerge) {
+        let minI = Math.min(...this.coordinates.map(coordinate => coordinate[1]));
+        minI -= (minI % gridPixelMerge);
+        let minJ = Math.min(...this.coordinates.map(coordinate => coordinate[0]));
+        minJ -= (minJ % gridPixelMerge);
+        let maxI = Math.max(...this.coordinates.map(coordinate => coordinate[1]));
+        maxI += (gridPixelMerge - (maxI % gridPixelMerge));
+        let maxJ = Math.max(...this.coordinates.map(coordinate => coordinate[0]));
+        maxJ += (gridPixelMerge - (maxJ % gridPixelMerge));
+        for (let i = minI; i <= maxI; i += gridPixelMerge) {
+            for (let j = minJ; j <= maxJ; j += gridPixelMerge) {
                 canvasGrid[i][j] = this;
             }
         }
     }
-    draw(context, canvasGrid) {
+    draw(context) {
         this.coordinates = this.getCoordinates();
-        super.draw(context, canvasGrid, () => {
+        super.draw(context, () => {
             context.moveTo(this.coordinates[0][0], this.coordinates[0][1]);
             [...this.coordinates.slice(1, this.coordinates.length), this.coordinates[0]].forEach(([x, y]) => {
                 context.lineTo(x, y);
@@ -49,7 +57,7 @@ class Polygon extends Shape_1.default {
         };
     }
     static fromJSON(json) {
-        if (json.type === 'Ellipse' || json.type === 'Pencil') {
+        if (json.type === 'Ellipse' || json.type === 'Pencil' || json.type === 'Eraser') {
             throw new Error('Cannot convert ellipse to polygon');
         }
         const polygon = new Polygon(json.x, json.y, json.width, json.height, parseInt(json.type.match(/\d+/)[0]), json.type);

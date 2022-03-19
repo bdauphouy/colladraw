@@ -12,6 +12,8 @@ export default class Colladraw {
     grid: CanvasGrid;
     gridPixelMerge: number;
     optimized: boolean;
+    background: HTMLCanvasElement;
+    backgroundColor: string;
     private state;
     private selectionLastActiveCanvasIndex?;
     private onClickLocker;
@@ -26,7 +28,7 @@ export default class Colladraw {
     private initGrid;
     generateGrid(): void;
     private updateActiveCanvas;
-    draw(): void;
+    draw(clear?: boolean): void;
     addElement(element: CanvasElement, toAddToHistory?: boolean): void;
     removeElement(elementToDelete: CanvasElement): void;
     get elements(): CanvasElement[];

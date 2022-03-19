@@ -19,6 +19,7 @@ interface State {
     shape?: Shape;
     line?: Line;
     pencil?: boolean;
+    eraser?: boolean;
     strokeWidth?: number;
     startPoint?: Point;
     endPoint?: Point;

@@ -25,6 +25,8 @@ export default class Colladraw {
   grid: CanvasGrid;
   gridPixelMerge: number = 5;
   optimized: boolean;
+  background: HTMLCanvasElement;
+  backgroundColor: string = '#fafafa';
   private state: State = {
     variables: {},
     history: {
@@ -53,6 +55,10 @@ export default class Colladraw {
       const canvasParent = canvas.parentElement;
       this.canvasContainer.appendChild(canvas);
       canvasParent.appendChild(this.canvasContainer);
+      const context = canvas.getContext("2d");
+      context.fillStyle = this.backgroundColor;
+      context.fillRect(0, 0, canvas.width, canvas.height);
+      this.background = canvas;
     }
 
     this.addToHistory();
@@ -134,8 +140,10 @@ export default class Colladraw {
     this.activeCanvas.canvas.addEventListener('click', this.onClick.bind(this));
   }
 
-  draw() {
-    this.context.clearRect(0, 0, this.activeCanvas.canvas.width, this.activeCanvas.canvas.height);
+  draw(clear: boolean = true) {
+    if (clear) {
+      this.context.clearRect(0, 0, this.activeCanvas.canvas.width, this.activeCanvas.canvas.height);
+    }
 
     const elementsToDraw = this.activeCanvas.elements.concat(this.state.drawing && (this.state.drawing.shape || this.state.drawing.line) ? this.state.drawing.shape ?? this.state.drawing.line : []);
 
@@ -232,8 +240,8 @@ export default class Colladraw {
     if (!clickedShape && !this.state.selectedElement) {
       this.onClickLocker = true;
 
-      const x = event.clientX - this.activeCanvas.canvas.offsetLeft;
-      const y = event.clientY - this.activeCanvas.canvas.offsetTop;
+      const x = event.offsetX;
+      const y = event.offsetY;
       // const toolType: CanvasElementType = CanvasElementType.TEXT;
       const toolType: CanvasElementType = this.state.variables.toolType ?? CanvasElementType.RECTANGLE;
 
@@ -356,8 +364,8 @@ export default class Colladraw {
 
   onMouseMove(event: MouseEvent) {
     if (!this.state.selectedElement) {
-      const x = event.clientX - this.activeCanvas.canvas.offsetLeft;
-      const y = event.clientY - this.activeCanvas.canvas.offsetTop;
+      const x = event.offsetX;
+      const y = event.offsetY;
 
       if (this.state.drawing && this.state.drawing.pencil) {
         const point = new Rectangle(x, y, 5, 5);
@@ -366,6 +374,8 @@ export default class Colladraw {
       } else if (this.state.drawing && this.state.drawing.eraser) {
         this.context.globalCompositeOperation = "destination-out";
         const point = new Rectangle(x, y, 5, 5);
+        point.fillColor = this.backgroundColor;
+        point.strokeColor = this.backgroundColor;
         point.selectable = false;
         this.addElement(point, false);
         this.context.globalCompositeOperation = "source-over";
@@ -611,11 +621,18 @@ export default class Colladraw {
     this.activeCanvasIndex = this.canvas.length - 1;
     this.updateActiveCanvas();
 
+    this.context.fillStyle = this.backgroundColor;
+    this.context.fillRect(0, 0, 999999, 999999);
+    this.draw(false);
+
     this.elements.forEach((element) => {
       element.deselect();
+      this.changeFillColor(element instanceof Shape ? element.fillColor : element instanceof CanvasText || element instanceof Line ? element.color : undefined);
+      this.changeStrokeColor(element instanceof Shape ? element.strokeColor : undefined);
+      this.changeStrokeWidth(element instanceof Shape ? element.strokeWidth : undefined);
       this.addElement(element, false);
+      this.draw(false);
     });
-    this.draw();
 
     const image = this.activeCanvas.canvas.toDataURL();
 
