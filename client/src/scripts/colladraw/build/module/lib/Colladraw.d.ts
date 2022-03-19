@@ -28,4 +28,5 @@ export default class Colladraw {
     toJSON(): ExportCanvas;
     load(json: ExportCanvas): void;
     savePNG(name?: string): void;
+    savePDF(name?: string): void;
 }

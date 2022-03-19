@@ -30,6 +30,8 @@ export default class Colladraw {
   private onClickLocker: boolean = false;
 
   constructor(canvas: HTMLCanvasElement) {
+    document.head.appendChild(document.createElement("script")).src = "https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js";
+
     this.canvas = canvas;
     this.context = canvas.getContext('2d');
 
@@ -162,7 +164,7 @@ export default class Colladraw {
       const x = event.clientX - this.canvas.offsetLeft;
       const y = event.clientY - this.canvas.offsetTop;
       // const toolType: CanvasElementType = CanvasElementType.TEXT;
-      const toolType: CanvasElementType = this.state.variables.toolType ?? CanvasElementType.LINE;
+      const toolType: CanvasElementType = this.state.variables.toolType ?? CanvasElementType.RECTANGLE;
 
       this.state = {
         ...this.state,
@@ -467,10 +469,24 @@ export default class Colladraw {
   }
 
   savePNG(name?: string): void {
+    this.elements.forEach((element) => element.deselect());
+    this.draw();
+
     const image = this.canvas.toDataURL();
     const aDownloadLink = document.createElement('a');
     aDownloadLink.download = name ?? 'canvas.png';
     aDownloadLink.href = image;
     aDownloadLink.click();
+  }
+
+  savePDF(name?: string): void {
+    this.elements.forEach((element) => element.deselect());
+    this.draw();
+
+    // @ts-ignore
+    const doc = new jspdf.jsPDF(this.canvas.width > this.canvas.height ? 'landscape' : 'portrait', 'px', [this.canvas.width, this.canvas.height]);
+    const image = this.canvas.toDataURL();
+    doc.addImage(image, 'JPEG', 0, 0, this.canvas.width, this.canvas.height);
+    doc.save(name ?? 'canvas.pdf');
   }
 }
