@@ -84,8 +84,13 @@ main .content form {
   display: flex;
   gap: 1rem;
   margin-top: 48px;
+  align-items: flex-start;
 }
-main .content form .field {
+main .content form div {
+  display: flex;
+  flex-direction: column;
+}
+main .content form div .field {
   min-width: 300px;
 }
 @media screen and (max-width: 768px) {

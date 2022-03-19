@@ -15,7 +15,7 @@
         <li><img src="{{ asset("/images/icons/icon-trash.svg") }}" alt="trash"></li>
         <li><img src="{{ asset("/images/icons/icon-download.svg") }}" alt="download"></li>
         <li><img src="{{ asset("/images/icons/icon-upload.svg") }}" alt="upload"></li>
-        @if (Auth::user())
+        @if (!Auth::user())
         <li id="profile">
           <img src="{{ asset("/images/icons/user-icon.svg") }}" alt="profile">
           <ul>
@@ -43,9 +43,9 @@
 </header>
 
 <main>
-    <aside class="panel left-panel">
+    <aside class="panel left-panel show">
         <header>
-          <img src="{{ asset("/images/icons/icon-tools-chevron.svg") }}" alt="toggle colors"> 
+          <img class="toggle-icon" src="{{ asset("/images/icons/icon-tools-chevron.svg") }}" alt="toggle colors"> 
         </header>
 
         <ul class="colors">
@@ -60,20 +60,20 @@
 
     <canvas id="canvas"></canvas>
 
-    <aside class="panel right-panel">
+    <aside class="panel right-panel show">
         <header>
-          <img src="{{ asset("/images/icons/icon-colors-chevron.svg") }}" alt="toggle tools">
+          <img class="toggle-icon" src="{{ asset("/images/icons/icon-colors-chevron.svg") }}" alt="toggle tools">
         </header>
 
         <ul class="tools">
-            <li><img src="{{ asset("/images/icons/icon-pen.svg") }}" alt="pen"></li>
-            <li><img src="{{ asset("/images/icons/icon-rubber.svg") }}" alt="rubber"></li>
-            <li><img src="{{ asset("/images/icons/icon-rectangle.svg") }}" alt="rectangle"></li>
-            <li><img src="{{ asset("/images/icons/icon-ellipse.svg") }}" alt="ellipse"></li>
-            <li><img src="{{ asset("/images/icons/icone_triangle.svg") }}" alt="triangle"></li>
-            <li><img src="{{ asset("/images/icons/icon-line.svg") }}" alt="line tool"></li>
-            <li><img src="{{ asset("/images/icons/icon-text.svg") }}" alt="text tool"></li>
-            <li><img class="change-icon" src="{{ asset("/images/icons/background.svg") }}" alt="stroke fill rectangles"></li>
+            <li id="pen"><img src="{{ asset("/images/icons/icon-pen.svg") }}" alt="pen"></li>
+            <li id="rubber"><img src="{{ asset("/images/icons/icon-rubber.svg") }}" alt="rubber"></li>
+            <li id="rectangle"><img src="{{ asset("/images/icons/icon-rectangle.svg") }}" alt="rectangle"></li>
+            <li id="ellipse"><img src="{{ asset("/images/icons/icon-ellipse.svg") }}" alt="ellipse"></li>
+            <li id="triangle"><img src="{{ asset("/images/icons/icone_triangle.svg") }}" alt="triangle"></li>
+            <li id="line"><img src="{{ asset("/images/icons/icon-line.svg") }}" alt="line tool"></li>
+            <li id="text"><img src="{{ asset("/images/icons/icon-text.svg") }}" alt="text tool"></li>
+            <li id="background"><img class="change-icon" src="{{ asset("/images/icons/background.svg") }}" alt="stroke fill rectangles"></li>
             <li><img src="{{ asset("/images/icons/arrow-left.svg") }}" alt="undo"></li>
             <li><img src="{{ asset("/images/icons/arrow-right.svg") }}" alt="redo"></li>
         </ul>

@@ -1,4 +1,4 @@
-@import "variables";
+@import 'variables';
 
 body {
   height: 100vh;
@@ -88,9 +88,15 @@ main {
       display: flex;
       gap: 1rem;
       margin-top: 48px;
+      align-items: flex-start;
 
-      .field {
-        min-width: 300px;
+      div {
+        display: flex;
+        flex-direction: column;
+
+        .field {
+          min-width: 300px;
+        }
       }
 
       @media screen and (max-width: 768px) {

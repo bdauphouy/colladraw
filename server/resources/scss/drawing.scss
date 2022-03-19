@@ -1,4 +1,4 @@
-@import "variables";
+@import 'variables';
 
 body {
   > header {
@@ -16,13 +16,25 @@ body {
 
     .header-icons {
       display: flex;
-      gap: 20px;
+      gap: 4px;
 
-      li {
+      > li {
         cursor: pointer;
+        width: 50px;
+        height: 50px;
+        display: grid;
+        place-items: center;
+        border-radius: 50%;
+        padding: 0.7rem;
+        position: relative;
+
+        &:hover {
+          background-color: $light-gray;
+        }
 
         &:last-child {
           position: relative;
+
           ul {
             display: flex;
             flex-direction: column;
@@ -31,8 +43,14 @@ body {
             border-radius: 8px;
             position: absolute;
             right: 0;
+            top: 60px;
+            max-height: 0;
             overflow: clip;
-            margin-top: 20px;
+            transition: max-height 200ms;
+
+            &.show {
+              max-height: 120px;
+            }
 
             a {
               font-size: 1.125rem;
@@ -40,6 +58,8 @@ body {
               display: inline-block;
               width: 100%;
               transition: background-color 200ms;
+              color: $black;
+              font-weight: 500;
 
               &:hover {
                 background: $purple;
@@ -55,12 +75,21 @@ body {
     .left-panel {
       align-items: flex-end;
       left: 0;
+      transform: translate(-60%, -50%);
+
+      &.show {
+        .colors {
+          filter: blur(0);
+        }
+      }
 
       .colors {
         display: grid;
         grid-template-columns: repeat(2, 60px);
         gap: 20px;
         margin-top: 1.5rem;
+        filter: blur(20px);
+        transition: filter 200ms;
 
         li {
           filter: brightness(1);
@@ -118,12 +147,21 @@ body {
     .right-panel {
       align-items: flex-start;
       right: 0;
+      transform: translate(60%, -50%);
+
+      &.show {
+        .tools {
+          filter: blur(0);
+        }
+      }
 
       .tools {
         display: grid;
         grid-template-columns: repeat(2, 60px);
         gap: 20px;
         margin-top: 1.5rem;
+        filter: blur(20px);
+        transition: filter 200ms;
 
         li {
           height: 60px;
@@ -141,7 +179,8 @@ body {
             border-color: transparent;
           }
 
-          &:hover {
+          &:hover,
+          &.active {
             border-color: $black;
           }
         }
@@ -156,17 +195,38 @@ body {
   flex-direction: column;
   position: absolute;
   top: 50%;
-  transform: translateY(-50%);
   background: $light-gray;
   padding: 1.5rem;
+  transition: transform 200ms;
+
+  li {
+    pointer-events: none;
+  }
+
+  &.show {
+    transform: translate(0, -50%);
+
+    header {
+      img {
+        transform: rotate(180deg);
+      }
+    }
+
+    li {
+      pointer-events: all;
+      cursor: pointer;
+
+      img {
+        pointer-events: none;
+      }
+    }
+  }
 
   header {
     img {
       cursor: pointer;
+      transform: rotate(0);
+      transition: transform 200ms;
     }
-  }
-
-  li {
-    cursor: pointer;
   }
 }

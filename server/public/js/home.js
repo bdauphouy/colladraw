@@ -28,111 +28,157 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-var logoutButton = document.querySelector("#logout");
-var createSessionForm = document.querySelector("#create-session");
-var usernameField = document.querySelector("#username");
-var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var logout = /*#__PURE__*/function () {
-  var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(e) {
-    var res;
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            e.preventDefault();
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
-            if (location.protocol === "http:") {
-              location.pathname = "/";
-            }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
 
-            _context.next = 4;
-            return fetch("/logout", {
-              method: "POST",
-              headers: {
-                "X-CSRF-TOKEN": csrfToken
-              }
-            });
+var HandleHome = /*#__PURE__*/function () {
+  function HandleHome() {
+    _classCallCheck(this, HandleHome);
 
-          case 4:
-            res = _context.sent;
+    this.listen();
+  }
 
-            if (res.ok) {
-              location.pathname = "/";
-            }
+  _createClass(HandleHome, [{
+    key: "listen",
+    value: function listen() {
+      var logoutButton = document.querySelector('#logout');
 
-          case 6:
-          case "end":
-            return _context.stop();
-        }
+      if (logoutButton) {
+        logoutButton.addEventListener('click', this.logout);
       }
-    }, _callee);
-  }));
 
-  return function logout(_x) {
-    return _ref.apply(this, arguments);
-  };
+      var createSessionForm = document.querySelector('#create-session');
+      createSessionForm.addEventListener('submit', this.createSession);
+    }
+  }, {
+    key: "logout",
+    value: function () {
+      var _logout = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(e) {
+        var csrfToken, res;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                e.preventDefault();
+
+                if (location.protocol === 'http:') {
+                  location.pathname = '/';
+                }
+
+                _context.next = 5;
+                return fetch('/logout', {
+                  method: 'POST',
+                  headers: {
+                    'X-CSRF-TOKEN': csrfToken
+                  }
+                });
+
+              case 5:
+                res = _context.sent;
+
+                if (res.ok) {
+                  location.pathname = '/';
+                }
+
+              case 7:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }));
+
+      function logout(_x) {
+        return _logout.apply(this, arguments);
+      }
+
+      return logout;
+    }()
+  }, {
+    key: "createSession",
+    value: function () {
+      var _createSession = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(e) {
+        var csrfToken, usernameField, errorText, res, data, drawing;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                e.preventDefault();
+                usernameField = document.querySelector('#username');
+
+                if (!usernameField) {
+                  _context2.next = 8;
+                  break;
+                }
+
+                if (usernameField.value) {
+                  _context2.next = 8;
+                  break;
+                }
+
+                errorText = document.querySelector('#username + span');
+                errorText.innerText = 'Please enter a username.';
+                return _context2.abrupt("return");
+
+              case 8:
+                _context2.next = 10;
+                return fetch('/drawings', {
+                  method: 'POST',
+                  body: JSON.stringify({
+                    name: usernameField ? usernameField.value : ''
+                  }),
+                  headers: {
+                    'X-CSRF-TOKEN': csrfToken,
+                    'Content-Type': 'application/json'
+                  }
+                });
+
+              case 10:
+                res = _context2.sent;
+
+                if (!res.ok) {
+                  _context2.next = 17;
+                  break;
+                }
+
+                _context2.next = 14;
+                return res.json();
+
+              case 14:
+                data = _context2.sent;
+                drawing = data.drawing;
+
+                if (usernameField) {
+                  location = "/drawings/".concat(drawing.uuid, "?name=").concat(usernameField.value);
+                } else {
+                  location = "/drawings/".concat(drawing.uuid);
+                }
+
+              case 17:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }));
+
+      function createSession(_x2) {
+        return _createSession.apply(this, arguments);
+      }
+
+      return createSession;
+    }()
+  }]);
+
+  return HandleHome;
 }();
 
-var createSession = /*#__PURE__*/function () {
-  var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(e) {
-    var res, data, drawing;
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
-      while (1) {
-        switch (_context2.prev = _context2.next) {
-          case 0:
-            e.preventDefault();
-            _context2.next = 3;
-            return fetch("/drawings", {
-              method: "POST",
-              body: JSON.stringify({
-                name: usernameField ? usernameField.value : ""
-              }),
-              headers: {
-                "X-CSRF-TOKEN": csrfToken,
-                "Content-Type": "application/json"
-              }
-            });
-
-          case 3:
-            res = _context2.sent;
-
-            if (!res.ok) {
-              _context2.next = 10;
-              break;
-            }
-
-            _context2.next = 7;
-            return res.json();
-
-          case 7:
-            data = _context2.sent;
-            drawing = data.drawing;
-
-            if (usernameField) {
-              location = "/drawings/".concat(drawing.uuid, "?name=").concat(usernameField.value);
-            } else {
-              location = "/drawings/".concat(drawing.uuid);
-            }
-
-          case 10:
-          case "end":
-            return _context2.stop();
-        }
-      }
-    }, _callee2);
-  }));
-
-  return function createSession(_x2) {
-    return _ref2.apply(this, arguments);
-  };
-}();
-
-if (logoutButton) {
-  logoutButton.addEventListener("click", logout);
-}
-
-createSessionForm.addEventListener("submit", createSession);
+new HandleHome();
 
 /***/ }),
 

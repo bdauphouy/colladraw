@@ -3,7 +3,7 @@
 @section('content')
 <header>
     <a href="/">
-        <img src="/images/logo.svg" alt="logo colladraw" />
+        <img src="{{ "/images/logo.svg" }}" alt="logo colladraw" />
     </a>
     <div>
         @if (!Auth::user())
@@ -28,12 +28,15 @@
         <form action="/drawings" method="POST" id="create-session">
             @csrf
             @if (!Auth::user())
-            <input id="username" class="field" type="text" placeholder="Username" />
+            <div>
+                <input id="username" class="field" type="text" placeholder="Username" />
+                <span class="error"></span>
+            </div>
             @endif
             <button class="button fill">Create a session</button>
         </form>
     </div>
-    <img src="/images/illustration.png" alt="illustration" />
+    <img src="{{ asset("/images/illustration.png") }}" alt="illustration" />
 </main>
-<script type="module" src="/js/home.js"></script>
+<script type="module" src="{{ asset("/js/home.js") }}"></script>
 @endsection
