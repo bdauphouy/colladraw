@@ -43,8 +43,8 @@ const triangle = document.querySelector(".triangle");
 const line = document.querySelector(".line");
 const textTool = document.querySelector(".typo");
 const changeIcon = document.querySelector('.change-icon');
-const UndoArrow = document.querySelector(".to-left-arrow");
-const RestoreArrow = document.querySelector(".to-right-arrow");
+const undoArrow = document.querySelector(".to-left-arrow");
+const redoArrow = document.querySelector(".to-right-arrow");
 
 // colors from color panel
 const red = document.querySelector('.color-1');
@@ -326,10 +326,21 @@ ellipse.addEventListener("click", createEllipse);
 line.addEventListener("click", createLine);
 
 // Once we change the square icon from stroke mode to fill mode, the event below fires: 
-changeIcon.addEventListener('click', colorStrokeFill)
+changeIcon.addEventListener('click', colorStrokeFill);
+
+
+// Undo or redo
+
+undoArrow.addEventListener("click", () => {
+    colladraw.undo();
+});
+
+redoArrow.addEventListener("click", () => {
+    colladraw.redo();
+});
 
 // Trash tool event : clear the board 
 trashTool.addEventListener("click",() => {
     colladraw.elements = [];
     colladraw.draw();
-})
+});
