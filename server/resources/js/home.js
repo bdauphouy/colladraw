@@ -1,6 +1,8 @@
 class HandleHome {
   constructor() {
     this.listen()
+    this.drawingUuid = null
+    this.handleModal()
   }
 
   listen() {
@@ -23,7 +25,7 @@ class HandleHome {
     e.preventDefault()
 
     if (location.protocol === 'http:') {
-      location.pathname = '/'
+      location.href = '/'
     }
 
     const res = await fetch('/logout', {
@@ -70,11 +72,63 @@ class HandleHome {
       const drawing = data.drawing
 
       if (usernameField) {
-        location = `/drawings/${drawing.uuid}?name=${usernameField.value}`
+        location.href = `?modal=true&session=${drawing.uuid}&name=${usernameField.value}`
       } else {
-        location = `/drawings/${drawing.uuid}`
+        location.href = `?modal=true&session=${drawing.uuid}`
       }
     }
+  }
+
+  handleModal() {
+    const modal = document.querySelector('#create-session-modal')
+    const closeModalButton = document.querySelector('#close-modal')
+    const modalUuid = document.querySelector('#modal-uuid')
+    const copyButton = document.querySelector('#copy-button')
+    const drawButton = document.querySelector('#draw')
+    const urlParams = new URLSearchParams(window.location.search)
+    const params = {
+      name: urlParams.get('name'),
+      session: urlParams.get('session'),
+      modal: urlParams.get('modal'),
+    }
+    const urlToShare = params.name
+      ? `${location.origin}/drawings/${params.session}?name=${params.name}`
+      : `${location.origin}/drawings/${params.session}`
+
+    const openModal = () => {
+      modalUuid.value = urlToShare
+      modal.showModal()
+    }
+
+    const closeModal = () => {
+      modal.close()
+      modal.style.display = 'none'
+    }
+
+    const draw = () => {
+      location.href = urlToShare
+    }
+
+    const copyUrl = async () => {
+      await navigator.clipboard.writeText(urlToShare)
+      copyButton.innerText = 'Copied'
+      copyButton.classList.add('copied')
+
+      setTimeout(() => {
+        copyButton.innerText = 'Copy'
+        copyButton.classList.remove('copied')
+      }, 3000)
+    }
+
+    if (params.modal === 'true') {
+      openModal()
+    } else {
+      closeModal()
+    }
+
+    copyButton.addEventListener('click', copyUrl)
+    closeModalButton.addEventListener('click', closeModal)
+    drawButton.addEventListener('click', draw)
   }
 }
 

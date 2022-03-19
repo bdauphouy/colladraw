@@ -30,7 +30,7 @@
         <h1>Hi {{ Auth::user()->name }}!</h1>
         <h2>Start a new session now.</h2>
         @endif
-        <form action="/drawings" method="POST" id="create-session">
+        <form id="create-session">
             @csrf
             @if (!Auth::user())
             <div>
@@ -38,10 +38,24 @@
                 <span class="error"></span>
             </div>
             @endif
-            <button class="button fill">Create a session</button>
+            <button class="button fill" id="open-modal">Create a session</button>
         </form>
     </div>
     <img src="{{ asset("/images/illustration.png") }}" alt="illustration" />
+    <dialog id="create-session-modal">
+        <header>
+            <img src="{{ "/images/logo.svg" }}" alt="logo colladraw" />
+        </header>
+        <p>Share the link with your friend !</p>
+        <div>
+            <input id="modal-uuid" type="text" class="field" disabled>
+            <button type="text" class="button" id="copy-button">Copy</button>
+        </div>
+        <div>
+            <button class="button" id="close-modal">Close</button>
+            <button class="button fill" id="draw">Draw</button>
+        </div>
+    </dialog>
 </main>
 <script type="module" src="{{ asset("/js/home.js") }}"></script>
 @endsection

@@ -2,122 +2,170 @@
 
 body {
   height: 100vh;
-}
 
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 90px;
-  height: 120px;
-  width: 100%;
-  position: fixed;
-  top: 0;
-  z-index: 100;
-
-  a {
-    cursor: pointer;
-
-    img {
-      width: 200px;
-
-      @media screen and (max-width: 768px) {
-        width: 120px;
-      }
-    }
-  }
-
-  div {
+  > header {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 0.5rem;
+    padding: 0 90px;
+    height: 120px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 100;
 
     a {
-      color: $black;
+      cursor: pointer;
+
+      img {
+        width: 200px;
+
+        @media screen and (max-width: 768px) {
+          width: 120px;
+        }
+      }
+    }
+
+    div {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      a {
+        color: $black;
+      }
+    }
+
+    @media screen and (max-width: 768px) {
+      padding: 0 24px;
+      height: 80px;
     }
   }
 
-  @media screen and (max-width: 768px) {
-    padding: 0 24px;
-    height: 80px;
-  }
-}
-
-main {
-  display: flex;
-  flex-direction: column;
-  padding: 3px;
-  position: absolute;
-  left: 50%;
-  width: 100%;
-  max-width: 700px;
-  transform: translateX(-50%);
-  bottom: 0;
-  gap: 100px;
-
-  .content {
+  main {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    padding: 0 24px;
+    padding: 3px;
+    position: absolute;
+    left: 50%;
+    width: 100%;
+    max-width: 700px;
+    transform: translateX(-50%);
+    bottom: 0;
+    gap: 100px;
 
-    h1 {
-      font-weight: 700;
-      font-size: $h1;
-      line-height: 1.2em;
-      text-align: center;
-
-      @media screen and (max-width: 768px) {
-        font-size: 38px;
-      }
-    }
-
-    h2 {
-      font-weight: 600;
-      font-size: $h2;
-      line-height: 1.2em;
-      margin-top: 12px;
-      text-align: center;
-
-      @media screen and (max-width: 768px) {
-        font-size: 28px;
-      }
-    }
-
-    form {
+    .content {
       display: flex;
-      gap: 1rem;
-      margin-top: 48px;
-      align-items: flex-start;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 24px;
 
-      div {
-        display: flex;
-        flex-direction: column;
+      h1 {
+        font-weight: 700;
+        font-size: $h1;
+        line-height: 1.2em;
+        text-align: center;
 
-        .field {
-          min-width: 300px;
+        @media screen and (max-width: 768px) {
+          font-size: 38px;
         }
       }
 
-      @media screen and (max-width: 768px) {
-        flex-direction: column;
-        align-items: center;
-        gap: 2rem;
+      h2 {
+        font-weight: 600;
+        font-size: $h2;
+        line-height: 1.2em;
+        margin-top: 12px;
+        text-align: center;
+
+        @media screen and (max-width: 768px) {
+          font-size: 28px;
+        }
+      }
+
+      form {
+        display: flex;
+        gap: 1rem;
+        margin-top: 48px;
+        align-items: flex-start;
+
+        div {
+          display: flex;
+          flex-direction: column;
+
+          .field {
+            min-width: 300px;
+          }
+        }
+
+        @media screen and (max-width: 768px) {
+          flex-direction: column;
+          align-items: center;
+          gap: 2rem;
+        }
       }
     }
-  }
 
-  img {
-    height: max(25vw, 250px);
-    object-fit: contain;
+    > img {
+      height: max(25vw, 250px);
+      object-fit: contain;
+
+      @media screen and (orientation: portrait), (max-height: 800px) {
+        display: none;
+      }
+    }
 
     @media screen and (orientation: portrait), (max-height: 800px) {
-      display: none;
+      top: 50%;
+      transform: translate(-50%, -50%);
     }
-  }
 
-  @media screen and (orientation: portrait), (max-height: 800px) {
-    top: 50%;
-    transform: translate(-50%, -50%);
+    dialog {
+      position: absolute;
+      z-index: 100;
+      background-color: $white;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 3rem;
+      border-radius: 8px;
+
+      &::backdrop {
+        backdrop-filter: blur(10px);
+      }
+
+      img {
+        width: 200px;
+      }
+
+      p {
+        font-size: $p;
+        line-height: 1.5em;
+        color: $black;
+        margin-top: 20px;
+      }
+
+      #modal-uuid {
+        width: 400px;
+      }
+
+      div {
+        margin-top: 40px;
+        display: flex;
+        gap: 20px;
+        align-items: center;
+
+        .copied {
+          color: $purple;
+        }
+      }
+
+      > button {
+        margin-top: 40px;
+      }
+    }
   }
 }

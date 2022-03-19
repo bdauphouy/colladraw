@@ -1,8 +1,7 @@
 body {
   height: 100vh;
 }
-
-header {
+body > header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -13,33 +12,32 @@ header {
   top: 0;
   z-index: 100;
 }
-header a {
+body > header a {
   cursor: pointer;
 }
-header a img {
+body > header a img {
   width: 200px;
 }
 @media screen and (max-width: 768px) {
-  header a img {
+  body > header a img {
     width: 120px;
   }
 }
-header div {
+body > header div {
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
-header div a {
+body > header div a {
   color: #111111;
 }
 @media screen and (max-width: 768px) {
-  header {
+  body > header {
     padding: 0 24px;
     height: 80px;
   }
 }
-
-main {
+body main {
   display: flex;
   flex-direction: column;
   padding: 3px;
@@ -51,24 +49,24 @@ main {
   bottom: 0;
   gap: 100px;
 }
-main .content {
+body main .content {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 0 24px;
 }
-main .content h1 {
+body main .content h1 {
   font-weight: 700;
   font-size: 3rem;
   line-height: 1.2em;
   text-align: center;
 }
 @media screen and (max-width: 768px) {
-  main .content h1 {
+  body main .content h1 {
     font-size: 38px;
   }
 }
-main .content h2 {
+body main .content h2 {
   font-weight: 600;
   font-size: 2.375rem;
   line-height: 1.2em;
@@ -76,43 +74,88 @@ main .content h2 {
   text-align: center;
 }
 @media screen and (max-width: 768px) {
-  main .content h2 {
+  body main .content h2 {
     font-size: 28px;
   }
 }
-main .content form {
+body main .content form {
   display: flex;
   gap: 1rem;
   margin-top: 48px;
   align-items: flex-start;
 }
-main .content form div {
+body main .content form div {
   display: flex;
   flex-direction: column;
 }
-main .content form div .field {
+body main .content form div .field {
   min-width: 300px;
 }
 @media screen and (max-width: 768px) {
-  main .content form {
+  body main .content form {
     flex-direction: column;
     align-items: center;
     gap: 2rem;
   }
 }
-main img {
+body main > img {
   height: max(25vw, 250px);
   -o-object-fit: contain;
      object-fit: contain;
 }
 @media screen and (orientation: portrait), (max-height: 800px) {
-  main img {
+  body main > img {
     display: none;
   }
 }
 @media screen and (orientation: portrait), (max-height: 800px) {
-  main {
+  body main {
     top: 50%;
     transform: translate(-50%, -50%);
   }
+}
+body main dialog {
+  position: absolute;
+  z-index: 100;
+  background-color: #fafafa;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3rem;
+  border-radius: 8px;
+}
+body main dialog::-webkit-backdrop {
+  -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(10px);
+}
+body main dialog::backdrop {
+  -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(10px);
+}
+body main dialog img {
+  width: 200px;
+}
+body main dialog p {
+  font-size: 1.125rem;
+  line-height: 1.5em;
+  color: #111111;
+  margin-top: 20px;
+}
+body main dialog #modal-uuid {
+  width: 400px;
+}
+body main dialog div {
+  margin-top: 40px;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+body main dialog div .copied {
+  color: #bbb2f9;
+}
+body main dialog > button {
+  margin-top: 40px;
 }

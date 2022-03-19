@@ -1,7 +1,3 @@
-// import Colladraw from '../../../client/src/scripts/colladraw/build/module'
-// const cd = new Colladraw(document.querySelector('#canvas'))
-// import { CanvasElementType } from '../../../client/src/scripts/colladraw/build/module'
-
 class HandleCanvas {
   constructor() {
     this.headerIcons = [...document.querySelectorAll('.header-icons > li')]
@@ -75,7 +71,7 @@ class HandleCanvas {
 
     colorPicker.addEventListener('input', changeColor)
 
-    this.toolsElements.forEach((toolElement) => {
+    this.toolsElements.slice(0, -2).forEach((toolElement) => {
       toolElement.addEventListener('click', changeTool)
     })
   }

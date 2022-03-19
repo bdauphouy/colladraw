@@ -5,6 +5,9 @@ body > header {
   padding: 0 90px;
   height: 120px;
 }
+body > header a {
+  cursor: pointer;
+}
 body > header a img {
   width: 200px;
 }

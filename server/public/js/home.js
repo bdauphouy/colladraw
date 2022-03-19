@@ -12,254 +12,6 @@ module.exports = __webpack_require__(/*! regenerator-runtime */ "./node_modules/
 
 /***/ }),
 
-/***/ "./resources/js/home.js":
-/*!******************************!*\
-  !*** ./resources/js/home.js ***!
-  \******************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-
-var HandleHome = /*#__PURE__*/function () {
-  function HandleHome() {
-    _classCallCheck(this, HandleHome);
-
-    this.listen();
-  }
-
-  _createClass(HandleHome, [{
-    key: "listen",
-    value: function listen() {
-      var logoutButton = document.querySelector('#logout');
-
-      if (logoutButton) {
-        logoutButton.addEventListener('click', this.logout);
-      }
-
-      var createSessionForm = document.querySelector('#create-session');
-      createSessionForm.addEventListener('submit', this.createSession);
-    }
-  }, {
-    key: "logout",
-    value: function () {
-      var _logout = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(e) {
-        var csrfToken, res;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-                e.preventDefault();
-
-                if (location.protocol === 'http:') {
-                  location.pathname = '/';
-                }
-
-                _context.next = 5;
-                return fetch('/logout', {
-                  method: 'POST',
-                  headers: {
-                    'X-CSRF-TOKEN': csrfToken
-                  }
-                });
-
-              case 5:
-                res = _context.sent;
-
-                if (res.ok) {
-                  location.pathname = '/';
-                }
-
-              case 7:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee);
-      }));
-
-      function logout(_x) {
-        return _logout.apply(this, arguments);
-      }
-
-      return logout;
-    }()
-  }, {
-    key: "createSession",
-    value: function () {
-      var _createSession = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(e) {
-        var csrfToken, usernameField, errorText, res, data, drawing;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-                e.preventDefault();
-                usernameField = document.querySelector('#username');
-
-                if (!usernameField) {
-                  _context2.next = 8;
-                  break;
-                }
-
-                if (usernameField.value) {
-                  _context2.next = 8;
-                  break;
-                }
-
-                errorText = document.querySelector('#username + span');
-                errorText.innerText = 'Please enter a username.';
-                return _context2.abrupt("return");
-
-              case 8:
-                _context2.next = 10;
-                return fetch('/drawings', {
-                  method: 'POST',
-                  body: JSON.stringify({
-                    name: usernameField ? usernameField.value : ''
-                  }),
-                  headers: {
-                    'X-CSRF-TOKEN': csrfToken,
-                    'Content-Type': 'application/json'
-                  }
-                });
-
-              case 10:
-                res = _context2.sent;
-
-                if (!res.ok) {
-                  _context2.next = 17;
-                  break;
-                }
-
-                _context2.next = 14;
-                return res.json();
-
-              case 14:
-                data = _context2.sent;
-                drawing = data.drawing;
-
-                if (usernameField) {
-                  location = "/drawings/".concat(drawing.uuid, "?name=").concat(usernameField.value);
-                } else {
-                  location = "/drawings/".concat(drawing.uuid);
-                }
-
-              case 17:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2);
-      }));
-
-      function createSession(_x2) {
-        return _createSession.apply(this, arguments);
-      }
-
-      return createSession;
-    }()
-  }]);
-
-  return HandleHome;
-}();
-
-new HandleHome();
-
-/***/ }),
-
-/***/ "./resources/scss/not-found.scss":
-/*!***************************************!*\
-  !*** ./resources/scss/not-found.scss ***!
-  \***************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-// extracted by mini-css-extract-plugin
-
-
-/***/ }),
-
-/***/ "./resources/scss/index.scss":
-/*!***********************************!*\
-  !*** ./resources/scss/index.scss ***!
-  \***********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-// extracted by mini-css-extract-plugin
-
-
-/***/ }),
-
-/***/ "./resources/scss/global.scss":
-/*!************************************!*\
-  !*** ./resources/scss/global.scss ***!
-  \************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-// extracted by mini-css-extract-plugin
-
-
-/***/ }),
-
-/***/ "./resources/scss/login.scss":
-/*!***********************************!*\
-  !*** ./resources/scss/login.scss ***!
-  \***********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-// extracted by mini-css-extract-plugin
-
-
-/***/ }),
-
-/***/ "./resources/scss/drawing.scss":
-/*!*************************************!*\
-  !*** ./resources/scss/drawing.scss ***!
-  \*************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-// extracted by mini-css-extract-plugin
-
-
-/***/ }),
-
-/***/ "./resources/scss/profile.scss":
-/*!*************************************!*\
-  !*** ./resources/scss/profile.scss ***!
-  \*************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-// extracted by mini-css-extract-plugin
-
-
-/***/ }),
-
 /***/ "./node_modules/regenerator-runtime/runtime.js":
 /*!*****************************************************!*\
   !*** ./node_modules/regenerator-runtime/runtime.js ***!
@@ -1050,71 +802,7 @@ try {
 /******/ 		return module.exports;
 /******/ 	}
 /******/ 	
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = __webpack_modules__;
-/******/ 	
 /************************************************************************/
-/******/ 	/* webpack/runtime/chunk loaded */
-/******/ 	(() => {
-/******/ 		var deferred = [];
-/******/ 		__webpack_require__.O = (result, chunkIds, fn, priority) => {
-/******/ 			if(chunkIds) {
-/******/ 				priority = priority || 0;
-/******/ 				for(var i = deferred.length; i > 0 && deferred[i - 1][2] > priority; i--) deferred[i] = deferred[i - 1];
-/******/ 				deferred[i] = [chunkIds, fn, priority];
-/******/ 				return;
-/******/ 			}
-/******/ 			var notFulfilled = Infinity;
-/******/ 			for (var i = 0; i < deferred.length; i++) {
-/******/ 				var [chunkIds, fn, priority] = deferred[i];
-/******/ 				var fulfilled = true;
-/******/ 				for (var j = 0; j < chunkIds.length; j++) {
-/******/ 					if ((priority & 1 === 0 || notFulfilled >= priority) && Object.keys(__webpack_require__.O).every((key) => (__webpack_require__.O[key](chunkIds[j])))) {
-/******/ 						chunkIds.splice(j--, 1);
-/******/ 					} else {
-/******/ 						fulfilled = false;
-/******/ 						if(priority < notFulfilled) notFulfilled = priority;
-/******/ 					}
-/******/ 				}
-/******/ 				if(fulfilled) {
-/******/ 					deferred.splice(i--, 1)
-/******/ 					var r = fn();
-/******/ 					if (r !== undefined) result = r;
-/******/ 				}
-/******/ 			}
-/******/ 			return result;
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/compat get default export */
-/******/ 	(() => {
-/******/ 		// getDefaultExport function for compatibility with non-harmony modules
-/******/ 		__webpack_require__.n = (module) => {
-/******/ 			var getter = module && module.__esModule ?
-/******/ 				() => (module['default']) :
-/******/ 				() => (module);
-/******/ 			__webpack_require__.d(getter, { a: getter });
-/******/ 			return getter;
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/define property getters */
-/******/ 	(() => {
-/******/ 		// define getter functions for harmony exports
-/******/ 		__webpack_require__.d = (exports, definition) => {
-/******/ 			for(var key in definition) {
-/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
-/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
-/******/ 				}
-/******/ 			}
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
-/******/ 	(() => {
-/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
-/******/ 	})();
-/******/ 	
 /******/ 	/* webpack/runtime/make namespace object */
 /******/ 	(() => {
 /******/ 		// define __esModule on exports
@@ -1126,78 +814,246 @@ try {
 /******/ 		};
 /******/ 	})();
 /******/ 	
-/******/ 	/* webpack/runtime/jsonp chunk loading */
-/******/ 	(() => {
-/******/ 		// no baseURI
-/******/ 		
-/******/ 		// object to store loaded and loading chunks
-/******/ 		// undefined = chunk not loaded, null = chunk preloaded/prefetched
-/******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
-/******/ 		var installedChunks = {
-/******/ 			"/js/home": 0,
-/******/ 			"css/global": 0,
-/******/ 			"css/profile": 0,
-/******/ 			"css/drawing": 0,
-/******/ 			"css/login": 0,
-/******/ 			"css/index": 0,
-/******/ 			"css/not-found": 0
-/******/ 		};
-/******/ 		
-/******/ 		// no chunk on demand loading
-/******/ 		
-/******/ 		// no prefetching
-/******/ 		
-/******/ 		// no preloaded
-/******/ 		
-/******/ 		// no HMR
-/******/ 		
-/******/ 		// no HMR manifest
-/******/ 		
-/******/ 		__webpack_require__.O.j = (chunkId) => (installedChunks[chunkId] === 0);
-/******/ 		
-/******/ 		// install a JSONP callback for chunk loading
-/******/ 		var webpackJsonpCallback = (parentChunkLoadingFunction, data) => {
-/******/ 			var [chunkIds, moreModules, runtime] = data;
-/******/ 			// add "moreModules" to the modules object,
-/******/ 			// then flag all "chunkIds" as loaded and fire callback
-/******/ 			var moduleId, chunkId, i = 0;
-/******/ 			if(chunkIds.some((id) => (installedChunks[id] !== 0))) {
-/******/ 				for(moduleId in moreModules) {
-/******/ 					if(__webpack_require__.o(moreModules, moduleId)) {
-/******/ 						__webpack_require__.m[moduleId] = moreModules[moduleId];
-/******/ 					}
-/******/ 				}
-/******/ 				if(runtime) var result = runtime(__webpack_require__);
-/******/ 			}
-/******/ 			if(parentChunkLoadingFunction) parentChunkLoadingFunction(data);
-/******/ 			for(;i < chunkIds.length; i++) {
-/******/ 				chunkId = chunkIds[i];
-/******/ 				if(__webpack_require__.o(installedChunks, chunkId) && installedChunks[chunkId]) {
-/******/ 					installedChunks[chunkId][0]();
-/******/ 				}
-/******/ 				installedChunks[chunkId] = 0;
-/******/ 			}
-/******/ 			return __webpack_require__.O(result);
-/******/ 		}
-/******/ 		
-/******/ 		var chunkLoadingGlobal = self["webpackChunk"] = self["webpackChunk"] || [];
-/******/ 		chunkLoadingGlobal.forEach(webpackJsonpCallback.bind(null, 0));
-/******/ 		chunkLoadingGlobal.push = webpackJsonpCallback.bind(null, chunkLoadingGlobal.push.bind(chunkLoadingGlobal));
-/******/ 	})();
-/******/ 	
 /************************************************************************/
-/******/ 	
-/******/ 	// startup
-/******/ 	// Load entry module and return exports
-/******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	__webpack_require__.O(undefined, ["css/global","css/profile","css/drawing","css/login","css/index","css/not-found"], () => (__webpack_require__("./resources/js/home.js")))
-/******/ 	__webpack_require__.O(undefined, ["css/global","css/profile","css/drawing","css/login","css/index","css/not-found"], () => (__webpack_require__("./resources/scss/index.scss")))
-/******/ 	__webpack_require__.O(undefined, ["css/global","css/profile","css/drawing","css/login","css/index","css/not-found"], () => (__webpack_require__("./resources/scss/global.scss")))
-/******/ 	__webpack_require__.O(undefined, ["css/global","css/profile","css/drawing","css/login","css/index","css/not-found"], () => (__webpack_require__("./resources/scss/login.scss")))
-/******/ 	__webpack_require__.O(undefined, ["css/global","css/profile","css/drawing","css/login","css/index","css/not-found"], () => (__webpack_require__("./resources/scss/drawing.scss")))
-/******/ 	__webpack_require__.O(undefined, ["css/global","css/profile","css/drawing","css/login","css/index","css/not-found"], () => (__webpack_require__("./resources/scss/profile.scss")))
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/global","css/profile","css/drawing","css/login","css/index","css/not-found"], () => (__webpack_require__("./resources/scss/not-found.scss")))
-/******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
-/******/ 	
+var __webpack_exports__ = {};
+// This entry need to be wrapped in an IIFE because it need to be in strict mode.
+(() => {
+"use strict";
+/*!******************************!*\
+  !*** ./resources/js/home.js ***!
+  \******************************/
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+
+var HandleHome = /*#__PURE__*/function () {
+  function HandleHome() {
+    _classCallCheck(this, HandleHome);
+
+    this.listen();
+    this.drawingUuid = null;
+    this.handleModal();
+  }
+
+  _createClass(HandleHome, [{
+    key: "listen",
+    value: function listen() {
+      var logoutButton = document.querySelector('#logout');
+
+      if (logoutButton) {
+        logoutButton.addEventListener('click', this.logout);
+      }
+
+      var createSessionForm = document.querySelector('#create-session');
+      createSessionForm.addEventListener('submit', this.createSession);
+    }
+  }, {
+    key: "logout",
+    value: function () {
+      var _logout = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__.mark(function _callee(e) {
+        var csrfToken, res;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                e.preventDefault();
+
+                if (location.protocol === 'http:') {
+                  location.pathname = '/';
+                }
+
+                _context.next = 5;
+                return fetch('/logout', {
+                  method: 'POST',
+                  headers: {
+                    'X-CSRF-TOKEN': csrfToken
+                  }
+                });
+
+              case 5:
+                res = _context.sent;
+
+                if (res.ok) {
+                  location.pathname = '/';
+                }
+
+              case 7:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }));
+
+      function logout(_x) {
+        return _logout.apply(this, arguments);
+      }
+
+      return logout;
+    }()
+  }, {
+    key: "createSession",
+    value: function () {
+      var _createSession = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__.mark(function _callee2(e) {
+        var csrfToken, usernameField, errorText, res, data, drawing;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                e.preventDefault();
+                usernameField = document.querySelector('#username');
+
+                if (!usernameField) {
+                  _context2.next = 8;
+                  break;
+                }
+
+                if (usernameField.value) {
+                  _context2.next = 8;
+                  break;
+                }
+
+                errorText = document.querySelector('#username + span');
+                errorText.innerText = 'Please enter a username.';
+                return _context2.abrupt("return");
+
+              case 8:
+                _context2.next = 10;
+                return fetch('/drawings', {
+                  method: 'POST',
+                  body: JSON.stringify({
+                    name: usernameField ? usernameField.value : ''
+                  }),
+                  headers: {
+                    'X-CSRF-TOKEN': csrfToken,
+                    'Content-Type': 'application/json'
+                  }
+                });
+
+              case 10:
+                res = _context2.sent;
+
+                if (!res.ok) {
+                  _context2.next = 17;
+                  break;
+                }
+
+                _context2.next = 14;
+                return res.json();
+
+              case 14:
+                data = _context2.sent;
+                drawing = data.drawing;
+
+                if (usernameField) {
+                  location.href = "?modal=true&session=".concat(drawing.uuid, "&name=").concat(usernameField.value);
+                } else {
+                  location.href = "?modal=true&session=".concat(drawing.uuid);
+                }
+
+              case 17:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }));
+
+      function createSession(_x2) {
+        return _createSession.apply(this, arguments);
+      }
+
+      return createSession;
+    }()
+  }, {
+    key: "handleModal",
+    value: function handleModal() {
+      var modal = document.querySelector('#create-session-modal');
+      var closeModalButton = document.querySelector('#close-modal');
+      var modalUuid = document.querySelector('#modal-uuid');
+      var copyButton = document.querySelector('#copy-button');
+      var drawButton = document.querySelector('#draw');
+      var urlParams = new URLSearchParams(window.location.search);
+      var params = {
+        name: urlParams.get('name'),
+        session: urlParams.get('session'),
+        modal: urlParams.get('modal')
+      };
+      var urlToShare = params.name ? "".concat(location.origin, "/drawings/").concat(params.session, "?name=").concat(params.name) : "".concat(location.origin, "/drawings/").concat(params.session);
+
+      var openModal = function openModal() {
+        modalUuid.value = urlToShare;
+        modal.showModal();
+      };
+
+      var closeModal = function closeModal() {
+        modal.close();
+        modal.style.display = 'none';
+      };
+
+      var draw = function draw() {
+        location.href = urlToShare;
+      };
+
+      var copyUrl = /*#__PURE__*/function () {
+        var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__.mark(function _callee3() {
+          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__.wrap(function _callee3$(_context3) {
+            while (1) {
+              switch (_context3.prev = _context3.next) {
+                case 0:
+                  _context3.next = 2;
+                  return navigator.clipboard.writeText(urlToShare);
+
+                case 2:
+                  copyButton.innerText = 'Copied';
+                  copyButton.classList.add('copied');
+                  setTimeout(function () {
+                    copyButton.innerText = 'Copy';
+                    copyButton.classList.remove('copied');
+                  }, 3000);
+
+                case 5:
+                case "end":
+                  return _context3.stop();
+              }
+            }
+          }, _callee3);
+        }));
+
+        return function copyUrl() {
+          return _ref.apply(this, arguments);
+        };
+      }();
+
+      if (params.modal === 'true') {
+        openModal();
+      } else {
+        closeModal();
+      }
+
+      copyButton.addEventListener('click', copyUrl);
+      closeModalButton.addEventListener('click', closeModal);
+      drawButton.addEventListener('click', draw);
+    }
+  }]);
+
+  return HandleHome;
+}();
+
+new HandleHome();
+})();
+
 /******/ })()
 ;
