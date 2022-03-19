@@ -1,0 +1,53 @@
+@use './variables/colors.scss' as *;
+@import 'https://files.bdph.me/reset.css';
+@import '../../fonts/stylesheet.css';
+body {
+    font-family: 'Hellix', sans-serif;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+header {
+    position: fixed;
+    left: 90px;
+    top: 40px;
+}
+
+.error {
+    text-align: center;
+    h1 {
+        font-size: 17.5em;
+        color: #BBB2F9;
+    }
+    h2 {
+        font-size: 4.25em;
+    }
+}
+
+.arrow {
+    width: 20px;
+    margin-right: 10px;
+}
+
+.button {
+    border-radius: 30px;
+    padding: 10px 22px;
+    font-weight: 500;
+    line-height: 1.5em;
+    font-size: 1.125rem;
+    cursor: pointer;
+    outline-width: 3px;
+    outline-offset: 3px;
+    outline-color: transparent;
+    outline-style: solid;
+    display: flex;
+    align-items: center;
+    &.fill {
+        background: $purple;
+        &:focus {
+            outline-color: $purple;
+        }
+    }
+}
