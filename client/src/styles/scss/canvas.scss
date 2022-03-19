@@ -2,13 +2,18 @@
 @import 'https://files.bdph.me/reset.css';
 @import '../../fonts/stylesheet.css';
 
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
 
 body {
   display:grid;
   grid-template-rows: 10rem auto;
 
   header {
- 
+
     height:10rem;
     grid-row:1;
     display:grid;
@@ -20,7 +25,7 @@ body {
       height:3em;
 
       justify-self: center;
-      align-self: center; 
+      align-self: center;
       grid-column:2;
       grid-row: 1;
     }
@@ -72,14 +77,15 @@ body {
 }
 
 main {
-    
+
     grid-row:2;
-  
+
 section {
-  
+
   grid-row: 2;
   grid-column: 1 / span 2;
   width: 100%;
+  height: 100%;
   margin: 0 auto;
 
     #canvas {
@@ -94,8 +100,8 @@ section {
 
 // Panneau des outils à droite
 
-.tools-right-panel { 
-  
+.tools-right-panel {
+
   position: absolute;
   top: 50%;
   right:0;
@@ -108,7 +114,7 @@ section {
   display:grid;
   grid-template-rows: 60px auto auto;
   grid-template-columns: 1fr 1fr;
-  
+
   padding-bottom: 3rem;
 
   .arrow-right-panel {
@@ -133,7 +139,7 @@ section {
   }
 
 .tools-icons {
-  
+
   grid-row:2;
   grid-column: 1 / span 2;
 
@@ -141,7 +147,7 @@ section {
   height:auto;
   padding:1rem;
 
-  display:grid;  
+  display:grid;
   gap:24px 24px;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: repeat(5, 60px);
@@ -162,38 +168,38 @@ section {
       box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     }
 
-  } 
-// end of tools icon 
+  }
+// end of tools icon
 
   .to-right-arrow {
     padding: 10px;
     border-radius: 8px;
     background-color: $purple-color !important;
-    
-  }  
-  
+
+  }
+
   .to-left-arrow {
     padding:10px;
     border-radius: 8px;
     background-color: $purple-color !important;
-  
+
   }
-    
+
       .typo-choices {
-      
+
         display:none;
         grid-row:3;
         grid-column: 1 / span 2;
         justify-self: center;
-        
+
         width: 5em;
         border-radius: 8px;
         box-shadow: 0 2px 3px -3px $black-color;
 
         margin: 0.5em;
-    
+
         summary {
-        
+
           display:flex;
           justify-content: space-around;
           align-items: flex-end;
@@ -220,14 +226,14 @@ section {
 
             background: $purple-color;
             border-radius: 8px;
-          
+
             min-width:auto;
             padding:1em 0 1em 1em;
             font-size: 1.5em;
             font-weight: 700;
-            
-            
-          
+
+
+
               li {
                 color: $white-color;
                 width:10em;
@@ -244,14 +250,14 @@ section {
               #first-font {
                 font-family: Helvetica, sans-serif;
               }
-              
+
               #second-font{
                 font-family: 'Courier New', sans-serif;
               }
-              
+
               #third-font {
                 font-family: 'Times New Roman', sans-serif;
-              } 
+              }
       }
       // end of ul of select font
   }
@@ -282,8 +288,8 @@ section {
   display:grid;
   grid-template-rows: 60px auto;
   grid-template-columns: 1fr 1fr;
-  
-  
+
+
 
   .arrow-left-panel {
     display:block;
@@ -306,8 +312,8 @@ section {
     cursor: pointer;
   }
 
-  .color-palette { 
-    
+  .color-palette {
+
     grid-row:2;
     grid-column: 1 / span 2;
 
@@ -315,18 +321,18 @@ section {
     height:auto;
     padding:1rem;
 
-    display:grid; 
-    
+    display:grid;
+
     gap: 24px;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: repeat(5, 55px) auto;
     justify-content: center;
-    
+
     li {
     width:55px;
     height:55px;
     border: 1px solid $white-color;
-    border-radius: 8px; 
+    border-radius: 8px;
     box-shadow: 0 2px 3px -3px black;
     }
 
@@ -356,7 +362,7 @@ section {
       opacity:0;
       width:100%;
       height:100%;
-      
+
     }
 }
 }
@@ -389,7 +395,7 @@ section {
         grid-column: 2;
         grid-row: 2;
         text-align: center;
-        
+
       .sentence-mobile {
         display:block !important;
         font-family: "Hellix ExtraBold", sans-serif;
