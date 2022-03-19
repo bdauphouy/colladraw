@@ -35,6 +35,8 @@ export interface ExportCanvas {
     timestamp: number;
     data: {
         [key: string]: any;
-        shapes: ExportCanvasElement[];
+        canvas: {
+          elements: ExportCanvasElement[];
+        }[];
     };
 }

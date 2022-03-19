@@ -20,15 +20,24 @@ export default class Line extends CanvasElement {
     ];
   }
 
-  generateGrid(canvasGrid: CanvasGrid) {
-    for (let i = Math.min(this.y, this.endY); i <= Math.max(this.y, this.endY); i++) {
-      for (let j = Math.min(this.x, this.endX); j <= Math.max(this.x, this.endX); j++) {
+  generateGrid(canvasGrid: CanvasGrid, gridPixelMerge: number) {
+    let minI = Math.min(this.y, this.endY);
+    minI -= (minI % gridPixelMerge);
+    let minJ = Math.min(this.x, this.endX);
+    minJ -= (minJ % gridPixelMerge);
+    let maxI = Math.max(this.y, this.endY);
+    maxI += (gridPixelMerge - (maxI % gridPixelMerge));
+    let maxJ = Math.max(this.x, this.endX);
+    maxJ += (gridPixelMerge - (maxJ % gridPixelMerge));
+
+    for (let i = minI; i <= minJ; i += gridPixelMerge) {
+      for (let j = minJ; j <= maxJ; j += gridPixelMerge) {
         canvasGrid[i][j] = this;
       }
     }
   }
 
-  draw(context: CanvasRenderingContext2D, canvasGrid: CanvasGrid) {
+  draw(context: CanvasRenderingContext2D) {
     this.width = Math.abs(this.x - this.endX);
     this.height = Math.abs(this.y - this.endY);
 
@@ -43,9 +52,7 @@ export default class Line extends CanvasElement {
 
     context.closePath();
 
-    this.generateGrid(canvasGrid);
-
-    super.draw(context, canvasGrid);
+    super.draw(context);
   }
 
   static fromJSON(json: ExportLine): Line {

@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title>Test Colladraw Lib</title>
 
+    <link rel="stylesheet" href="./build/module/lib/css/optimized-canvas.css">
+
     <script defer type="module">
       import Colladraw, {CanvasText} from "./build/module/index.js";
 
@@ -65,6 +67,7 @@
             position: absolute;
             top: 0;
             left: 0;
+            z-index: 9999;
             width: 100vw;
             display: flex;
             justify-content: space-between;
@@ -81,7 +84,7 @@
     <label for="text-input"></label><input type="text" id="text-input" placeholder="Type here...">
     <div class="buttons">
         <button onclick="window.saved = colladraw.toJSON()">Save</button>
-        <button onclick="colladraw.elements = []; colladraw.draw()">Clear</button>
+        <button onclick="colladraw.clear()">Clear</button>
         <button onclick="colladraw.load(window.saved)">Load</button>
         <button onclick="colladraw.savePDF()">Save PDF</button>
     </div>

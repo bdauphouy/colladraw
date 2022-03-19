@@ -8,8 +8,8 @@ export default class Polygon extends Shape {
     private coordinates;
     constructor(x: number, y: number, width: number, height: number, sidesNumber: number, polygonName?: PolygonTypeString);
     getCoordinates(startX?: number, startY?: number): number[][];
-    generateGrid(canvasGrid: CanvasGrid): void;
-    draw(context: CanvasRenderingContext2D, canvasGrid: CanvasGrid): void;
+    generateGrid(canvasGrid: CanvasGrid, gridPixelMerge: number): void;
+    draw(context: CanvasRenderingContext2D): void;
     toJSON(): {
         type: PolygonTypeString;
         x: number;

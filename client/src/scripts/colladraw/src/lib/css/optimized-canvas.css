@@ -1,0 +1,15 @@
+.canvas-container-optimized {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+}
+
+.canvas-container-optimized canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}

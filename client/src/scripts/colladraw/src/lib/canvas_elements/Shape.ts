@@ -1,4 +1,3 @@
-import {CanvasGrid} from "../../types/CanvasGrid";
 import CanvasElement from "./CanvasElement";
 
 export default abstract class Shape extends CanvasElement {
@@ -12,7 +11,7 @@ export default abstract class Shape extends CanvasElement {
     this.height = height;
   }
 
-  draw(context: CanvasRenderingContext2D, canvasGrid: CanvasGrid, _draw: Function = () => {}): void {
+  draw(context: CanvasRenderingContext2D, _draw: Function = () => {}): void {
     context.lineWidth = this.strokeWidth || 0;
     context.strokeStyle = this.strokeColor || '#000';
     context.fillStyle = this.fillColor || '#000';
@@ -23,8 +22,6 @@ export default abstract class Shape extends CanvasElement {
 
     context.closePath();
 
-    this.generateGrid(canvasGrid);
-
-    super.draw(context, canvasGrid);
+    super.draw(context);
   }
 }

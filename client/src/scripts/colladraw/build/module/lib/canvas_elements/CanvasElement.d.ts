@@ -8,8 +8,8 @@ export default abstract class CanvasElement {
     selected: boolean;
     selectable: boolean;
     protected constructor(x: number, y: number, width: number, height: number);
-    draw(context: CanvasRenderingContext2D, canvasGrid: CanvasGrid): void;
-    abstract generateGrid(canvasGrid: CanvasGrid): void;
+    draw(context: CanvasRenderingContext2D): void;
+    abstract generateGrid(canvasGrid: CanvasGrid, gridPixelMerge: number): void;
     abstract toJSON(): ExportCanvasElement;
     static fromJSON(_json: ExportCanvasElement): CanvasElement;
     select(): void;

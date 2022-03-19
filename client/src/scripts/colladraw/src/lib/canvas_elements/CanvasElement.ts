@@ -16,9 +16,7 @@ export default abstract class CanvasElement {
     this.height = height;
   }
 
-  draw(context: CanvasRenderingContext2D, canvasGrid: CanvasGrid) {
-    this.generateGrid(canvasGrid);
-
+  draw(context: CanvasRenderingContext2D) {
     if (this.selected) {
       context.fillStyle = '#ff0000';
       context.strokeStyle = '#ff0000';
@@ -48,7 +46,7 @@ export default abstract class CanvasElement {
     }
   }
 
-  abstract generateGrid(canvasGrid: CanvasGrid): void;
+  abstract generateGrid(canvasGrid: CanvasGrid, gridPixelMerge: number): void;
 
   abstract toJSON(): ExportCanvasElement;
   static fromJSON(_json: ExportCanvasElement): CanvasElement {

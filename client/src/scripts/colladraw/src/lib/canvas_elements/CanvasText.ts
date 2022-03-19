@@ -18,7 +18,7 @@ export default class CanvasText extends CanvasElement {
     this.font = font;
   }
 
-  draw(context: CanvasRenderingContext2D, canvasGrid: CanvasGrid) {
+  draw(context: CanvasRenderingContext2D) {
     context.font = this.font;
     context.fillStyle = this.color;
 
@@ -26,8 +26,6 @@ export default class CanvasText extends CanvasElement {
     this.height = parseInt(this.font.match(/\d+/)[0] ?? '20');
 
     context.fillText(this.text, this.x, this.y);
-
-    this.generateGrid(canvasGrid);
 
     if (this.selected) {
       context.fillStyle = '#ff0000';
@@ -43,9 +41,18 @@ export default class CanvasText extends CanvasElement {
     }
   }
 
-  generateGrid(canvasGrid: CanvasGrid) {
-    for (let i = this.y - this.height; i <= this.y; i++) {
-      for (let j = this.x; j <= this.x + this.width; j++) {
+  generateGrid(canvasGrid: CanvasGrid, gridPixelMerge: number) {
+    let minI = this.y - this.height;
+    minI -= (minI % gridPixelMerge);
+    let minJ = this.x;
+    minJ -= (minJ % gridPixelMerge);
+    let maxI = this.y;
+    maxI += (gridPixelMerge - (maxI % gridPixelMerge));
+    let maxJ = this.x + this.width;
+    maxJ += (gridPixelMerge - (maxJ % gridPixelMerge));
+
+    for (let i = minI; i <= maxI; i += gridPixelMerge) {
+      for (let j = minJ; j <= maxJ; j += gridPixelMerge) {
         canvasGrid[i][j] = this;
       }
     }

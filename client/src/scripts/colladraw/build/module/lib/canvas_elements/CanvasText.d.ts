@@ -6,8 +6,8 @@ export default class CanvasText extends CanvasElement {
     font: string;
     color: string;
     constructor(text: string, x: number, y: number, font: string);
-    draw(context: CanvasRenderingContext2D, canvasGrid: CanvasGrid): void;
-    generateGrid(canvasGrid: CanvasGrid): void;
+    draw(context: CanvasRenderingContext2D): void;
+    generateGrid(canvasGrid: CanvasGrid, gridPixelMerge: number): void;
     toJSON(): ExportCanvasElement;
     static fromJSON(json: ExportCanvasText): CanvasText;
 }

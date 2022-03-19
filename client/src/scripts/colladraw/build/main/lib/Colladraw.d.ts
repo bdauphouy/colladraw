@@ -3,17 +3,34 @@ import { CanvasGrid } from "../types/CanvasGrid";
 import { ExportCanvas } from "../types/ExportCanvas";
 import CanvasElement from "./canvas_elements/CanvasElement";
 export default class Colladraw {
-    canvas: HTMLCanvasElement;
-    grid: CanvasGrid;
+    canvas: {
+        canvas: HTMLCanvasElement;
+        elements: CanvasElement[];
+    }[];
+    _activeCanvasIndex: number;
     context: CanvasRenderingContext2D;
-    elements: CanvasElement[];
+    grid: CanvasGrid;
+    gridPixelMerge: number;
+    optimized: boolean;
     private state;
+    private selectionLastActiveCanvasIndex?;
     private onClickLocker;
-    constructor(canvas: HTMLCanvasElement);
+    private readonly canvasContainer?;
+    constructor(canvas: HTMLCanvasElement, optimize?: boolean, gridPixelMerge?: number);
+    get activeCanvasIndex(): number;
+    set activeCanvasIndex(index: number);
+    get activeCanvas(): {
+        canvas: HTMLCanvasElement;
+        elements: CanvasElement[];
+    };
     private initGrid;
+    generateGrid(): void;
+    private updateActiveCanvas;
     draw(): void;
     addElement(element: CanvasElement, toAddToHistory?: boolean): void;
     removeElement(elementToDelete: CanvasElement): void;
+    get elements(): CanvasElement[];
+    addLayer(): void;
     addToHistory(): void;
     undo(): void;
     redo(): void;
@@ -27,6 +44,8 @@ export default class Colladraw {
     changeToolType(type: CanvasElementType): void;
     toJSON(): ExportCanvas;
     load(json: ExportCanvas): void;
+    clear(): void;
+    toDataURL(): string;
     savePNG(name?: string): void;
     savePDF(name?: string): void;
 }

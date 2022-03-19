@@ -7,8 +7,8 @@ export default class Line extends CanvasElement {
     color?: string;
     constructor(x: number, y: number, endX: number, endY: number);
     getCoordinates(startX?: number, startY?: number, endX?: number, endY?: number): number[][];
-    generateGrid(canvasGrid: CanvasGrid): void;
-    draw(context: CanvasRenderingContext2D, canvasGrid: CanvasGrid): void;
+    generateGrid(canvasGrid: CanvasGrid, gridPixelMerge: number): void;
+    draw(context: CanvasRenderingContext2D): void;
     static fromJSON(json: ExportLine): Line;
     toJSON(): ExportLine;
 }
