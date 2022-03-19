@@ -6,9 +6,6 @@ const colladraw = new Colladraw(canvas);
 // Panel
 
 // panel from header
-
-
-
 const trashTool = document.querySelector(".cta-items-trash");
 const downloadTool = document.querySelector(".cta-items-download");
 const uploadTool = document.querySelector(".cta-items-upload");
@@ -30,17 +27,14 @@ const colorIcons = document.querySelector(".color-palette");
 
 // Hidden panels 
 
-// Choix des polices
 const typoChoices = document.querySelector(".typo-choices");
-const OpenIcon = document.querySelector(".icon-open");
 const firstFont = document.querySelector(".first-font");
 const secondFont = document.querySelector(".second-font");
 const thirdFont = document.querySelector(".third-font");
 
 const profilePanel = document.querySelector(".profile-panel");
 
-// tools
-
+// tools from tools right panel
 const pen = document.querySelector(".pen");
 const rubber = document.querySelector(".rubber");
 const rectangle = document.querySelector(".rectangle");
@@ -66,16 +60,9 @@ const black = document.querySelector('.color-10');
 
 const colorPalette = document.querySelectorAll("ul.color-palette > li");
 
-
-
-// Espace de choix des couleurs : 
-// before clicking it is inactive
-// and after it becomes a 'real color piker' (= input of type=color).
+// Color piker : 
 const CoverColorPiker = document.querySelector('.color-piker-covering');
 const RealColorPiker = document.querySelector('.color-piker');
-
-
-
 
 
 // FONCTIONS POUR LE PANEL 
@@ -122,11 +109,8 @@ function ToggleRightPanel(){
         toolsIcons.style.display = 'grid';
     }
 
-    if (toolsRightPanel.style.paddingBottom == '0px') {
-        toolsRightPanel.style.paddingBottom = '3rem';
-    } else{
-        toolsRightPanel.style.paddingBottom = '0px';
-    }
+    if(getComputedStyle(typoChoices).display === 'block'){
+        typoChoices.style.display = 'none';}
 }
 
 function ToggleLeftPanel(){

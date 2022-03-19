@@ -20,6 +20,7 @@ body header .colladraw-logo {
   grid-row: 1;
 }
 body header .cta-icons {
+  cursor: pointer;
   width: 10em;
   height: 2em;
   align-self: center;
