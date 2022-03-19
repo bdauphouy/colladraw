@@ -62,7 +62,7 @@ const colorPalette = document.querySelectorAll("ul.color-palette > li");
 
 // Color piker : 
 const CoverColorPiker = document.querySelector('.color-piker-covering');
-const RealColorPiker = document.querySelector('.color-piker');
+const realColorPiker = document.querySelector('.color-piker');
 
 
 // FONCTIONS POUR LE PANEL 
@@ -87,7 +87,7 @@ function openProfilePanel() {
 }
 }
 
-function ToggleRightPanel(){
+function toggleRightPanel(){
 
     if(getComputedStyle(showRightPanel).display === 'none'){
         showRightPanel.style.display = 'block';
@@ -119,7 +119,7 @@ function ToggleRightPanel(){
         }
 }
 
-function ToggleLeftPanel(){
+function toggleLeftPanel(){
 
     if(getComputedStyle(showLeftPanel).display === 'none'){
         showLeftPanel.style.display = 'block';
@@ -143,13 +143,13 @@ function ToggleLeftPanel(){
 }
 
 // Change the state of the color piker covering div
-function ColoringCoverPiker(e) {
+function coloringCoverPiker(e) {
     console.log(e.target.value)
     let ColorFromPiker = e.target.value;
     CoverColorPiker.style.backgroundColor = ColorFromPiker;  
 }
 
-function EndColoringCoverPiker() {
+function endColoringCoverPiker() {
     CoverColorPiker.style.backgroundColor = "#fff"; 
 }
 
@@ -176,13 +176,61 @@ function createLine() {
 // Define if you want to fill or coloring the stroke 
 
 function colorStrokeFill() {
+    // STROKE COLOR ONLY
+    // if I click on change icon and element is selected I can change the STROKE color only.
     if (changeIcon.src.match("/public/icons/background.svg")) {
         changeIcon.src = "/public/icons/border.svg";
+
+        realColorPiker.removeEventListener("input", fillColorFromPiker);
+        colorPalette.forEach(colorPicked => {
+            colorPicked.removeEventListener('click', fillColorFromPalette);
+            console.log(colorPicked)
+        } );
+
+        realColorPiker.addEventListener("input", strokeColorFromPiker);
+        colorPalette.forEach(colorPicked => {
+            colorPicked.addEventListener('click', strokeColorFromPalette);
+            console.log(colorPicked)
+        } );
+
     } else {
+    // FILL COLOR ONLY
+    // if I click on change icon and element is selected I can change the fill color only.
         changeIcon.src = "/public/icons/background.svg";
+
+        realColorPiker.removeEventListener("input", strokeColorFromPiker)
+        colorPalette.forEach(colorPicked => {
+            colorPicked.removeEventListener('click', strokeColorFromPalette);
+            console.log(colorPicked)
+        } );
+
+        realColorPiker.addEventListener("input", fillColorFromPiker)
+        colorPalette.forEach(colorPicked => {
+            colorPicked.addEventListener('click', fillColorFromPalette);
+            console.log(colorPicked)
+        } );
+        
     }
 }
 
+realColorPiker.addEventListener("input", fillColorFromPiker)
+realColorPiker.addEventListener("input", strokeColorFromPiker)
+realColorPiker.addEventListener("input", lineTextColor)
+
+colorPalette.forEach(colorPicked => {
+            colorPicked.addEventListener('click', fillColorFromPalette);
+            console.log(colorPicked)
+        } );
+
+colorPalette.forEach(colorPicked => {
+    colorPicked.addEventListener('click', strokeColorFromPalette);
+    console.log(colorPicked)
+} );
+
+colorPalette.forEach(colorPicked => {
+    colorPicked.addEventListener('click', lineTextColorFromPalette);
+    console.log(colorPicked)
+} );
 
 // Change the color of a selected element
 
@@ -198,7 +246,7 @@ function fillColorFromPiker(e) {
 }
 
 // Attente de création de la fonction dans shape.ts
-function StrokeColorFromPiker(e) {
+function strokeColorFromPiker(e) {
     console.log(e.target.value);
     let SelectedElement = colladraw.elements.find((element) => element.selected);
     if(SelectedElement) {
@@ -207,7 +255,7 @@ function StrokeColorFromPiker(e) {
     }
 }
 
-function LineTextColor(e) {
+function lineTextColor(e) {
     console.log(e.target.value);
     let SelectedElement = colladraw.elements.find((element) => element.selected);
     if(SelectedElement) {
@@ -236,7 +284,7 @@ function strokeColorFromPalette(e) {
     }
 }
 
-function LineTextColorFromPalette(e) {
+function lineTextColorFromPalette(e) {
     let SelectedElement = colladraw.elements.find((element) => element.selected);
     let ChosenColor = getComputedStyle(e.target).backgroundColor;
     if(SelectedElement) {
@@ -250,50 +298,35 @@ function LineTextColorFromPalette(e) {
 textTool.addEventListener("click", openTypoTools);
 profileIcon.addEventListener("click",openProfilePanel);
 
-hideRightPanel.addEventListener("click", ToggleRightPanel);
-showRightPanel.addEventListener("click", ToggleRightPanel);
+hideRightPanel.addEventListener("click", toggleRightPanel);
+showRightPanel.addEventListener("click", toggleRightPanel);
 
-hideLeftPanel.addEventListener("click", ToggleLeftPanel);
-showLeftPanel.addEventListener("click", ToggleLeftPanel);
+hideLeftPanel.addEventListener("click", toggleLeftPanel);
+showLeftPanel.addEventListener("click", toggleLeftPanel);
 
-CoverColorPiker.addEventListener("mouseenter", ColoringCoverPiker);
-CoverColorPiker.addEventListener("click", EndColoringCoverPiker);
-RealColorPiker.addEventListener("input", ColoringCoverPiker)
+CoverColorPiker.addEventListener("mouseenter", coloringCoverPiker);
+CoverColorPiker.addEventListener("click", endColoringCoverPiker);
+realColorPiker.addEventListener("input", coloringCoverPiker)
+
 // CANVAS EVENTS
 
 // Setting with input and/or change the color once we choose a color in the color piker
-RealColorPiker.addEventListener("input", fillColorFromPiker)
-RealColorPiker.addEventListener("input", StrokeColorFromPiker)
-RealColorPiker.addEventListener("input", LineTextColor)
-// RealColorPiker.addEventListener("change", updateColorFromPiker);
 
-colorPalette.forEach(colorPicked => {
-    colorPicked.addEventListener('click', fillColorFromPalette);
-    console.log(colorPicked)
-} );
 
-colorPalette.forEach(colorPicked => {
-    colorPicked.addEventListener('click', strokeColorFromPalette);
-    console.log(colorPicked)
-} );
+// colorPalette.forEach(colorPicked => {
 
-colorPalette.forEach(colorPicked => {
-    colorPicked.addEventListener('click', LineTextColorFromPalette);
-    console.log(colorPicked)
-} );
 
 // Creating forms once we click on icons
 rectangle.addEventListener("click", createRectangle);
 triangle.addEventListener("click", createTriangle);
 ellipse.addEventListener("click", createEllipse);
 line.addEventListener("click", createLine);
-// Once we select the element created in canvas, we can apply these events to them
+
+// Once we change the square icon from stroke mode to fill mode, the event below fires: 
+changeIcon.addEventListener('click', colorStrokeFill)
 
 // Trash tool event : clear the board 
 trashTool.addEventListener("click",() => {
     colladraw.elements = [];
     colladraw.draw();
 })
-
-changeIcon.addEventListener('click', colorStrokeFill)
-
