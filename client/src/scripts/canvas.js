@@ -213,6 +213,8 @@ function colorStrokeFill() {
     }
 }
 
+// Il manque une fonction qui prend en compte les couleurs "on load" et si l'icone est ainsi ou ainsi
+
 realColorPiker.addEventListener("input", fillColorFromPiker)
 realColorPiker.addEventListener("input", strokeColorFromPiker)
 realColorPiker.addEventListener("input", lineTextColor)
@@ -238,8 +240,9 @@ colorPalette.forEach(colorPicked => {
 
 function fillColorFromPiker(e) {
     console.log(e.target.value);
+    
     let SelectedElement = colladraw.elements.find((element) => element.selected);
-    if(SelectedElement) {
+    if(SelectedElement && (changeIcon.src === "/public/icons/background.svg")) {
         SelectedElement.fillColor = e.target.value;
         colladraw.draw();
     }
@@ -249,7 +252,7 @@ function fillColorFromPiker(e) {
 function strokeColorFromPiker(e) {
     console.log(e.target.value);
     let SelectedElement = colladraw.elements.find((element) => element.selected);
-    if(SelectedElement) {
+    if(SelectedElement &&  changeIcon.src === "/public/icons/border.svg") {
         SelectedElement.strokeColor = e.target.value;
         colladraw.draw();
     }
