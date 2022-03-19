@@ -100,23 +100,31 @@ section {
   box-shadow: 0 5px 3px -3px black;
 
   display:grid;
-  grid-template-rows: 60px auto;
+  grid-template-rows: 60px auto auto;
   grid-template-columns: 1fr 1fr;
   
-  padding-bottom: 3rem;
+  // padding-bottom: 3rem;
 
-.arrow-right-panel {
-  grid-row: 1;
-  grid-column: 1;
-  justify-self: center;
-  align-self: center;
-  display:block;
-}
+  .arrow-right-panel {
+    grid-row: 1;
+    grid-column: 1;
+    justify-self: center;
+    align-self: center;
+    display:block;
+  }
 
-.arrow-show-tools {
-  display:none;
-  padding:0.8em;
-}
+  .arrow-show-tools {
+    display:none;
+    padding:0.8em;
+  }
+
+  .arrow-right-panel:hover {
+    cursor: pointer;
+  }
+
+  .arrow-show-tools:hover {
+    cursor: pointer;
+  }
 
 .tools-icons {
   
@@ -143,24 +151,107 @@ section {
       padding: 0.5em;
     }
 
-    
+    li:hover {
+      cursor: pointer;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
 
   } 
-}
+// end of tools icon 
 
-.to-right-arrow {
-  padding: 10px;
-  border-radius: 8px;
-  background-color: $purple-color !important;
+  .to-right-arrow {
+    padding: 10px;
+    border-radius: 8px;
+    background-color: $purple-color !important;
+    
+  }  
   
-}  
+  .to-left-arrow {
+    padding:10px;
+    border-radius: 8px;
+    background-color: $purple-color !important;
+  
+  }
+    
+      .typo-choices {
+      
+        display:none;
+        grid-row:3;
+        grid-column: 1 / span 2;
+        justify-self: center;
+        
+        width: 5em;
+        border-radius: 8px;
+        box-shadow: 0 2px 3px -3px black;
 
-.to-left-arrow {
-  padding:10px;
-  border-radius: 8px;
-  background-color: $purple-color !important;
+        margin: 0.5em;
+    
+        summary {
+        
+          display:flex;
+          justify-content: space-around;
+          align-items: flex-end;
+          background: $purple-color;
+          color: $black-color;
+          padding: 0.5em 3em;
+          cursor: pointer;
+          border-radius: 8px;
+          box-shadow: 0 2px 3px -3px black;
 
+          h1 {
+            text-align: center;
+            font-size: 1.8em;
+            font-family: "Hellix ExtraBold", sans-serif;
+          }
+
+        }
+
+          ul {
+
+            position: absolute;
+            right:10em;
+            bottom:0;
+
+            background: $purple-color;
+            border-radius: 8px;
+          
+            color: $black-color;
+            min-width:auto;
+            padding:1em 0 1em 1em;
+            font-size: 1.5em;
+            font-weight: 700;
+            
+            
+          
+              li {
+                color: black;
+                width:10em;
+              }
+
+              li:hover {
+                cursor: pointer;
+                background-color: $light-grey-color;
+                box-shadow: 0 2px 3px -3px black;
+              }
+
+              #first-font {
+                font-family: Helvetica, sans-serif;
+              }
+              
+              #second-font{
+                font-family: 'Courier New', sans-serif;
+              }
+              
+              #third-font {
+                font-family: 'Times New Roman', sans-serif;
+              } 
+      }
+      // end of ul of select font
+  }
+    // end of details panel (typo-choices)
 }
+// end of tools panel
+
 
 // Panneau des couleurs à gauche
 
@@ -196,6 +287,14 @@ section {
     padding:0.8em;
   }
 
+  .arrow-left-panel:hover {
+    cursor: pointer;
+  }
+
+  .arrow-show-colors:hover {
+    cursor: pointer;
+  }
+
   .color-palette { 
     
     grid-row:2;
@@ -218,6 +317,11 @@ section {
     border: 1px solid $white-color;
     border-radius: 8px; 
     box-shadow: 0 2px 3px -3px black;
+    }
+
+    li:hover {
+      cursor: pointer;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     }
 
 
@@ -250,78 +354,6 @@ section {
 
 // div qui sera cachée tant que l'on ne clique pas dessus
 
-.typo-choices {
-    
-    display:none;
-    position:absolute;
-    right:0;
-    bottom: 15rem;
-    width: 20em;
-    border-radius: 8px;
-    box-shadow: 0 2px 3px -3px black;
-    
-    summary {
-      // pointer-events: none;
-      display:flex;
-      justify-content: space-around;
-      align-items: flex-end;
-      background: $purple-color;
-      color: $black-color;
-      padding: 5px 15px;
-      cursor: pointer;
-      border-radius: 8px 0 0 8px;
-
-      h1 {
-        
-        font-size: 30px;
-        font-family: "Hellix ExtraBold", sans-serif;
-      }
-
-      .icon-open {
-         cursor: pointer;
-         display:block;
-         width: 10%;
-         height: 10%;
-         position: relative;
-         left: 0.2em;
-         bottom: -0.1em;
-         text-align: center;
-         padding: 0.1em;
-         
-      }
-
-    }
-// 2573 la croix
- 
-  .select-fonts {
-    appearance: none;
-    background: $purple-color;
-    border-radius: 8px;
-
-    color: $black-color;
-    width: 100%;
-    padding: 10px 20px;
-    font-size: 22px;
-    font-weight: 700;
-
-      li {
-        color: black;
-      }
-  }
-
-  #first-font {
-    font-family: Helvetica, sans-serif;
-  }
-
-  #second-font{
-    font-family: 'Courier New', sans-serif;
-  }
-
-  #third-font {
-    font-family: 'Times New Roman', sans-serif;
-  }
-
-}
 
 .sentence-mobile {
   display:none;
