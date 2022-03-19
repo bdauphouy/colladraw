@@ -1,0 +1,172 @@
+@import "variables";
+
+body {
+  > header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 90px;
+    height: 120px;
+
+    a {
+      img {
+        width: 200px;
+      }
+    }
+
+    .header-icons {
+      display: flex;
+      gap: 20px;
+
+      li {
+        cursor: pointer;
+
+        &:last-child {
+          position: relative;
+          ul {
+            display: flex;
+            flex-direction: column;
+            background: $light-gray;
+            width: 100px;
+            border-radius: 8px;
+            position: absolute;
+            right: 0;
+            overflow: clip;
+            margin-top: 20px;
+
+            a {
+              font-size: 1.125rem;
+              padding: 1rem;
+              display: inline-block;
+              width: 100%;
+              transition: background-color 200ms;
+
+              &:hover {
+                background: $purple;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  main {
+    .left-panel {
+      align-items: flex-end;
+      left: 0;
+
+      .colors {
+        display: grid;
+        grid-template-columns: repeat(2, 60px);
+        gap: 20px;
+        margin-top: 1.5rem;
+
+        li {
+          filter: brightness(1);
+          transition: filter 200ms;
+
+          &:not(li:last-child) {
+            height: 60px;
+            border-radius: 8px;
+          }
+
+          &:hover {
+            filter: brightness(0.9);
+          }
+
+          &:last-child {
+            grid-column: span 2;
+            height: 60px;
+
+            input {
+              width: 100%;
+              height: 100%;
+              -webkit-appearance: none;
+              border: none;
+
+              &::-webkit-color-swatch-wrapper {
+                padding: 0;
+              }
+
+              &::-webkit-color-swatch {
+                border: none;
+                border-radius: 8px;
+              }
+            }
+          }
+        }
+
+        @each $color in $palette {
+          $i: index($palette, $color);
+          .color-#{$i} {
+            background-color: $color;
+          }
+        }
+      }
+    }
+
+    canvas {
+      position: absolute;
+      z-index: -10;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+    }
+
+    .right-panel {
+      align-items: flex-start;
+      right: 0;
+
+      .tools {
+        display: grid;
+        grid-template-columns: repeat(2, 60px);
+        gap: 20px;
+        margin-top: 1.5rem;
+
+        li {
+          height: 60px;
+          display: grid;
+          place-items: center;
+          border-radius: 8px;
+          background: $white;
+          padding: 0.7rem;
+          border: 2px solid $gray;
+          transition: border-color 200ms;
+
+          &:nth-last-child(2),
+          &:last-child {
+            background: $purple;
+            border-color: transparent;
+          }
+
+          &:hover {
+            border-color: $black;
+          }
+        }
+      }
+    }
+  }
+}
+
+.panel {
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: $light-gray;
+  padding: 1.5rem;
+
+  header {
+    img {
+      cursor: pointer;
+    }
+  }
+
+  li {
+    cursor: pointer;
+  }
+}

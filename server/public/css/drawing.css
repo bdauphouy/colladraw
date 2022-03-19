@@ -1,1 +1,161 @@
+body > header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 90px;
+  height: 120px;
+}
+body > header a img {
+  width: 200px;
+}
+body > header .header-icons {
+  display: flex;
+  gap: 20px;
+}
+body > header .header-icons li {
+  cursor: pointer;
+}
+body > header .header-icons li:last-child {
+  position: relative;
+}
+body > header .header-icons li:last-child ul {
+  display: flex;
+  flex-direction: column;
+  background: #f4f4f4;
+  width: 100px;
+  border-radius: 8px;
+  position: absolute;
+  right: 0;
+  overflow: clip;
+  margin-top: 20px;
+}
+body > header .header-icons li:last-child ul a {
+  font-size: 1.125rem;
+  padding: 1rem;
+  display: inline-block;
+  width: 100%;
+  transition: background-color 200ms;
+}
+body > header .header-icons li:last-child ul a:hover {
+  background: #bbb2f9;
+}
+body main .left-panel {
+  align-items: flex-end;
+  left: 0;
+}
+body main .left-panel .colors {
+  display: grid;
+  grid-template-columns: repeat(2, 60px);
+  gap: 20px;
+  margin-top: 1.5rem;
+}
+body main .left-panel .colors li {
+  filter: brightness(1);
+  transition: filter 200ms;
+}
+body main .left-panel .colors li:not(li:last-child) {
+  height: 60px;
+  border-radius: 8px;
+}
+body main .left-panel .colors li:hover {
+  filter: brightness(0.9);
+}
+body main .left-panel .colors li:last-child {
+  grid-column: span 2;
+  height: 60px;
+}
+body main .left-panel .colors li:last-child input {
+  width: 100%;
+  height: 100%;
+  -webkit-appearance: none;
+  border: none;
+}
+body main .left-panel .colors li:last-child input::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+body main .left-panel .colors li:last-child input::-webkit-color-swatch {
+  border: none;
+  border-radius: 8px;
+}
+body main .left-panel .colors .color-1 {
+  background-color: #f3b1af;
+}
+body main .left-panel .colors .color-2 {
+  background-color: #f6d09a;
+}
+body main .left-panel .colors .color-3 {
+  background-color: #fafd90;
+}
+body main .left-panel .colors .color-4 {
+  background-color: #b0d9a0;
+}
+body main .left-panel .colors .color-5 {
+  background-color: #9fd7de;
+}
+body main .left-panel .colors .color-6 {
+  background-color: #a6c3fa;
+}
+body main .left-panel .colors .color-7 {
+  background-color: #e4acec;
+}
+body main .left-panel .colors .color-8 {
+  background-color: #bbb2f9;
+}
+body main .left-panel .colors .color-9 {
+  background-color: #c1c1c1;
+}
+body main .left-panel .colors .color-10 {
+  background-color: #111111;
+}
+body main canvas {
+  position: absolute;
+  z-index: -10;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+body main .right-panel {
+  align-items: flex-start;
+  right: 0;
+}
+body main .right-panel .tools {
+  display: grid;
+  grid-template-columns: repeat(2, 60px);
+  gap: 20px;
+  margin-top: 1.5rem;
+}
+body main .right-panel .tools li {
+  height: 60px;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  background: #fafafa;
+  padding: 0.7rem;
+  border: 2px solid #c1c1c1;
+  transition: border-color 200ms;
+}
+body main .right-panel .tools li:nth-last-child(2), body main .right-panel .tools li:last-child {
+  background: #bbb2f9;
+  border-color: transparent;
+}
+body main .right-panel .tools li:hover {
+  border-color: #111111;
+}
 
+.panel {
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #f4f4f4;
+  padding: 1.5rem;
+}
+.panel header img {
+  cursor: pointer;
+}
+.panel li {
+  cursor: pointer;
+}
