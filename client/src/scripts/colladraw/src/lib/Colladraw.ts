@@ -50,8 +50,9 @@ export default class Colladraw {
     if (this.optimized) {
       this.canvasContainer = document.createElement("div");
       this.canvasContainer.classList.add("canvas-container", "canvas-container-optimized");
+      const canvasParent = canvas.parentElement;
       this.canvasContainer.appendChild(canvas);
-      document.body.appendChild(this.canvasContainer);
+      canvasParent.appendChild(this.canvasContainer);
     }
 
     this.addToHistory();
