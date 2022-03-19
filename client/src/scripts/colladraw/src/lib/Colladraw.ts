@@ -116,10 +116,13 @@ export default class Colladraw {
     }
   }
 
-  addElement(element: CanvasElement) {
+  addElement(element: CanvasElement, toAddToHistory: boolean = true) {
     this.canvas.dispatchEvent(CanvasEvents.CanvasElementCreated(element));
     this.elements.push(element);
-    this.addToHistory();
+
+    if (toAddToHistory) {
+      this.addToHistory();
+    }
   }
 
   removeElement(elementToDelete: CanvasElement) {
@@ -164,7 +167,7 @@ export default class Colladraw {
       const x = event.clientX - this.canvas.offsetLeft;
       const y = event.clientY - this.canvas.offsetTop;
       // const toolType: CanvasElementType = CanvasElementType.TEXT;
-      const toolType: CanvasElementType = this.state.variables.toolType ?? CanvasElementType.RECTANGLE;
+      const toolType: CanvasElementType = this.state.variables.toolType ?? CanvasElementType.PENCIL;
 
       this.state = {
         ...this.state,
@@ -206,6 +209,9 @@ export default class Colladraw {
           case CanvasElementType.TEXT:
             element = new CanvasText('Hello world', x, y, this.state.variables.font ?? '12px Arial');
             element.y += parseInt((element as CanvasText).font.match(/\d+/)[0] ?? '20');
+            break;
+          case CanvasElementType.PENCIL:
+            if (this.state.drawing) this.state.drawing.pencil = true;
             break;
           default:
             element = new Rectangle(x, y, 0, 0);
@@ -279,10 +285,14 @@ export default class Colladraw {
 
   onMouseMove(event: MouseEvent) {
     if (!this.state.selectedElement) {
-      if (this.state.drawing) {
-        const x = event.clientX - this.canvas.offsetLeft;
-        const y = event.clientY - this.canvas.offsetTop;
+      const x = event.clientX - this.canvas.offsetLeft;
+      const y = event.clientY - this.canvas.offsetTop;
 
+      if (this.state.drawing && this.state.drawing.pencil) {
+        const point = new Rectangle(x, y, 5, 5);
+        point.selectable = false;
+        this.addElement(point, false);
+      } else if (this.state.drawing) {
         this.state = {
           ...this.state,
           drawing: {
@@ -383,6 +393,8 @@ export default class Colladraw {
       this.addElement(this.state.drawing.shape);
     } else if (this.state.drawing && this.state.drawing.line) {
       this.addElement(this.state.drawing.line);
+    } else if (this.state.drawing && this.state.drawing.pencil) {
+      this.addToHistory();
     } else if (this.state.typing) {
       this.addElement(this.state.typing.textElement);
     } else if (this.state.selectionTransform) {
@@ -402,22 +414,24 @@ export default class Colladraw {
     const clickedElement = this.grid[event.offsetY][event.offsetX];
 
     if (clickedElement) {
-      this.canvas.dispatchEvent(CanvasEvents.CanvasElementClicked(clickedElement, event));
-    }
+      if (clickedElement.selectable) {
+        this.canvas.dispatchEvent(CanvasEvents.CanvasElementClicked(clickedElement, event));
 
-    if (!this.state.drawing && !this.state.typing && !this.onClickLocker) {
-      if (clickedElement && (!this.state.selectedElement || this.state.selectedElement == clickedElement)) {
-        clickedElement.select();
-        this.canvas.dispatchEvent(CanvasEvents.CanvasElementSelected(clickedElement));
-        this.state.selectedElement = clickedElement;
-        this.draw();
-      } else {
-        if (this.state.selectedElement) {
-          this.state.selectedElement.deselect()
-          this.canvas.dispatchEvent(CanvasEvents.CanvasElementDeselected(this.state.selectedElement));
+        if (!this.state.drawing && !this.state.typing && !this.onClickLocker) {
+          if (clickedElement && (!this.state.selectedElement || this.state.selectedElement == clickedElement)) {
+            clickedElement.select();
+            this.canvas.dispatchEvent(CanvasEvents.CanvasElementSelected(clickedElement));
+            this.state.selectedElement = clickedElement;
+            this.draw();
+          } else {
+            if (this.state.selectedElement) {
+              this.state.selectedElement.deselect()
+              this.canvas.dispatchEvent(CanvasEvents.CanvasElementDeselected(this.state.selectedElement));
+            }
+            this.state.selectedElement = false;
+            this.draw();
+          }
         }
-        this.state.selectedElement = false;
-        this.draw();
       }
     }
   }

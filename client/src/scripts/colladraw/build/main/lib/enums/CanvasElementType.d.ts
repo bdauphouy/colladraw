@@ -4,8 +4,9 @@ export declare enum CanvasElementType {
     TRIANGLE = "triangle",
     POLYGON = "polygon",
     TEXT = "text",
-    LINE = "line"
+    LINE = "line",
+    PENCIL = "pencil"
 }
 export declare type ShapeType = Exclude<CanvasElementType, CanvasElementType.TEXT>;
 export declare type PolygonTypeString = 'Rectangle' | 'Triangle' | `Polygon[${number}]` | 'Line';
-export declare type CanvasElementTypeString = PolygonTypeString | 'Ellipse' | 'Text';
+export declare type CanvasElementTypeString = PolygonTypeString | 'Ellipse' | 'Text' | 'Pencil';

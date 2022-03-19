@@ -7,6 +7,7 @@ export default abstract class CanvasElement {
   width: number;
   height: number;
   selected: boolean = false;
+  selectable: boolean = true;
 
   protected constructor(x: number, y: number, width: number, height: number) {
     this.x = x;

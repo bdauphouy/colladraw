@@ -5,8 +5,9 @@ export enum CanvasElementType {
   POLYGON = 'polygon',
   TEXT = 'text',
   LINE = 'line',
+  PENCIL = 'pencil',
 }
 
 export type ShapeType = Exclude<CanvasElementType, CanvasElementType.TEXT>;
 export type PolygonTypeString = 'Rectangle' | 'Triangle' | `Polygon[${number}]` | 'Line';
-export type CanvasElementTypeString = PolygonTypeString | 'Ellipse' | 'Text';
+export type CanvasElementTypeString = PolygonTypeString | 'Ellipse' | 'Text' | 'Pencil';

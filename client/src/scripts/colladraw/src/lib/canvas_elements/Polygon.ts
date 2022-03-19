@@ -58,7 +58,7 @@ export default class Polygon extends Shape {
   }
 
   static fromJSON(json: ExportShape): Polygon {
-    if (json.type === 'Ellipse') {
+    if (json.type === 'Ellipse' || json.type === 'Pencil') {
       throw new Error('Cannot convert ellipse to polygon');
     }
 

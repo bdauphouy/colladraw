@@ -6,6 +6,7 @@ export default abstract class CanvasElement {
     width: number;
     height: number;
     selected: boolean;
+    selectable: boolean;
     protected constructor(x: number, y: number, width: number, height: number);
     draw(context: CanvasRenderingContext2D, canvasGrid: CanvasGrid): void;
     abstract generateGrid(canvasGrid: CanvasGrid): void;

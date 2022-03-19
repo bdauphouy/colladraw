@@ -12,7 +12,7 @@ export default class Colladraw {
     constructor(canvas: HTMLCanvasElement);
     private initGrid;
     draw(): void;
-    addElement(element: CanvasElement): void;
+    addElement(element: CanvasElement, toAddToHistory?: boolean): void;
     removeElement(elementToDelete: CanvasElement): void;
     addToHistory(): void;
     undo(): void;
