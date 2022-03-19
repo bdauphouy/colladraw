@@ -38,9 +38,6 @@ return [
             'options' => [
                 'cluster' => env('PUSHER_APP_CLUSTER'),
                 'useTLS' => true,
-                'host' => env('WS_HOST'),
-                'port' => 6001,
-                'scheme' => env('WS_PROTOCOL'),
             ],
         ],
 
