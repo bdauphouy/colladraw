@@ -1,14 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/src/styles/css/index.css" />
     <title>Colladraw - The collaborative online whiteboard</title>
-  </head>
-  <body>
-    <h1>test</h1>
+</head>
+
+<body>
+    <header>
+        <a href="/">
+            <img src="/logo.svg" alt="colladraw" />
+        </a>
+        <div>
+            <a href="/signup" class="button">Signup</a>
+            <a href="/login" class="button fill">Login</a>
+        </div>
+    </header>
+    <main>
+        <div class="content">
+            <h1>Colladraw</h1>
+            <h2>The collaborative online whiteboard.</h2>
+            <div>
+                <input class="field" type="text" placeholder="Username" />
+                <button class="button fill" id="open">Create a session</button>
+            </div>
+        </div>
+        <img src="/illustration.png" alt="illustration" />
+    </main>
+
+
+    <div class="popup-container" id="container">
+        <div class="popup">
+            <div class="img">
+                <img class="logo" src="/logo.svg" alt="colladraw">
+            </div>
+            <p class="text-share">Share the link to your friends to draw together !</p>
+
+            <div class="share">
+                <input class="url" type="url" value="" disabled>
+                <button class="copy">Copy</button>
+            </div>
+            <button class="start">Draw</button>
+        </div>
+    </div>
+
+
+
+
+
     <script type="module" src="/src/scripts/main.js"></script>
-  </body>
+
+</body>
+
 </html>
