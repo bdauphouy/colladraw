@@ -51,7 +51,7 @@ body {
   background-color: $light-grey-color;
   opacity: 0.8;
   border-radius: 8px;
-  box-shadow: 0 5px 3px -3px black;
+  box-shadow: 0 5px 3px -3px $black-color;
   margin: 0 auto;
   display: none;
   flex-direction:column;
@@ -61,7 +61,12 @@ body {
   height: 5em;
 
   li {
+    cursor: pointer;
     font-family: "Hellix ExtraBold", sans-serif;
+  }
+
+  li:hover {
+    color: $dark-purple-color;
   }
 
 }
@@ -183,7 +188,7 @@ section {
         
         width: 5em;
         border-radius: 8px;
-        box-shadow: 0 2px 3px -3px black;
+        box-shadow: 0 2px 3px -3px $black-color;
 
         margin: 0.5em;
     
@@ -193,11 +198,11 @@ section {
           justify-content: space-around;
           align-items: flex-end;
           background: $purple-color;
-          color: $black-color;
+          color: $white-color;
           padding: 0.5em 3em;
           cursor: pointer;
           border-radius: 8px;
-          box-shadow: 0 2px 3px -3px black;
+          box-shadow: 0 2px 3px -3px $black-color;
 
           h1 {
             text-align: center;
@@ -216,7 +221,6 @@ section {
             background: $purple-color;
             border-radius: 8px;
           
-            color: $black-color;
             min-width:auto;
             padding:1em 0 1em 1em;
             font-size: 1.5em;
@@ -225,14 +229,16 @@ section {
             
           
               li {
-                color: black;
+                color: $white-color;
                 width:10em;
               }
 
               li:hover {
                 cursor: pointer;
-                background-color: $light-grey-color;
-                box-shadow: 0 2px 3px -3px black;
+                background-color: $dark-purple-color;
+                padding:0.2em;
+                border-radius: 8px 0 0 8px;
+                box-shadow: 0 2px 3px -3px $black-color;
               }
 
               #first-font {
@@ -250,6 +256,10 @@ section {
       // end of ul of select font
   }
     // end of details panel (typo-choices)
+
+  .typo-choices:hover {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
 }
 // end of tools panel
 

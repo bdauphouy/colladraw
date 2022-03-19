@@ -39,7 +39,7 @@ body .profile-panel {
   background-color: #F4F4F4;
   opacity: 0.8;
   border-radius: 8px;
-  box-shadow: 0 5px 3px -3px black;
+  box-shadow: 0 5px 3px -3px #111111;
   margin: 0 auto;
   display: none;
   flex-direction: column;
@@ -49,7 +49,11 @@ body .profile-panel {
   height: 5em;
 }
 body .profile-panel li {
+  cursor: pointer;
   font-family: "Hellix ExtraBold", sans-serif;
+}
+body .profile-panel li:hover {
+  color: #6b036b;
 }
 body main {
   grid-row: 2;
@@ -138,7 +142,7 @@ body main .tools-right-panel .typo-choices {
   justify-self: center;
   width: 5em;
   border-radius: 8px;
-  box-shadow: 0 2px 3px -3px black;
+  box-shadow: 0 2px 3px -3px #111111;
   margin: 0.5em;
 }
 body main .tools-right-panel .typo-choices summary {
@@ -146,11 +150,11 @@ body main .tools-right-panel .typo-choices summary {
   justify-content: space-around;
   align-items: flex-end;
   background: #BBB2F9;
-  color: #111111;
+  color: #FFFFFC;
   padding: 0.5em 3em;
   cursor: pointer;
   border-radius: 8px;
-  box-shadow: 0 2px 3px -3px black;
+  box-shadow: 0 2px 3px -3px #111111;
 }
 body main .tools-right-panel .typo-choices summary h1 {
   text-align: center;
@@ -163,20 +167,21 @@ body main .tools-right-panel .typo-choices ul {
   bottom: 0;
   background: #BBB2F9;
   border-radius: 8px;
-  color: #111111;
   min-width: auto;
   padding: 1em 0 1em 1em;
   font-size: 1.5em;
   font-weight: 700;
 }
 body main .tools-right-panel .typo-choices ul li {
-  color: black;
+  color: #FFFFFC;
   width: 10em;
 }
 body main .tools-right-panel .typo-choices ul li:hover {
   cursor: pointer;
-  background-color: #F4F4F4;
-  box-shadow: 0 2px 3px -3px black;
+  background-color: #6b036b;
+  padding: 0.2em;
+  border-radius: 8px 0 0 8px;
+  box-shadow: 0 2px 3px -3px #111111;
 }
 body main .tools-right-panel .typo-choices ul #first-font {
   font-family: Helvetica, sans-serif;
@@ -186,6 +191,9 @@ body main .tools-right-panel .typo-choices ul #second-font {
 }
 body main .tools-right-panel .typo-choices ul #third-font {
   font-family: "Times New Roman", sans-serif;
+}
+body main .tools-right-panel .typo-choices:hover {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 body main .color-left-panel {
   position: absolute;
