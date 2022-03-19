@@ -64,6 +64,10 @@ body .profile-panel li:hover {
 body main {
   grid-row: 2;
 }
+body main aside {
+  position: absolute;
+  z-index: 9999;
+}
 body main section {
   grid-row: 2;
   grid-column: 1/span 2;

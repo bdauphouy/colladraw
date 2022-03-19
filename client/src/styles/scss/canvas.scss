@@ -80,8 +80,12 @@ main {
 
     grid-row:2;
 
-section {
+  aside {
+    position: absolute;
+    z-index:9999;
+  }
 
+section {
   grid-row: 2;
   grid-column: 1 / span 2;
   width: 100%;
