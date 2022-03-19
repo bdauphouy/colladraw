@@ -82,6 +82,7 @@ body main .tools-right-panel {
   display: grid;
   grid-template-rows: 60px auto auto;
   grid-template-columns: 1fr 1fr;
+  padding-bottom: 3rem;
 }
 body main .tools-right-panel .arrow-right-panel {
   grid-row: 1;

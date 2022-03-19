@@ -111,6 +111,12 @@ function ToggleRightPanel(){
 
     if(getComputedStyle(typoChoices).display === 'block'){
         typoChoices.style.display = 'none';}
+
+        if (toolsRightPanel.style.paddingBottom == '0px') {
+            toolsRightPanel.style.paddingBottom = '3rem';
+        } else{
+            toolsRightPanel.style.paddingBottom = '0px';
+        }
 }
 
 function ToggleLeftPanel(){
