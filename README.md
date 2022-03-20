@@ -1,64 +1,72 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
-
 <p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+  <img width="100%" src="public/cover.png" />
 </p>
 
-## About Laravel
+### <p align="center"> Colladraw • <a href="https://colladraw.fun" > colladraw.fun </a> </p>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Explications
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### 1. Pourquoi 
+Dans le cadre d'un projet dans notre [école](https://www.hetic.net/), nous avons eu pour exercice de refaire l'application "Paint" en une semaine et en groupe de 4.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 2. Contraintes imposées
+- Dessiner un rectangle, un triangle (pointe vers le haut) et un cercle
+- Dessiner une zone de texte
+- Possibilité d'utiliser une couleur "primaire" pour le contour des formes ou pour la couleur du texte
+- Possibilité d'utiliser une couleur "secondaire" pour le remplissage des formes ou le surlignement du texte
+- Un menu déroulant permettant de sélectionner une police d'écriture parmis trois
+- Déplacer la forme
+- Modifier les dimensions de la forme
+- Changer les couleurs de la forme
+- Sauvegarder le dessin pour le reprendre plus tard
+- Exporter le dessin au format image et au format PDF 
 
-## Learning Laravel
+### 3. Objectifs supplémentaires du groupe
+- Possibilité de créer un compte et de se connecter
+- Un espace "Profil" pour stocker les dessins et les reprendre ultérieurement
+- Inviter des personnes via un lien et ainsi dessiner à plusieurs
+- Si plusieurs personnes dessinent sur le même projet, stocker le dessin sur tous les profils
+- Mettre le site sur un serveur
+- Possibilité de créer un trait
+- Possibilité d'effacer avec une gomme
+- Possibilité de dessiner avec un crayon
+- Retour arrière et retour avant
+- WebSocket pour tout stocker en temps réel
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### 4. Répartition des tâches 
+- [Amaury FRANSSEN](https://github.com/ExploryKod) (Front)
+- [Anthony RINGRESSI](https://github.com/Anthony-Rgs) (Front & Design)
+- [Arthur FONTAINE](https://github.com/arthur-fontaine) (Full Stack)
+- [Baptiste DAUPHOUY](https://github.com/baptistedph) (Full Stack)
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-## Laravel Sponsors
+## Technologies utilisées
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+### 1. Front
+![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
+![SASS](https://img.shields.io/badge/SASS-hotpink.svg?style=for-the-badge&logo=SASS&logoColor=white)
+![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
+![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
 
-### Premium Partners
+### 2. Back
+![MySQL](https://img.shields.io/badge/mysql-%2300f.svg?style=for-the-badge&logo=mysql&logoColor=white)
+![PHP](https://img.shields.io/badge/php-%23777BB4.svg?style=for-the-badge&logo=php&logoColor=white)
+![Laravel](https://img.shields.io/badge/laravel-%23FF2D20.svg?style=for-the-badge&logo=laravel&logoColor=white)
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+### 3. Design
+![Figma](https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white)
 
-## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Canvas
 
-## Code of Conduct
+Pour ce projet il nous était interdit d'utiliser des librairies. 
+Afin de simplifier notre code et de le rendre plus clair nous avons développé notre propre bibliothèque en TypeScript
+disponible sur ce <a href="https://github.com/arthur-fontaine/auto-colladraw">repo GitHub</a> et sur
+<a href="https://www.npmjs.com/package/colladraw">NPM</a>.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
-## Security Vulnerabilities
+## Nos inspirations
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+- Excalidraw
+- GarticPhone
+- Paint
