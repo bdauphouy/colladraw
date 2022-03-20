@@ -59,7 +59,8 @@ body {
               max-height: 120px;
             }
 
-            a {
+            a,
+            button {
               font-size: $p;
               padding: 1rem;
               display: inline-block;

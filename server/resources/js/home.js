@@ -50,10 +50,6 @@ class HandleHome {
 
     e.preventDefault()
 
-    if (location.protocol === 'http:') {
-      location.href = '/'
-    }
-
     const res = await fetch('/logout', {
       method: 'POST',
       headers: {

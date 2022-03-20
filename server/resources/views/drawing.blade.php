@@ -19,14 +19,23 @@
 
     <ul class="header-icons">
         <li><img src="{{ asset("/images/icons/icon-trash.svg") }}" alt="trash"></li>
-        <li><img src="{{ asset("/images/icons/icon-download.svg") }}" alt="download"></li>
-        <li><img src="{{ asset("/images/icons/icon-upload.svg") }}" alt="upload"></li>
-        @if (!Auth::user())
+        <li id="download">
+          <img src="{{ asset("/images/icons/icon-download.svg") }}" alt="download">
+          <ul>
+            <li>
+              <button id="save-pdf">PDF</button>
+            </li>
+            <li>
+              <button id="save-png">PNG</button>
+            </li>
+          </ul>
+        </li>
+        @if (Auth::user())
         <li id="profile">
           <img src="{{ asset("/images/icons/user-icon.svg") }}" alt="profile">
           <ul>
             <li>
-              <a href="/profile">Profile</a>
+              <button>Log out</button>
             </li>
             <li>
               <a href="/logout">Log out</a>
@@ -72,16 +81,16 @@
         </header>
 
         <ul class="tools">
-            <li id="pen"><img src="{{ asset("/images/icons/icon-pen.svg") }}" alt="pen"></li>
-            <li id="rubber"><img src="{{ asset("/images/icons/icon-rubber.svg") }}" alt="rubber"></li>
-            <li id="rectangle"><img src="{{ asset("/images/icons/icon-rectangle.svg") }}" alt="rectangle"></li>
-            <li id="ellipse"><img src="{{ asset("/images/icons/icon-ellipse.svg") }}" alt="ellipse"></li>
-            <li id="triangle"><img src="{{ asset("/images/icons/icone_triangle.svg") }}" alt="triangle"></li>
-            <li id="line"><img src="{{ asset("/images/icons/icon-line.svg") }}" alt="line tool"></li>
-            <li id="text"><img src="{{ asset("/images/icons/icon-text.svg") }}" alt="text tool"></li>
-            <li id="background"><img class="change-icon" src="{{ asset("/images/icons/background.svg") }}" alt="stroke fill rectangles"></li>
-            <li><img src="{{ asset("/images/icons/arrow-left.svg") }}" alt="undo"></li>
-            <li><img src="{{ asset("/images/icons/arrow-right.svg") }}" alt="redo"></li>
+            <li id="pen"><button><img src="{{ asset("/images/icons/icon-pen.svg") }}" alt="pen"></button></li>
+            <li id="rubber"><button><img src="{{ asset("/images/icons/icon-rubber.svg") }}" alt="rubber"></button></li>
+            <li id="rectangle"><button><img src="{{ asset("/images/icons/icon-rectangle.svg") }}" alt="rectangle"></button></li>
+            <li id="ellipse"><button><img src="{{ asset("/images/icons/icon-ellipse.svg") }}" alt="ellipse"></button></li>
+            <li id="triangle"><button><img src="{{ asset("/images/icons/icone_triangle.svg") }}" alt="triangle"></button></li>
+            <li id="line"><button><img src="{{ asset("/images/icons/icon-line.svg") }}" alt="line tool"></button></li>
+            <li id="text"><button><img src="{{ asset("/images/icons/icon-text.svg") }}" alt="text tool"></button></li>
+            <li id="background"><button><img class="change-icon" src="{{ asset("/images/icons/background.svg") }}" alt="stroke fill rectangles"></button></li>
+            <li id="undo"><button><img src="{{ asset("/images/icons/arrow-left.svg") }}" alt="undo"></button></li>
+            <li id="redo"><button><img src="{{ asset("/images/icons/arrow-right.svg") }}" alt="redo"></button></li>
         </ul>
 {{--             
         <details class="typo-choices">

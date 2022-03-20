@@ -924,12 +924,7 @@ var HandleHome = /*#__PURE__*/function () {
               case 0:
                 csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
                 e.preventDefault();
-
-                if (location.protocol === 'http:') {
-                  location.href = '/';
-                }
-
-                _context.next = 5;
+                _context.next = 4;
                 return fetch('/logout', {
                   method: 'POST',
                   headers: {
@@ -937,14 +932,14 @@ var HandleHome = /*#__PURE__*/function () {
                   }
                 });
 
-              case 5:
+              case 4:
                 res = _context.sent;
 
                 if (res.ok) {
                   location.pathname = '/';
                 }
 
-              case 7:
+              case 6:
               case "end":
                 return _context.stop();
             }

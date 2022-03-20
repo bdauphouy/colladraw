@@ -123,9 +123,11 @@ class DrawingController extends Controller
 
         $drawing_image = str_replace('data:image/png;base64,', '', $drawing_image);
         $drawing_image = str_replace(' ', '+', $drawing_image);
+        
         $file = 'drawing.png';
-
+        
         if ($format == 'pdf') {
+ 
             $file = str_replace('.png', '.pdf', $file);
             $dompdf = new Dompdf();
             $width = imagesx(imagecreatefromstring(base64_decode($drawing_image)));
@@ -134,6 +136,10 @@ class DrawingController extends Controller
             $dompdf->loadHtml('<html style="margin: 0; height: 100%; width: 100%;"><body style="margin: 0; height: 100%; width: 100%;"><img style="height: 100%; width: 100%;" src="data:image/png;base64,' . $drawing_image . '" /></body></html>');
             $dompdf->render();
             $dompdf->stream($file);
+        }
+
+        else {
+            file_put_contents($file, base64_decode($drawing_image));
         }
 
         return response()->download($file);

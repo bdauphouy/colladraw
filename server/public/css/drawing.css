@@ -52,7 +52,8 @@ body > header .header-icons > li:last-child ul {
 body > header .header-icons > li:last-child ul.show {
   max-height: 120px;
 }
-body > header .header-icons > li:last-child ul a {
+body > header .header-icons > li:last-child ul a,
+body > header .header-icons > li:last-child ul button {
   font-size: 1.125rem;
   padding: 1rem;
   display: inline-block;
@@ -61,7 +62,8 @@ body > header .header-icons > li:last-child ul a {
   color: #111111;
   font-weight: 500;
 }
-body > header .header-icons > li:last-child ul a:hover {
+body > header .header-icons > li:last-child ul a:hover,
+body > header .header-icons > li:last-child ul button:hover {
   background: #bbb2f9;
 }
 body main .left-panel {
