@@ -7,7 +7,7 @@
 
 <script>
     window.drawingSaved = {!! $drawingSaved ?? null !!}
-    window.username = {!! Auth::user()->name ? "'" . Auth::user()->name . "'" : null !!}
+    window.username = {!! Auth::user() && Auth::user()->name ? "'" . Auth::user()->name . "'" : null !!}
 </script>
 
 @section('content')
