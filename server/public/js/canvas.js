@@ -86,6 +86,9 @@ var HandleCanvas = /*#__PURE__*/function () {
     this.colorChangingType = "background";
     this.lastSelectedTool = null;
     this.handle();
+    this.toolsElements.find(function (el) {
+      return el.id === 'rectangle';
+    }).click();
     setInterval(function () {
       return _this.saveDrawing(_this.cd);
     }, 10000);

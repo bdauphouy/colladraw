@@ -44,6 +44,8 @@ class HandleCanvas {
         this.lastSelectedTool = null
         this.handle()
 
+        this.toolsElements.find(el => el.id === 'rectangle').click()
+
         setInterval(() => this.saveDrawing(this.cd), 10000)
 
         if (window.drawingSaved) this.cd.load(window.drawingSaved)
