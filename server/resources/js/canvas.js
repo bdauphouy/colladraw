@@ -32,6 +32,7 @@ class HandleCanvas {
     this.colorsElements = [...document.querySelectorAll('.colors > li')]
     this.fontsElements = [...document.querySelectorAll('.fonts > li')]
     this.fontsPanel = document.querySelector('.fonts')
+    this.savingText = document.querySelector('#saving-text')
     this.canvas = document.querySelector('#canvas')
     this.cd = new Colladraw(this.canvas)
     this.currentColor = null
@@ -40,17 +41,7 @@ class HandleCanvas {
     this.websocket = new Websocket(this.cd, this.drawingId, this.username)
     this.handle()
 
-    setInterval(async () => {
-      await fetch(`/api/drawings/${this.drawingId}/save`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          drawing: this.cd.toJSON(),
-        }),
-      })
-    }, 10000)
+    setInterval(() => this.saveDrawing(this.cd), 10000)
 
     if (window.drawingSaved) this.cd.load(window.drawingSaved)
   }
@@ -61,6 +52,23 @@ class HandleCanvas {
 
   get username() {
     return window.username ?? new URLSearchParams(location.search).get('name')
+  }
+
+  async saveDrawing(cd) {
+    this.savingText.innerText = 'Saving...'
+    await fetch(`/api/drawings/${this.drawingId}/save`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        drawing: cd.toJSON(),
+      }),
+    })
+    this.savingText.innerText = 'Saved.'
+    setTimeout(() => {
+      this.savingText.innerText = ''
+    }, 2000)
   }
 
   handle() {
@@ -87,6 +95,18 @@ class HandleCanvas {
     const shareButton = document.querySelector('#share')
     const saveButton = document.querySelector('#save')
     const deleteButton = document.querySelector('#delete')
+
+    const share = (e) => {
+      if (!['DIV', 'H3', 'INPUT'].includes(e.target.tagName)) {
+        shareButton.lastElementChild.classList.toggle('show')
+      }
+
+      const urlToShare = `${location.origin}/?ask=true&session=${location.href
+        .split('/')
+        .at(-1)}`
+
+      shareButton.lastElementChild.lastElementChild.value = urlToShare
+    }
 
     const logout = async (e) => {
       const csrfToken = document
@@ -117,6 +137,8 @@ class HandleCanvas {
       downloadButton.lastElementChild.classList.toggle('show')
     }
 
+    saveButton.addEventListener('click', () => this.saveDrawing(this.cd))
+    shareButton.addEventListener('click', share)
     downloadButton.addEventListener('click', toggleDownload)
 
     if (profileButton) {

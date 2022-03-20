@@ -24,7 +24,13 @@
     <ul class="header-icons">
         <li id="delete"><img src="{{ asset("/images/icons/icon-trash.svg") }}" alt="trash"></li>
         <li id="save"><img src="{{ asset("/images/icons/save.svg") }}" alt="save"></li>
-        <li id="share"><img src="{{ asset("/images/icons/share.svg") }}" alt="share"></li>
+        <li id="share">
+          <img src="{{ asset("/images/icons/share.svg") }}" alt="share">
+          <div>
+            <h3>Share this link to your friends.</h3>
+            <input type="text" class="field">
+          </div>
+        </li>
         <li id="download">
           <img src="{{ asset("/images/icons/icon-download.svg") }}" alt="download">
           <ul class="dropdown">
@@ -71,6 +77,7 @@
     <canvas id="canvas"></canvas>
 
     <aside class="panel right-panel show">
+        <span id="saving-text"></span>
         <header>
           <img class="toggle-icon" src="{{ asset("/images/icons/icon-colors-chevron.svg") }}" alt="toggle tools">
         </header>

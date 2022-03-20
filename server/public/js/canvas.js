@@ -75,36 +75,17 @@ var HandleCanvas = /*#__PURE__*/function () {
     this.colorsElements = _toConsumableArray(document.querySelectorAll('.colors > li'));
     this.fontsElements = _toConsumableArray(document.querySelectorAll('.fonts > li'));
     this.fontsPanel = document.querySelector('.fonts');
+    this.savingText = document.querySelector('#saving-text');
     this.canvas = document.querySelector('#canvas');
     this.cd = new colladraw__WEBPACK_IMPORTED_MODULE_1__["default"](this.canvas);
     this.currentColor = null;
     this.currentTool = null;
     this.currentFont = this.fonts[0];
-    this.websocket = new _websocket__WEBPACK_IMPORTED_MODULE_2__["default"](this.cd);
+    this.websocket = new _websocket__WEBPACK_IMPORTED_MODULE_2__["default"](this.cd, this.drawingId, this.username);
     this.handle();
-    setInterval( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              _context.next = 2;
-              return fetch("/api/drawings/".concat(_this.drawingId, "/save"), {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                  drawing: _this.cd.toJSON()
-                })
-              });
-
-            case 2:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee);
-    })), 10000);
+    setInterval(function () {
+      return _this.saveDrawing(_this.cd);
+    }, 10000);
     if (window.drawingSaved) this.cd.load(window.drawingSaved);
   }
 
@@ -113,6 +94,55 @@ var HandleCanvas = /*#__PURE__*/function () {
     get: function get() {
       return location.pathname.split('/')[2];
     }
+  }, {
+    key: "username",
+    get: function get() {
+      var _window$username;
+
+      return (_window$username = window.username) !== null && _window$username !== void 0 ? _window$username : new URLSearchParams(location.search).get('name');
+    }
+  }, {
+    key: "saveDrawing",
+    value: function () {
+      var _saveDrawing = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(cd) {
+        var _this2 = this;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                this.savingText.innerText = 'Saving...';
+                _context.next = 3;
+                return fetch("/api/drawings/".concat(this.drawingId, "/save"), {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify({
+                    drawing: cd.toJSON()
+                  })
+                });
+
+              case 3:
+                this.savingText.innerText = 'Saved.';
+                setTimeout(function () {
+                  _this2.savingText.innerText = '';
+                }, 2000);
+
+              case 5:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function saveDrawing(_x) {
+        return _saveDrawing.apply(this, arguments);
+      }
+
+      return saveDrawing;
+    }()
   }, {
     key: "handle",
     value: function handle() {
@@ -125,11 +155,11 @@ var HandleCanvas = /*#__PURE__*/function () {
   }, {
     key: "handleWindowResize",
     value: function handleWindowResize() {
-      var _this2 = this;
+      var _this3 = this;
 
       var resizeCanvas = function resizeCanvas() {
-        _this2.canvas.width = window.innerWidth;
-        _this2.canvas.height = window.innerHeight;
+        _this3.canvas.width = window.innerWidth;
+        _this3.canvas.height = window.innerHeight;
       };
 
       window.addEventListener('resize', resizeCanvas);
@@ -137,12 +167,26 @@ var HandleCanvas = /*#__PURE__*/function () {
   }, {
     key: "handleHeaderIcons",
     value: function handleHeaderIcons() {
+      var _this4 = this;
+
       var profileButton = document.querySelector('#profile');
       var downloadButton = document.querySelector('#download');
       var logoutButton = document.querySelector('#logout');
+      var shareButton = document.querySelector('#share');
+      var saveButton = document.querySelector('#save');
+      var deleteButton = document.querySelector('#delete');
+
+      var share = function share(e) {
+        if (!['DIV', 'H3', 'INPUT'].includes(e.target.tagName)) {
+          shareButton.lastElementChild.classList.toggle('show');
+        }
+
+        var urlToShare = "".concat(location.origin, "/?ask=true&session=").concat(location.href.split('/').at(-1));
+        shareButton.lastElementChild.lastElementChild.value = urlToShare;
+      };
 
       var logout = /*#__PURE__*/function () {
-        var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(e) {
+        var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(e) {
           var csrfToken, res;
           return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
             while (1) {
@@ -173,8 +217,8 @@ var HandleCanvas = /*#__PURE__*/function () {
           }, _callee2);
         }));
 
-        return function logout(_x) {
-          return _ref2.apply(this, arguments);
+        return function logout(_x2) {
+          return _ref.apply(this, arguments);
         };
       }();
 
@@ -188,6 +232,10 @@ var HandleCanvas = /*#__PURE__*/function () {
         downloadButton.lastElementChild.classList.toggle('show');
       };
 
+      saveButton.addEventListener('click', function () {
+        return _this4.saveDrawing(_this4.cd);
+      });
+      shareButton.addEventListener('click', share);
       downloadButton.addEventListener('click', toggleDownload);
 
       if (profileButton) {
@@ -201,7 +249,7 @@ var HandleCanvas = /*#__PURE__*/function () {
   }, {
     key: "handleSave",
     value: function handleSave() {
-      var _this3 = this;
+      var _this5 = this;
 
       var pdfButton = document.querySelector('#save-pdf');
       var pngButton = document.querySelector('#save-png');
@@ -209,7 +257,7 @@ var HandleCanvas = /*#__PURE__*/function () {
       var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
       var download = /*#__PURE__*/function () {
-        var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(format) {
+        var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(format) {
           var res, blob, a;
           return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
             while (1) {
@@ -219,7 +267,7 @@ var HandleCanvas = /*#__PURE__*/function () {
                   return fetch("/api/drawings/".concat(uuid, "/export?format=").concat(format), {
                     method: 'POST',
                     body: JSON.stringify({
-                      image: _this3.cd.toDataURL()
+                      image: _this5.cd.toDataURL()
                     }),
                     headers: {
                       'X-CSRF-TOKEN': csrfToken,
@@ -247,8 +295,8 @@ var HandleCanvas = /*#__PURE__*/function () {
           }, _callee3);
         }));
 
-        return function download(_x2) {
-          return _ref3.apply(this, arguments);
+        return function download(_x3) {
+          return _ref2.apply(this, arguments);
         };
       }();
 
@@ -262,75 +310,75 @@ var HandleCanvas = /*#__PURE__*/function () {
   }, {
     key: "handlePanels",
     value: function handlePanels() {
-      var _this4 = this;
+      var _this6 = this;
 
       var colorPicker = document.querySelector('#color-picker');
       var undoButton = document.querySelector('#undo');
       var redoButton = document.querySelector('#redo');
 
       var changeColor = function changeColor(e, type) {
-        var selectedShape = _this4.cd.elements.find(function (el) {
+        var selectedShape = _this6.cd.elements.find(function (el) {
           return el.selected;
         });
 
         if (type === 'picker') {
-          _this4.currentColor = colorPicker.value;
+          _this6.currentColor = colorPicker.value;
         } else {
           var index = Number(e.target.className.at(-1)) - 1;
-          _this4.currentColor = _this4.colors[index];
+          _this6.currentColor = _this6.colors[index];
         }
 
         if (selectedShape) {
-          selectedShape.fillColor = _this4.currentColor;
+          selectedShape.fillColor = _this6.currentColor;
 
-          _this4.cd.draw();
+          _this6.cd.draw();
         }
       };
 
       var changeTool = function changeTool(e) {
-        _this4.toolsElements.forEach(function (toolElement) {
+        _this6.toolsElements.forEach(function (toolElement) {
           toolElement.classList.remove('active');
         });
 
-        _this4.fontsPanel.classList.remove('show');
+        _this6.fontsPanel.classList.remove('show');
 
         var toolElement = e.target;
         toolElement.classList.add('active');
-        _this4.currentTool = _this4.tools[toolElement.id];
+        _this6.currentTool = _this6.tools[toolElement.id];
 
-        _this4.cd.changeToolType(_this4.currentTool);
+        _this6.cd.changeToolType(_this6.currentTool);
       };
 
       var changeFont = function changeFont(e) {
-        _this4.fontsElements.forEach(function (fontElement) {
+        _this6.fontsElements.forEach(function (fontElement) {
           fontElement.classList.remove('active');
         });
 
         var fontButton = e.target.firstElementChild;
         fontButton.parentElement.classList.add('active');
-        _this4.currentFont = fontButton.innerText;
+        _this6.currentFont = fontButton.innerText;
 
-        _this4.cd.changeFont("30px ".concat(_this4.currentFont));
+        _this6.cd.changeFont("30px ".concat(_this6.currentFont));
 
-        _this4.cd.draw();
+        _this6.cd.draw();
       };
 
       var toggleFonts = function toggleFonts(e) {
-        _this4.fontsPanel.classList.toggle('show');
+        _this6.fontsPanel.classList.toggle('show');
       };
 
       var togglePanel = function togglePanel(e) {
         e.target.parentElement.parentElement.classList.toggle('show');
 
-        _this4.fontsPanel.classList.remove('show');
+        _this6.fontsPanel.classList.remove('show');
       };
 
       var undo = function undo() {
-        _this4.cd.undo();
+        _this6.cd.undo();
       };
 
       var redo = function redo() {
-        _this4.cd.redo();
+        _this6.cd.redo();
       };
 
       this.toggleIcons.forEach(function (toggleIcon) {
@@ -386,11 +434,17 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 var Websocket = /*#__PURE__*/function () {
-  function Websocket(cd) {
+  function Websocket(cd, drawingId, username) {
     _classCallCheck(this, Websocket);
 
+    _defineProperty(this, "_events", []);
+
     this.cd = cd;
+    this.drawingId = drawingId;
+    this.username = username;
   }
 
   _createClass(Websocket, [{
@@ -437,14 +491,44 @@ var Websocket = /*#__PURE__*/function () {
       //   }
       // });
 
-      var socket = io('http://localhost:8001');
-      var drawingId = 1;
-      socket.on('connect', function () {
-        console.info('Websocket connected');
-        socket.emit('join-drawing', "drawing-".concat(drawingId));
-        socket.on('update-drawing', function (_ref) {
-          var emitterId = _ref.emitterId,
-              data = _objectWithoutProperties(_ref, _excluded);
+      var socket = io("http://localhost:8001");
+      socket.on("connect", function () {
+        console.info("Websocket connected");
+        socket.emit("join-drawing", {
+          room: "drawing-".concat(_this.drawingId),
+          username: _this.username
+        });
+        window.addEventListener('beforeunload', function (e) {
+          socket.emit("leave-drawing", {
+            room: "drawing-".concat(_this.drawingId),
+            username: _this.username
+          });
+        });
+        socket.on('user-joined', function (_ref) {
+          var username = _ref.username;
+
+          var userJoinedEvent = _this._events.find(function (event) {
+            return event.name === 'user-joined';
+          });
+
+          if (userJoinedEvent) {
+            userJoinedEvent.callback(username);
+          }
+        });
+        socket.on('user-left', function (_ref2) {
+          var username = _ref2.username;
+
+          var userLeftEvent = _this._events.find(function (event) {
+            return event.name === 'user-left';
+          });
+
+          if (userLeftEvent) {
+            userLeftEvent.callback(username);
+          }
+        });
+        socket.on("update-drawing", function (_ref3) {
+          var emitterId = _ref3.emitterId,
+              data = _objectWithoutProperties(_ref3, _excluded);
 
           if (emitterId !== clientId) {
             _this.cd.load(data);
@@ -452,16 +536,24 @@ var Websocket = /*#__PURE__*/function () {
         });
 
         var send = function send() {
-          socket.emit('update-drawing', {
+          socket.emit("update-drawing", {
             data: _this.cd.toJSON(),
             emitterId: clientId,
-            room: "drawing-".concat(drawingId)
+            room: "drawing-".concat(_this.drawingId)
           });
         };
 
-        canvas.addEventListener('element-created', send);
-        canvas.addEventListener('element-moved', send);
-        canvas.addEventListener('element-transform', send);
+        canvas.addEventListener("element-created", send);
+        canvas.addEventListener("element-moved", send);
+        canvas.addEventListener("element-transform", send);
+      });
+    }
+  }, {
+    key: "on",
+    value: function on(event, callback) {
+      this._events.push({
+        event: event,
+        callback: callback
       });
     }
   }]);
