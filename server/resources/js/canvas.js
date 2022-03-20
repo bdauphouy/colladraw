@@ -134,11 +134,11 @@ class HandleCanvas {
 
         const toggleProfile = () => {
             downloadButton.lastElementChild.classList.remove("show")
-            profileButton.lastElementChild.classList.toggle("show")
+            profileButton?.lastElementChild.classList.toggle("show")
         }
 
         const toggleDownload = () => {
-            profileButton.lastElementChild.classList.remove("show")
+            profileButton?.lastElementChild.classList.remove("show")
             downloadButton.lastElementChild.classList.toggle("show")
         }
 

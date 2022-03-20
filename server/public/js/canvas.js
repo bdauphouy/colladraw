@@ -230,11 +230,11 @@ var HandleCanvas = /*#__PURE__*/function () {
 
       var toggleProfile = function toggleProfile() {
         downloadButton.lastElementChild.classList.remove("show");
-        profileButton.lastElementChild.classList.toggle("show");
+        profileButton === null || profileButton === void 0 ? void 0 : profileButton.lastElementChild.classList.toggle("show");
       };
 
       var toggleDownload = function toggleDownload() {
-        profileButton.lastElementChild.classList.remove("show");
+        profileButton === null || profileButton === void 0 ? void 0 : profileButton.lastElementChild.classList.remove("show");
         downloadButton.lastElementChild.classList.toggle("show");
       };
 
