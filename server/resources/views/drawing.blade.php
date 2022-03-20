@@ -47,10 +47,10 @@
           <img src="{{ asset("/images/icons/user-icon.svg") }}" alt="profile">
           <ul class="dropdown">
             <li>
-              <button id="logout">Log out</button>
+              <a href="/profile">Profile</a>
             </li>
             <li>
-              <a href="/profile">Profile</a>
+              <button id="logout">Log out</button>
             </li>
           </ul>
         </li>

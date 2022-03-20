@@ -21,8 +21,6 @@ class UserController extends Controller
 
         foreach (json_decode($user->drawings) as $drawing_id) {
             $drawing = Drawing::where('uuid', '=', $drawing_id)->first();
-
-
             array_push($drawings, $drawing->getAttributes());
         }
 
