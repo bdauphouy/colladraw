@@ -9,6 +9,11 @@ body > header {
   height: 120px;
   z-index: 100;
 }
+@media screen and (max-width: 768px) {
+  body > header {
+    padding: 0 24px;
+  }
+}
 body > header a {
   cursor: pointer;
   position: relative;
@@ -36,7 +41,8 @@ body > header .header-icons > li {
 body > header .header-icons > li#share div {
   display: none;
   position: absolute;
-  width: 400px;
+  width: 300px;
+  right: 0;
   background: #f4f4f4;
   z-index: 200;
   border-radius: 8px;
@@ -255,7 +261,7 @@ body main .right-panel .tools > li ul.show {
   background: #f4f4f4;
   padding: 1.5rem;
   transition: transform 200ms;
-  z-index: 100;
+  z-index: 1;
 }
 .panel li {
   pointer-events: none;

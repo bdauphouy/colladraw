@@ -273,7 +273,7 @@ body {
   position: absolute;
   max-height: 0;
   overflow: clip;
-  z-index: 100;
+  z-index: 200;
   transition: max-height 200ms;
 }
 .dropdown a,
