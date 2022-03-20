@@ -43,11 +43,15 @@ class HandleCanvas {
   }
 
   handleHeaderIcons() {
+    const profile = document.querySelector('#profile')
+
     const toggleProfile = () => {
       profile.lastElementChild.classList.toggle('show')
     }
 
-    profile.addEventListener('click', toggleProfile)
+    if (profile) {
+      profile.addEventListener('click', toggleProfile)
+    }
   }
 
   handlePanels() {

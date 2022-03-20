@@ -30,16 +30,32 @@
         <h1>Hi {{ Auth::user()->name }}!</h1>
         <h2>Start a new session now.</h2>
         @endif
+    
+        @if (array_key_exists('ask', app('request')->query()))
+            @if (app('request')->query()['ask'] == 'true')
+                <form id="join-session">
+                    @csrf
+                    @if (!Auth::user())
+                    <div>
+                        <input class="username field" type="text" placeholder="Username" />
+                        <span class="error"></span>
+                    </div>
+                    @endif
+                    <button class="button fill" id="open-modal">Join session</button>
+                </form>
+            @endif
+        @else
         <form id="create-session">
             @csrf
             @if (!Auth::user())
             <div>
-                <input id="username" class="field" type="text" placeholder="Username" />
+                <input class="username field" type="text" placeholder="Username" />
                 <span class="error"></span>
             </div>
             @endif
             <button class="button fill" id="open-modal">Create a session</button>
         </form>
+        @endif
     </div>
     <img src="{{ asset("/images/illustration.png") }}" alt="illustration" />
     <dialog id="create-session-modal">

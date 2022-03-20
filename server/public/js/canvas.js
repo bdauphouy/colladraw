@@ -68,11 +68,15 @@ var HandleCanvas = /*#__PURE__*/function () {
   }, {
     key: "handleHeaderIcons",
     value: function handleHeaderIcons() {
+      var profile = document.querySelector('#profile');
+
       var toggleProfile = function toggleProfile() {
         profile.lastElementChild.classList.toggle('show');
       };
 
-      profile.addEventListener('click', toggleProfile);
+      if (profile) {
+        profile.addEventListener('click', toggleProfile);
+      }
     }
   }, {
     key: "handlePanels",

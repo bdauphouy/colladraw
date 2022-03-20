@@ -14,7 +14,33 @@ class HandleHome {
 
     const createSessionForm = document.querySelector('#create-session')
 
-    createSessionForm.addEventListener('submit', this.createSession)
+    if (createSessionForm) {
+      createSessionForm.addEventListener('submit', this.createSession)
+    }
+
+    const joinSessionForm = document.querySelector('#join-session')
+
+    if (joinSessionForm) {
+      joinSessionForm.addEventListener('submit', this.joinSession)
+    }
+  }
+
+  joinSession(e) {
+    e.preventDefault()
+    const usernameField = document.querySelector('.username')
+    const params = new URLSearchParams(window.location.search)
+
+    if (usernameField) {
+      if (!usernameField.value) {
+        const errorText = document.querySelector('.username + span')
+        errorText.innerText = 'Please enter a username.'
+        return
+      }
+    }
+
+    location.href = usernameField
+      ? `/drawings/${params.get('session')}?name=${usernameField.value}`
+      : `/drawings/${params.get('session')}`
   }
 
   async logout(e) {
@@ -46,11 +72,12 @@ class HandleHome {
       .getAttribute('content')
 
     e.preventDefault()
-    const usernameField = document.querySelector('#username')
+
+    const usernameField = document.querySelector('.username')
 
     if (usernameField) {
       if (!usernameField.value) {
-        const errorText = document.querySelector('#username + span')
+        const errorText = document.querySelector('.username + span')
         errorText.innerText = 'Please enter a username.'
         return
       }
@@ -91,9 +118,7 @@ class HandleHome {
       session: urlParams.get('session'),
       modal: urlParams.get('modal'),
     }
-    const urlToShare = params.name
-      ? `${location.origin}/drawings/${params.session}?name=${params.name}`
-      : `${location.origin}/drawings/${params.session}`
+    const urlToShare = `${location.origin}/?ask=true&session=${params.session}`
 
     const openModal = () => {
       modalUuid.value = urlToShare
@@ -106,7 +131,9 @@ class HandleHome {
     }
 
     const draw = () => {
-      location.href = urlToShare
+      location.href = params.name
+        ? `${location.origin}/drawings/${params.session}?name=${params.name}`
+        : `${location.origin}/drawings/${params.session}`
     }
 
     const copyUrl = async () => {

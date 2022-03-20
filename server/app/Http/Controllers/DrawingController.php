@@ -40,12 +40,18 @@ class DrawingController extends Controller
                 $user->drawings = json_encode($user_drawings);
                 $user->save();
 
-                dd($user);
 
             }
         } else {
+            $name;
 
-            $name = $request->query()['name'];
+            if (array_key_exists("name", $request->query())) {
+                $name = $request->query()['name'];
+            } else {
+                return redirect("/?ask=true&session=$drawing->uuid");
+            }
+
+    
             
             if (!in_array($name, $drawing_members_array)) {
                 array_push($drawing_members_array, $name);

@@ -885,7 +885,33 @@ var HandleHome = /*#__PURE__*/function () {
       }
 
       var createSessionForm = document.querySelector('#create-session');
-      createSessionForm.addEventListener('submit', this.createSession);
+
+      if (createSessionForm) {
+        createSessionForm.addEventListener('submit', this.createSession);
+      }
+
+      var joinSessionForm = document.querySelector('#join-session');
+
+      if (joinSessionForm) {
+        joinSessionForm.addEventListener('submit', this.joinSession);
+      }
+    }
+  }, {
+    key: "joinSession",
+    value: function joinSession(e) {
+      e.preventDefault();
+      var usernameField = document.querySelector('.username');
+      var params = new URLSearchParams(window.location.search);
+
+      if (usernameField) {
+        if (!usernameField.value) {
+          var errorText = document.querySelector('.username + span');
+          errorText.innerText = 'Please enter a username.';
+          return;
+        }
+      }
+
+      location.href = usernameField ? "/drawings/".concat(params.get('session'), "?name=").concat(usernameField.value) : "/drawings/".concat(params.get('session'));
     }
   }, {
     key: "logout",
@@ -943,7 +969,7 @@ var HandleHome = /*#__PURE__*/function () {
               case 0:
                 csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
                 e.preventDefault();
-                usernameField = document.querySelector('#username');
+                usernameField = document.querySelector('.username');
 
                 if (!usernameField) {
                   _context2.next = 8;
@@ -955,7 +981,7 @@ var HandleHome = /*#__PURE__*/function () {
                   break;
                 }
 
-                errorText = document.querySelector('#username + span');
+                errorText = document.querySelector('.username + span');
                 errorText.innerText = 'Please enter a username.';
                 return _context2.abrupt("return");
 
@@ -1021,7 +1047,7 @@ var HandleHome = /*#__PURE__*/function () {
         session: urlParams.get('session'),
         modal: urlParams.get('modal')
       };
-      var urlToShare = params.name ? "".concat(location.origin, "/drawings/").concat(params.session, "?name=").concat(params.name) : "".concat(location.origin, "/drawings/").concat(params.session);
+      var urlToShare = "".concat(location.origin, "/?ask=true&session=").concat(params.session);
 
       var openModal = function openModal() {
         modalUuid.value = urlToShare;
@@ -1034,7 +1060,7 @@ var HandleHome = /*#__PURE__*/function () {
       };
 
       var draw = function draw() {
-        location.href = urlToShare;
+        location.href = params.name ? "".concat(location.origin, "/drawings/").concat(params.session, "?name=").concat(params.name) : "".concat(location.origin, "/drawings/").concat(params.session);
       };
 
       var copyUrl = /*#__PURE__*/function () {
