@@ -7,6 +7,7 @@
 
 <script>
     window.drawingSaved = {!! $drawingSaved ?? null !!}
+    window.username = {!! Auth::user()->name ? "'" . Auth::user()->name . "'" : null !!}
 </script>
 
 @section('content')
@@ -15,7 +16,10 @@
     <a href="/">
       <img src="{{ asset("/images/logo.svg") }}" alt="logo colladraw">
     </a>
-
+{{--
+    <div class="message-mobile">
+      <h1 class="sentence-mobile">Go to your Desktop or tablet to discover our solution</h1>
+    </div> --}}
 
     <ul class="header-icons">
         <li id="delete"><img src="{{ asset("/images/icons/icon-trash.svg") }}" alt="trash"></li>
@@ -51,7 +55,7 @@
 <main>
     <aside class="panel left-panel show">
         <header>
-          <img class="toggle-icon" src="{{ asset("/images/icons/icon-tools-chevron.svg") }}" alt="toggle colors"> 
+          <img class="toggle-icon" src="{{ asset("/images/icons/icon-tools-chevron.svg") }}" alt="toggle colors">
         </header>
 
         <ul class="colors">
@@ -61,7 +65,7 @@
           <li>
             <input type="color" id="color-picker" value="#ffffff">
           </li>
-        </ul> 
+        </ul>
     </aside>
 
     <canvas id="canvas"></canvas>
@@ -95,7 +99,7 @@
             <li id="undo"><button><img src="{{ asset("/images/icons/arrow-left.svg") }}" alt="undo"></button></li>
             <li id="redo"><button><img src="{{ asset("/images/icons/arrow-right.svg") }}" alt="redo"></button></li>
         </ul>
-    </aside>     
+    </aside>
 
 </main>
 
