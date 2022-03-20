@@ -70,9 +70,30 @@ class DrawingController extends Controller
 
     }
 
-    public function user($id)
+    public function delete(Request $request, $id) 
     {
-        return Drawing::where('creator', '=', $id)->get();
+
+        $users = User::where('drawings', 'LIKE', "%$id%")->get();
+        
+        
+        foreach ($users as $user) {
+            $user_drawings = json_decode($user->drawings);
+
+            $index = array_search($id, $user_drawings);
+
+            if (($key = array_search($id, $user_drawings)) !== false) {
+                unset($user_drawings[$key]);
+            }
+    
+            $user->drawings = json_encode($user_drawings);
+            $user->save();
+
+        }
+
+        $drawing = Drawing::where('uuid', '=', $id)->first();
+        $drawing->delete();
+
+
     }
 
     public function create(Request $request)

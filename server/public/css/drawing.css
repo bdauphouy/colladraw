@@ -203,9 +203,19 @@ body main .right-panel .tools > li ul li.active button {
   color: #bbb2f9;
 }
 body main .right-panel .tools > li ul li:first-child {
-  font-family: "Times New Roman", sans-serif;
+  padding: 1rem;
+  border-bottom: rgba(17, 17, 17, 0.1) 2px solid;
+}
+body main .right-panel .tools > li ul li:first-child > input {
+  cursor: text;
+}
+body main .right-panel .tools > li ul li:first-child > input[disabled] {
+  cursor: not-allowed;
 }
 body main .right-panel .tools > li ul li:nth-child(2) {
+  font-family: "Times New Roman", sans-serif;
+}
+body main .right-panel .tools > li ul li:nth-child(3) {
   font-family: "Impact", sans-serif;
 }
 body main .right-panel .tools > li ul li:last-child {
@@ -231,7 +241,9 @@ body main .right-panel .tools > li ul li button {
   pointer-events: none;
 }
 body main .right-panel .tools > li ul.show {
-  max-height: 180px;
+  max-height: -webkit-max-content;
+  max-height: -moz-max-content;
+  max-height: max-content;
 }
 
 .panel {

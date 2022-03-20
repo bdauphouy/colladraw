@@ -16,3 +16,4 @@ use App\Http\Controllers\DrawingController;
 
 Route::post('/drawings/{id}/export', [DrawingController::class, 'export']);
 Route::post('/drawings/{id}/save', [DrawingController::class, 'save']);
+Route::delete('/drawings/{id}', [DrawingController::class, 'delete']);

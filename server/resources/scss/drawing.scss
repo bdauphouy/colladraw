@@ -226,10 +226,23 @@ body {
                             }
 
                             &:first-child {
-                                font-family: 'Times New Roman', sans-serif;
+                                padding: 1rem;
+                                border-bottom: rgba($black, 0.1) 2px solid;
+
+                                > input {
+                                    cursor: text;
+
+                                    &[disabled] {
+                                        cursor: not-allowed;
+                                    }
+                                }
                             }
 
                             &:nth-child(2) {
+                                font-family: 'Times New Roman', sans-serif;
+                            }
+
+                            &:nth-child(3) {
                                 font-family: 'Impact', sans-serif;
                             }
 
@@ -263,7 +276,7 @@ body {
                         }
 
                         &.show {
-                            max-height: 180px;
+                            max-height: max-content;
                         }
                     }
                 }

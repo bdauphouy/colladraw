@@ -30,9 +30,9 @@ class HandleCanvas {
         this.toggleIcons = [...document.querySelectorAll(".toggle-icon")]
         this.toolsElements = [...document.querySelectorAll(".tools > li")]
         this.colorsElements = [...document.querySelectorAll(".colors > li")]
-        this.fontsElements = [...document.querySelectorAll(".fonts > li")]
-        this.colorChangingTypeElement = document.querySelector("#color-changing-type")
+        this.fontsElements = [...document.querySelectorAll(".fonts > li.fonts")]
         this.fontsPanel = document.querySelector(".fonts")
+        this.textInput = document.querySelector('.fonts > li > #text-input')
         this.savingText = document.querySelector("#saving-text")
         this.canvas = document.querySelector("#canvas")
         this.cd = new Colladraw(this.canvas)
@@ -40,13 +40,28 @@ class HandleCanvas {
         this.currentTool = null
         this.currentFont = this.fonts[0]
         this.websocket = new Websocket(this.cd, this.drawingId, this.username)
+        this.colorChangingTypeElement = document.querySelector("#color-changing-type")
         this.colorChangingType = "background"
         this.lastSelectedTool = null
         this.handle()
 
-        this.toolsElements.find(el => el.id === 'rectangle').click()
+        this.toolsElements.find(el => el.id === "rectangle").click()
 
         setInterval(() => this.saveDrawing(this.cd), 10000)
+
+        this.cd.canvas.canvas.addEventListener("element-selected", (e) => {
+            const textElement = e.detail.element
+
+            if (textElement instanceof CanvasText && textElement.text) {
+                this.textInput.value = textElement.text
+                this.textInput.disabled = false
+            }
+        })
+
+        this.cd.canvas.canvas.addEventListener("element-deselected", (e) => {
+            this.textInput.value = ""
+            this.textInput.disabled = true
+        })
 
         if (window.drawingSaved) this.cd.load(window.drawingSaved)
     }
@@ -113,6 +128,25 @@ class HandleCanvas {
             shareButton.lastElementChild.lastElementChild.value = urlToShare
         }
 
+        const deleteDrawing = async (e) => {
+            const csrfToken = document
+                .querySelector("meta[name=\"csrf-token\"]")
+                .getAttribute("content")
+
+            e.preventDefault()
+
+            const res = await fetch(`/api${location.pathname}`, {
+                method: "DELETE",
+                headers: {
+                    "X-CSRF-TOKEN": csrfToken
+                }
+            })
+
+            if (res.ok) {
+                location.href = "/"
+            }
+        }
+
         const logout = async (e) => {
             const csrfToken = document
                 .querySelector("meta[name=\"csrf-token\"]")
@@ -134,14 +168,15 @@ class HandleCanvas {
 
         const toggleProfile = () => {
             downloadButton.lastElementChild.classList.remove("show")
-            profileButton?.lastElementChild.classList.toggle("show")
+            profileButton.lastElementChild.classList.toggle("show")
         }
 
         const toggleDownload = () => {
-            profileButton?.lastElementChild.classList.remove("show")
+            profileButton.lastElementChild.classList.remove("show")
             downloadButton.lastElementChild.classList.toggle("show")
         }
 
+        deleteButton.addEventListener("click", deleteDrawing)
         saveButton.addEventListener("click", () => this.saveDrawing(this.cd))
         shareButton.addEventListener("click", share)
         downloadButton.addEventListener("click", toggleDownload)
@@ -252,7 +287,7 @@ class HandleCanvas {
         }
 
         const toggleColorChangingType = () => {
-            if (this.lastSelectedTool === this.tools['color-changing-type']) {
+            if (this.lastSelectedTool === this.tools["color-changing-type"]) {
                 if (this.colorChangingType === "background") {
                     this.colorChangingType = "border"
                     this.colorChangingTypeElement.querySelector("#background-img").classList.add("hidden")
@@ -267,6 +302,23 @@ class HandleCanvas {
 
         const toggleFonts = (e) => {
             this.fontsPanel.classList.toggle("show")
+        }
+
+        const disableBackspace = () => {
+            this.cd.disableBackspace = true
+        }
+
+        const enableBackspace = () => {
+            this.cd.disableBackspace = false
+        }
+
+        const changeText = (e) => {
+            const selectedElement = this.cd.elements.find((el) => el.selected)
+
+            if (selectedElement && selectedElement instanceof CanvasText) {
+                selectedElement.text = e.target.value
+                this.cd.draw()
+            }
         }
 
         const togglePanel = (e) => {
@@ -299,6 +351,18 @@ class HandleCanvas {
         this.fontsElements.forEach((fontElement) => {
             fontElement.addEventListener("click", changeFont)
         })
+
+        this.cd.canvas.canvas.addEventListener("element-created", (e) => {
+            const selectedElement = e.detail.element
+
+            if (selectedElement instanceof CanvasText) {
+                this.fontsElements[0].click()
+            }
+        })
+
+        this.textInput.addEventListener('input', changeText)
+        this.textInput.addEventListener('focus', disableBackspace)
+        this.textInput.addEventListener('blur', enableBackspace)
 
         this.colorChangingTypeElement.addEventListener("click", toggleColorChangingType)
 
