@@ -37,7 +37,7 @@ class HandleCanvas {
     this.currentColor = null
     this.currentTool = null
     this.currentFont = this.fonts[0]
-    this.websocket = new Websocket(this.cd)
+    this.websocket = new Websocket(this.cd, this.drawingId, this.username)
     this.handle()
 
     setInterval(async () => {
@@ -57,6 +57,10 @@ class HandleCanvas {
 
   get drawingId() {
     return location.pathname.split('/')[2]
+  }
+
+  get username() {
+    return window.username ?? new URLSearchParams(location.search).get('name')
   }
 
   handle() {
