@@ -72,3 +72,32 @@ body {
   color: $red;
   margin-top: 6px;
 }
+
+.dropdown {
+  display: flex;
+  flex-direction: column;
+  background: $light-gray;
+  width: max-content;
+  border-radius: 8px;
+  position: absolute;
+  max-height: 0;
+  overflow: clip;
+  z-index: 100;
+  transition: max-height 200ms;
+
+  a,
+  button {
+    font-size: $p;
+    padding: 1rem;
+    display: inline-block;
+    width: 100%;
+    transition-property: background-color, color;
+    transition-duration: 200ms;
+    color: $black;
+    font-weight: 500;
+
+    &:hover {
+      background: $purple;
+    }
+  }
+}

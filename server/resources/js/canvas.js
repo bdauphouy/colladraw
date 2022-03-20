@@ -3,15 +3,6 @@ import Websocket from './websocket'
 
 class HandleCanvas {
   constructor() {
-    this.headerIcons = [...document.querySelectorAll('.header-icons > li')]
-    this.toggleIcons = [...document.querySelectorAll('.toggle-icon')]
-    this.toolsElements = [...document.querySelectorAll('.tools > li')]
-    this.colorsElements = [...document.querySelectorAll('.colors > li')]
-    this.canvas = document.querySelector('#canvas')
-    this.cd = new Colladraw(this.canvas)
-    this.currentColor = null
-    this.currentTool = null
-    this.websocket = new Websocket(this.cd)
     this.tools = {
       pen: CanvasElementType.PENCIL,
       rubber: CanvasElementType.ERASER,
@@ -34,7 +25,38 @@ class HandleCanvas {
       '#c1c1c1',
       '#111111',
     ]
+    this.fonts = ['Times New Roman', 'Impact', 'Comic Sans MS']
+    this.headerIcons = [...document.querySelectorAll('.header-icons > li')]
+    this.toggleIcons = [...document.querySelectorAll('.toggle-icon')]
+    this.toolsElements = [...document.querySelectorAll('.tools > li')]
+    this.colorsElements = [...document.querySelectorAll('.colors > li')]
+    this.fontsElements = [...document.querySelectorAll('.fonts > li')]
+    this.fontsPanel = document.querySelector('.fonts')
+    this.canvas = document.querySelector('#canvas')
+    this.cd = new Colladraw(this.canvas)
+    this.currentColor = null
+    this.currentTool = null
+    this.currentFont = this.fonts[0]
+    this.websocket = new Websocket(this.cd)
     this.handle()
+
+    setInterval(async () => {
+      await fetch(`/api/drawings/${this.drawingId}/save`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          drawing: this.cd.toJSON(),
+        }),
+      })
+    }, 10000)
+
+    if (window.drawingSaved) this.cd.load(window.drawingSaved)
+  }
+
+  get drawingId() {
+    return location.pathname.split('/')[2]
   }
 
   handle() {
@@ -130,6 +152,8 @@ class HandleCanvas {
         toolElement.classList.remove('active')
       })
 
+      this.fontsPanel.classList.remove('show')
+
       const toolElement = e.target
 
       toolElement.classList.add('active')
@@ -137,8 +161,26 @@ class HandleCanvas {
       this.cd.changeToolType(this.currentTool)
     }
 
+    const changeFont = (e) => {
+      this.fontsElements.forEach((fontElement) => {
+        fontElement.classList.remove('active')
+      })
+
+      const fontButton = e.target.firstElementChild
+      fontButton.parentElement.classList.add('active')
+
+      this.currentFont = fontButton.innerText
+      this.cd.changeFont(`30px ${this.currentFont}`)
+      this.cd.draw()
+    }
+
+    const toggleFonts = (e) => {
+      this.fontsPanel.classList.toggle('show')
+    }
+
     const togglePanel = (e) => {
       e.target.parentElement.parentElement.classList.toggle('show')
+      this.fontsPanel.classList.remove('show')
     }
 
     const undo = () => {
@@ -162,6 +204,12 @@ class HandleCanvas {
     this.toolsElements.slice(0, -2).forEach((toolElement) => {
       toolElement.addEventListener('click', changeTool)
     })
+
+    this.fontsElements.forEach((fontElement) => {
+      fontElement.addEventListener('click', changeFont)
+    })
+
+    document.querySelector('#text').addEventListener('click', toggleFonts)
 
     undoButton.addEventListener('click', undo)
     redoButton.addEventListener('click', redo)

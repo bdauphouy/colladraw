@@ -261,3 +261,33 @@ body {
   color: #f3b1af;
   margin-top: 6px;
 }
+
+.dropdown {
+  display: flex;
+  flex-direction: column;
+  background: #f4f4f4;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  border-radius: 8px;
+  position: absolute;
+  max-height: 0;
+  overflow: clip;
+  z-index: 100;
+  transition: max-height 200ms;
+}
+.dropdown a,
+.dropdown button {
+  font-size: 1.125rem;
+  padding: 1rem;
+  display: inline-block;
+  width: 100%;
+  transition-property: background-color, color;
+  transition-duration: 200ms;
+  color: #111111;
+  font-weight: 500;
+}
+.dropdown a:hover,
+.dropdown button:hover {
+  background: #bbb2f9;
+}

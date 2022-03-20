@@ -5,6 +5,9 @@
     <title>Colladraw - Drawing</title>
 </head>
 
+<script>
+    window.drawingSaved = {!! $drawingSaved ?? null !!}
+</script>
 
 @section('content')
 
@@ -21,7 +24,7 @@
         <li><img src="{{ asset("/images/icons/icon-trash.svg") }}" alt="trash"></li>
         <li id="download">
           <img src="{{ asset("/images/icons/icon-download.svg") }}" alt="download">
-          <ul>
+          <ul class="dropdown">
             <li>
               <button id="save-pdf">PDF</button>
             </li>
@@ -33,28 +36,17 @@
         @if (Auth::user())
         <li id="profile">
           <img src="{{ asset("/images/icons/user-icon.svg") }}" alt="profile">
-          <ul>
+          <ul class="dropdown">
             <li>
               <button>Log out</button>
             </li>
             <li>
-              <a href="/logout">Log out</a>
+              <a href="/profile">Profile</a>
             </li>
           </ul>
         </li>
         @endif
     </ul>
-
-    {{-- <div class="members">
-
-    </div> --}}
-
-    {{-- @if (Auth::user())
-    <ul class="profile-panel">
-      <li><a href="/profile">Profile</a></li>
-      <li><a href="/logout">Logout</a></li>
-    </ul>
-    @endif --}}
 </header>
 
 <main>
@@ -87,25 +79,23 @@
             <li id="ellipse"><button><img src="{{ asset("/images/icons/icon-ellipse.svg") }}" alt="ellipse"></button></li>
             <li id="triangle"><button><img src="{{ asset("/images/icons/icone_triangle.svg") }}" alt="triangle"></button></li>
             <li id="line"><button><img src="{{ asset("/images/icons/icon-line.svg") }}" alt="line tool"></button></li>
-            <li id="text"><button><img src="{{ asset("/images/icons/icon-text.svg") }}" alt="text tool"></button></li>
+            <li id="text">
+              <button>
+                <img src="{{ asset("/images/icons/icon-text.svg") }}" alt="text tool">
+              </button>
+              <ul class="dropdown show fonts">
+                <li class="active"><button>Times New Roman</button></li>
+                <li><button>Impact</button></li>
+                <li>
+                  <button>Comic Sans MS</button>
+                  <span>la fameuse</span>
+                </li>
+              </ul>
+            </li>
             <li id="background"><button><img class="change-icon" src="{{ asset("/images/icons/background.svg") }}" alt="stroke fill rectangles"></button></li>
             <li id="undo"><button><img src="{{ asset("/images/icons/arrow-left.svg") }}" alt="undo"></button></li>
             <li id="redo"><button><img src="{{ asset("/images/icons/arrow-right.svg") }}" alt="redo"></button></li>
         </ul>
-{{--             
-        <details class="typo-choices">
-      
-          <summary>
-            <h1>fonts</h1>
-          </summary>
-
-      <ul name="fonts" class="select-fonts" id="select-fonts">
-        <li id="first-font">Helvetica</li>
-        <li id="second-font">Time New Roman</li>
-        <li id="third-font">Courier New</li>
-      </ul>
-
-    </details> --}}
     </aside>     
 
 </main>

@@ -6,6 +6,7 @@ use Dompdf\Dompdf;
 use Illuminate\Http\Request;
 use App\Models\Drawing;
 use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 
@@ -64,6 +65,7 @@ class DrawingController extends Controller
 
         return view('drawing', [
             'drawing' => $drawing,
+            'drawingSaved' => Storage::get($id . '/save.json'),
         ]);
 
     }
@@ -116,6 +118,16 @@ class DrawingController extends Controller
         return response($response, 201);
     }
 
+    public function save(Request $request, $id)
+    {
+        $drawing = json_decode($request->getContent())->drawing;
+        $drawing = json_encode($drawing);
+
+        Storage::put($id . '/save.json', $drawing);
+
+        return response([], 201);
+    }
+
     public function export(Request $request)
     {
         $drawing_image = json_decode($request->getContent())->image;
@@ -123,11 +135,11 @@ class DrawingController extends Controller
 
         $drawing_image = str_replace('data:image/png;base64,', '', $drawing_image);
         $drawing_image = str_replace(' ', '+', $drawing_image);
-        
+
         $file = 'drawing.png';
-        
+
         if ($format == 'pdf') {
- 
+
             $file = str_replace('.png', '.pdf', $file);
             $dompdf = new Dompdf();
             $width = imagesx(imagecreatefromstring(base64_decode($drawing_image)));
@@ -144,4 +156,5 @@ class DrawingController extends Controller
 
         return response()->download($file);
     }
+
 }

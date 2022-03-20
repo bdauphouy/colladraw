@@ -1,3 +1,6 @@
+body {
+  overflow: hidden;
+}
 body > header {
   display: flex;
   align-items: center;
@@ -37,34 +40,11 @@ body > header .header-icons > li:last-child {
   position: relative;
 }
 body > header .header-icons > li:last-child ul {
-  display: flex;
-  flex-direction: column;
-  background: #f4f4f4;
-  width: 100px;
-  border-radius: 8px;
-  position: absolute;
-  right: 0;
   top: 60px;
-  max-height: 0;
-  overflow: clip;
-  transition: max-height 200ms;
+  right: 0;
 }
 body > header .header-icons > li:last-child ul.show {
   max-height: 120px;
-}
-body > header .header-icons > li:last-child ul a,
-body > header .header-icons > li:last-child ul button {
-  font-size: 1.125rem;
-  padding: 1rem;
-  display: inline-block;
-  width: 100%;
-  transition: background-color 200ms;
-  color: #111111;
-  font-weight: 500;
-}
-body > header .header-icons > li:last-child ul a:hover,
-body > header .header-icons > li:last-child ul button:hover {
-  background: #bbb2f9;
 }
 body main .left-panel {
   align-items: flex-end;
@@ -163,7 +143,10 @@ body main .right-panel .tools {
   filter: blur(20px);
   transition: filter 200ms;
 }
-body main .right-panel .tools li {
+body main .right-panel .tools button {
+  pointer-events: none;
+}
+body main .right-panel .tools > li {
   height: 60px;
   display: grid;
   place-items: center;
@@ -172,13 +155,53 @@ body main .right-panel .tools li {
   padding: 0.7rem;
   border: 2px solid #c1c1c1;
   transition: border-color 200ms;
+  position: relative;
 }
-body main .right-panel .tools li:nth-last-child(2), body main .right-panel .tools li:last-child {
+body main .right-panel .tools > li:nth-last-child(2), body main .right-panel .tools > li:last-child {
   background: #bbb2f9;
   border-color: transparent;
 }
-body main .right-panel .tools li:hover, body main .right-panel .tools li.active {
+body main .right-panel .tools > li:hover, body main .right-panel .tools > li.active {
   border-color: #111111;
+}
+body main .right-panel .tools > li ul {
+  left: 0;
+  top: 0;
+  transform: translateX(calc(-100% - 24px));
+}
+body main .right-panel .tools > li ul li.active button {
+  color: #bbb2f9;
+}
+body main .right-panel .tools > li ul li:first-child {
+  font-family: "Times New Roman", sans-serif;
+}
+body main .right-panel .tools > li ul li:nth-child(2) {
+  font-family: "Impact", sans-serif;
+}
+body main .right-panel .tools > li ul li:last-child {
+  font-family: "Comic Sans MS", sans-serif;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+body main .right-panel .tools > li ul li:last-child span {
+  opacity: 0;
+  pointer-events: none;
+  font-size: 0.7rem;
+  white-space: nowrap;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  transition: opacity 200ms;
+}
+body main .right-panel .tools > li ul li:last-child:hover span {
+  opacity: 1;
+}
+body main .right-panel .tools > li ul li button {
+  pointer-events: none;
+}
+body main .right-panel .tools > li ul.show {
+  max-height: 180px;
 }
 
 .panel {
