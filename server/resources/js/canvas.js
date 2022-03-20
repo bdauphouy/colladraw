@@ -38,11 +38,20 @@ class HandleCanvas {
   }
 
   handle() {
-    this.cd.changeFillColor('red')
     this.websocket.init(this.canvas)
     this.handleHeaderIcons()
     this.handlePanels()
     this.handleSave()
+    this.handleWindowResize()
+  }
+
+  handleWindowResize() {
+    const resizeCanvas = () => {
+      this.canvas.width = window.innerWidth
+      this.canvas.height = window.innerHeight
+    }
+
+    window.addEventListener('resize', resizeCanvas)
   }
 
   handleHeaderIcons() {

@@ -81,11 +81,23 @@ var HandleCanvas = /*#__PURE__*/function () {
   _createClass(HandleCanvas, [{
     key: "handle",
     value: function handle() {
-      this.cd.changeFillColor('red');
       this.websocket.init(this.canvas);
       this.handleHeaderIcons();
       this.handlePanels();
       this.handleSave();
+      this.handleWindowResize();
+    }
+  }, {
+    key: "handleWindowResize",
+    value: function handleWindowResize() {
+      var _this = this;
+
+      var resizeCanvas = function resizeCanvas() {
+        _this.canvas.width = window.innerWidth;
+        _this.canvas.height = window.innerHeight;
+      };
+
+      window.addEventListener('resize', resizeCanvas);
     }
   }, {
     key: "handleHeaderIcons",
@@ -110,7 +122,7 @@ var HandleCanvas = /*#__PURE__*/function () {
   }, {
     key: "handleSave",
     value: function handleSave() {
-      var _this = this;
+      var _this2 = this;
 
       var pdfButton = document.querySelector('#save-pdf');
       var pngButton = document.querySelector('#save-png');
@@ -128,7 +140,7 @@ var HandleCanvas = /*#__PURE__*/function () {
                   return fetch("/api/drawings/".concat(uuid, "/export?format=").concat(format), {
                     method: 'POST',
                     body: JSON.stringify({
-                      image: _this.cd.toDataURL()
+                      image: _this2.cd.toDataURL()
                     }),
                     headers: {
                       'X-CSRF-TOKEN': csrfToken,
@@ -171,41 +183,41 @@ var HandleCanvas = /*#__PURE__*/function () {
   }, {
     key: "handlePanels",
     value: function handlePanels() {
-      var _this2 = this;
+      var _this3 = this;
 
       var colorPicker = document.querySelector('#color-picker');
       var undoButton = document.querySelector('#undo');
       var redoButton = document.querySelector('#redo');
 
       var changeColor = function changeColor(e, type) {
-        var selectedShape = _this2.cd.elements.find(function (el) {
+        var selectedShape = _this3.cd.elements.find(function (el) {
           return el.selected;
         });
 
         if (type === 'picker') {
-          _this2.currentColor = colorPicker.value;
+          _this3.currentColor = colorPicker.value;
         } else {
           var index = Number(e.target.className.at(-1)) - 1;
-          _this2.currentColor = _this2.colors[index];
+          _this3.currentColor = _this3.colors[index];
         }
 
         if (selectedShape) {
-          selectedShape.fillColor = _this2.currentColor;
+          selectedShape.fillColor = _this3.currentColor;
 
-          _this2.cd.draw();
+          _this3.cd.draw();
         }
       };
 
       var changeTool = function changeTool(e) {
-        _this2.toolsElements.forEach(function (toolElement) {
+        _this3.toolsElements.forEach(function (toolElement) {
           toolElement.classList.remove('active');
         });
 
         var toolElement = e.target;
         toolElement.classList.add('active');
-        _this2.currentTool = _this2.tools[toolElement.id];
+        _this3.currentTool = _this3.tools[toolElement.id];
 
-        _this2.cd.changeToolType(_this2.currentTool);
+        _this3.cd.changeToolType(_this3.currentTool);
       };
 
       var togglePanel = function togglePanel(e) {
@@ -213,11 +225,11 @@ var HandleCanvas = /*#__PURE__*/function () {
       };
 
       var undo = function undo() {
-        _this2.cd.undo();
+        _this3.cd.undo();
       };
 
       var redo = function redo() {
-        _this2.cd.redo();
+        _this3.cd.redo();
       };
 
       this.toggleIcons.forEach(function (toggleIcon) {
