@@ -4,6 +4,27 @@
 
 ### <p align="center"> Colladraw • <a href="https://colladraw.fun" > colladraw.fun </a> </p>
 
+## Installation
+
+ 0. `NPM`, `PHP` et `composer` sont requis
+ 1. Installer les modules `NPM`:
+    ```sh
+    npm i
+    ```
+ 2. Installer les modules `composer`:
+    ```sh
+    composer i
+    ```
+ 3. Créer un fichier `.env`:
+    ```sh
+    cp .env.example .env
+    nano .env
+    ```
+ 4. Pour démarrer l'environnement de développement:
+    ```sh
+    npm run dev
+    ```
+
 ## Explications
 
 ### 1. Pourquoi 
