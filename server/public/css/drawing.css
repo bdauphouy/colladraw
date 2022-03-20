@@ -248,6 +248,9 @@ body main .right-panel .tools > li ul.show {
 .panel li {
   pointer-events: none;
 }
+.panel li#color-changing-type img.hidden {
+  display: none;
+}
 .panel.show {
   transform: translate(0, -50%);
 }

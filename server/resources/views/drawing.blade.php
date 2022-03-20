@@ -102,7 +102,10 @@
                 </li>
               </ul>
             </li>
-            <li id="background"><button><img class="change-icon" src="{{ asset("/images/icons/background.svg") }}" alt="stroke fill rectangles"></button></li>
+            <li id="color-changing-type"><button>
+                    <img id="background-img" class="change-icon show" src="{{ asset("/images/icons/background.svg") }}" alt="stroke fill rectangles">
+                    <img id="border-img" class="change-icon hidden" src="{{ asset("/images/icons/border.svg") }}" alt="stroke fill rectangles">
+                </button></li>
             <li id="undo"><button><img src="{{ asset("/images/icons/arrow-left.svg") }}" alt="undo"></button></li>
             <li id="redo"><button><img src="{{ asset("/images/icons/arrow-right.svg") }}" alt="redo"></button></li>
         </ul>
