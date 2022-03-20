@@ -1,14 +1,14 @@
 {
-  "type": "module",
   "private": true,
   "scripts": {
-    "dev": "concurrently \"php artisan serve\" \"npm run watch\"",
+    "dev": "concurrently \"php artisan serve\" \"php artisan websockets:serve\" \"npm run watch\" \"npm run start:websocket\"",
     "development": "mix",
     "watch": "mix watch",
     "watch-poll": "mix watch -- --watch-options-poll=1000",
     "hot": "mix watch --hot",
     "prod": "npm run production",
-    "production": "mix --production"
+    "production": "mix --production",
+    "start:websocket": "node websocket/index.js"
   },
   "devDependencies": {
     "@popperjs/core": "^2.10.2",
@@ -22,5 +22,11 @@
     "resolve-url-loader": "^3.1.2",
     "sass": "^1.32.11",
     "sass-loader": "^11.0.1"
+  },
+  "dependencies": {
+    "colladraw": "^1.0.6",
+    "laravel-echo": "^1.11.4",
+    "pusher-js": "^7.0.6",
+    "socket.io": "^4.4.1"
   }
 }

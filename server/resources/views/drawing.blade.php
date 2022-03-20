@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 <head>
-    <link rel="stylesheet" href="{{ asset("/css/drawing.css") }}">
+    <link rel="stylesheet" href="/css/drawing.css">
     <title>Colladraw - Drawing</title>
 </head>
 
@@ -101,6 +101,7 @@
 
 </main>
 
+<script src="http://localhost:8001/socket.io/socket.io.js"></script>
 <script type="module" src="{{ asset("/js/canvas.js") }}"></script>
 
 @endsection

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 <head>
-    <link rel="stylesheet" href="{{ asset("/css/not-found.css") }}">
+    <link rel="stylesheet" href="/css/not-found.css">
     <title>Colladraw - {{ $type === 'classic' ? 'Page' : 'Drawing' }} not found</title>
 </head>
 

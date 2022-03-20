@@ -4,9 +4,12 @@ body > header {
   justify-content: space-between;
   padding: 0 90px;
   height: 120px;
+  z-index: 100;
 }
 body > header a {
   cursor: pointer;
+  position: relative;
+  z-index: 100;
 }
 body > header a img {
   width: 200px;
@@ -14,6 +17,8 @@ body > header a img {
 body > header .header-icons {
   display: flex;
   gap: 4px;
+  position: relative;
+  z-index: 100;
 }
 body > header .header-icons > li {
   cursor: pointer;
@@ -135,7 +140,6 @@ body main .left-panel .colors .color-10 {
 }
 body main canvas {
   position: absolute;
-  z-index: -10;
   width: 100%;
   height: 100%;
   top: 0;
@@ -184,6 +188,7 @@ body main .right-panel .tools li:hover, body main .right-panel .tools li.active 
   background: #f4f4f4;
   padding: 1.5rem;
   transition: transform 200ms;
+  z-index: 100;
 }
 .panel li {
   pointer-events: none;

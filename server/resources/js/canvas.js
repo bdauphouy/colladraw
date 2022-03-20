@@ -1,10 +1,16 @@
+import Colladraw from 'colladraw'
+import Websocket from './websocket'
+
 class HandleCanvas {
   constructor() {
     this.headerIcons = [...document.querySelectorAll('.header-icons > li')]
     this.toggleIcons = [...document.querySelectorAll('.toggle-icon')]
     this.toolsElements = [...document.querySelectorAll('.tools > li')]
+    this.canvas = document.querySelector('#canvas')
+    this.cd = new Colladraw(this.canvas)
     this.currentColor = null
     this.currentTool = null
+    this.websocket = new Websocket(this.cd)
     this.tools = {
       pen: null,
       rubber: null,
@@ -31,6 +37,7 @@ class HandleCanvas {
   }
 
   handle() {
+    this.websocket.init(this.canvas)
     this.handleHeaderIcons()
     this.handlePanels()
   }
