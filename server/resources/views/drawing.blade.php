@@ -15,13 +15,12 @@
     <a href="/">
       <img src="{{ asset("/images/logo.svg") }}" alt="logo colladraw">
     </a>
-{{-- 
-    <div class="message-mobile">
-      <h1 class="sentence-mobile">Go to your Desktop or tablet to discover our solution</h1>
-    </div> --}}
+
 
     <ul class="header-icons">
-        <li><img src="{{ asset("/images/icons/icon-trash.svg") }}" alt="trash"></li>
+        <li id="delete"><img src="{{ asset("/images/icons/icon-trash.svg") }}" alt="trash"></li>
+        <li id="save"><img src="{{ asset("/images/icons/save.svg") }}" alt="save"></li>
+        <li id="share"><img src="{{ asset("/images/icons/share.svg") }}" alt="share"></li>
         <li id="download">
           <img src="{{ asset("/images/icons/icon-download.svg") }}" alt="download">
           <ul class="dropdown">
@@ -38,7 +37,7 @@
           <img src="{{ asset("/images/icons/user-icon.svg") }}" alt="profile">
           <ul class="dropdown">
             <li>
-              <button>Log out</button>
+              <button id="logout">Log out</button>
             </li>
             <li>
               <a href="/profile">Profile</a>

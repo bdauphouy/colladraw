@@ -77,21 +77,50 @@ class HandleCanvas {
   }
 
   handleHeaderIcons() {
-    const profile = document.querySelector('#profile')
-    const download = document.querySelector('#download')
+    const profileButton = document.querySelector('#profile')
+    const downloadButton = document.querySelector('#download')
+    const logoutButton = document.querySelector('#logout')
+    const shareButton = document.querySelector('#share')
+    const saveButton = document.querySelector('#save')
+    const deleteButton = document.querySelector('#delete')
+
+    const logout = async (e) => {
+      const csrfToken = document
+        .querySelector('meta[name="csrf-token"]')
+        .getAttribute('content')
+
+      e.preventDefault()
+
+      const res = await fetch('/logout', {
+        method: 'POST',
+        headers: {
+          'X-CSRF-TOKEN': csrfToken,
+        },
+      })
+
+      if (res.ok) {
+        location.pathname = '/'
+      }
+    }
 
     const toggleProfile = () => {
-      profile.lastElementChild.classList.toggle('show')
+      downloadButton.lastElementChild.classList.remove('show')
+      profileButton.lastElementChild.classList.toggle('show')
     }
 
     const toggleDownload = () => {
-      download.lastElementChild.classList.toggle('show')
+      profileButton.lastElementChild.classList.remove('show')
+      downloadButton.lastElementChild.classList.toggle('show')
     }
 
-    download.addEventListener('click', toggleDownload)
+    downloadButton.addEventListener('click', toggleDownload)
 
-    if (profile) {
-      profile.addEventListener('click', toggleProfile)
+    if (profileButton) {
+      profileButton.addEventListener('click', toggleProfile)
+    }
+
+    if (logoutButton) {
+      logoutButton.addEventListener('click', logout)
     }
   }
 

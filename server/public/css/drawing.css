@@ -33,17 +33,21 @@ body > header .header-icons > li {
   padding: 0.7rem;
   position: relative;
 }
+body > header .header-icons > li img {
+  width: 100%;
+  height: 100%;
+}
 body > header .header-icons > li:hover {
   background-color: #f4f4f4;
 }
-body > header .header-icons > li:last-child {
+body > header .header-icons > li:last-child, body > header .header-icons > li:nth-last-child(2) {
   position: relative;
 }
-body > header .header-icons > li:last-child ul {
+body > header .header-icons > li:last-child ul, body > header .header-icons > li:nth-last-child(2) ul {
   top: 60px;
   right: 0;
 }
-body > header .header-icons > li:last-child ul.show {
+body > header .header-icons > li:last-child ul.show, body > header .header-icons > li:nth-last-child(2) ul.show {
   max-height: 120px;
 }
 body main .left-panel {
