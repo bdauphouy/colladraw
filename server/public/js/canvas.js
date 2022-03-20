@@ -672,9 +672,9 @@ var Websocket = /*#__PURE__*/function () {
     }
   }, {
     key: "on",
-    value: function on(event, callback) {
+    value: function on(name, callback) {
       this._events.push({
-        event: event,
+        event: name,
         callback: callback
       });
     }

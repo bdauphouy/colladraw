@@ -100,8 +100,8 @@ class Websocket {
         })
     }
 
-    on(event, callback) {
-        this._events.push({ event, callback })
+    on(name, callback) {
+        this._events.push({ event: name, callback })
     }
 }
 
