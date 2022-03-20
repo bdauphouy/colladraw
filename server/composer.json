@@ -12,7 +12,9 @@
         "laravel/sanctum": "^2.14",
         "laravel/tinker": "^2.7",
         "laravel/ui": "^3.4",
-        "pusher/pusher-php-server": "^7.0"
+        "pusher/pusher-php-server": "^7.0",
+        "dompdf/dompdf": "^1.2",
+        "ext-gd": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

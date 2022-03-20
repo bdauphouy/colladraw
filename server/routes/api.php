@@ -15,3 +15,5 @@ use App\Http\Controllers\DrawingController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+Route::post('/drawings/{id}/export', [DrawingController::class, 'export']);
