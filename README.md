@@ -20,7 +20,16 @@
     cp .env.example .env
     nano .env
     ```
- 4. Pour démarrer l'environnement de développement:
+ 4. Migrer la base de données:
+    ```sh
+    php artisan migrate:fresh
+    ```
+    _Pensez à créer la base de données comme spécifiée dans votre fichier `.env`._
+ 5. Générer les clés:
+    ```sh
+    php artisan key:generate
+    ```
+ 6. Pour démarrer l'environnement de développement:
     ```sh
     npm run dev
     ```
