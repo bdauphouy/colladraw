@@ -6,7 +6,7 @@
 
 ## Installation
 
- 0. `NPM`, `PHP` et `composer` sont requis
+ 0. `NPM`, `PHP`, `composer` et `mysql` sont requis
  1. Installer les modules `NPM`:
     ```sh
     npm i
