@@ -246,6 +246,7 @@ class HandleCanvas {
                 } else if (selectedElement instanceof CanvasText) {
                     if (this.colorChangingType === "background") {
                         selectedElement.highlightColor = this.currentColor
+                        selectedElement.highlight(this.cd.context, true)
                     } else {
                         selectedElement.color = this.currentColor
                     }
