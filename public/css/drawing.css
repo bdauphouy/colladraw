@@ -263,6 +263,11 @@ body main .right-panel .tools > li ul.show {
   transition: transform 200ms;
   z-index: 1;
 }
+@media screen and (max-width: 425px) {
+  .panel {
+    display: none !important;
+  }
+}
 .panel li {
   pointer-events: none;
 }

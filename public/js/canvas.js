@@ -87,9 +87,13 @@ var HandleCanvas = /*#__PURE__*/function () {
     this.colorChangingType = "background";
     this.lastSelectedTool = null;
     this.handle();
-    this.toolsElements.find(function (el) {
-      return el.id === "rectangle";
-    }).click();
+
+    if (!matchMedia('screen and (max-width: 425px)').matches) {
+      this.toolsElements.find(function (el) {
+        return el.id === "rectangle";
+      }).click();
+    }
+
     setInterval(function () {
       return _this.saveDrawing(_this.cd);
     }, 10000);

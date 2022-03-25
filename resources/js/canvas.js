@@ -45,7 +45,9 @@ class HandleCanvas {
         this.lastSelectedTool = null
         this.handle()
 
-        this.toolsElements.find(el => el.id === "rectangle").click()
+        if (!matchMedia('screen and (max-width: 425px)').matches) {
+            this.toolsElements.find(el => el.id === "rectangle").click()
+        }
 
         setInterval(() => this.saveDrawing(this.cd), 10000)
 
