@@ -3,14 +3,16 @@
 <head>
     <link rel="stylesheet" href="/css/drawing.css">
     <title>Colladraw - Drawing</title>
+
+    <script src="https://ws.colladraw.fun/socket.io/socket.io.js"></script>
+
+    <script>
+        window.drawingSaved = {!! $drawingSaved ?? null !!}
+            window.username = {!! Auth::user() && Auth::user()->name ? "'" . Auth::user()->name . "'" : "''" !!};
+
+        if (window.username.length === 0) window.username = null
+    </script>
 </head>
-
-<script>
-    window.drawingSaved = {!! $drawingSaved ?? null !!}
-        window.username = {!! Auth::user() && Auth::user()->name ? "'" . Auth::user()->name . "'" : "''" !!};
-
-    if (window.username.length === 0) window.username = null
-</script>
 
 @section('content')
 
@@ -140,7 +142,6 @@
 
     </main>
 
-    <script src="http://localhost:8001/socket.io/socket.io.js"></script>
     <script type="module" src="{{ asset("/js/canvas.js") }}"></script>
 
 @endsection
