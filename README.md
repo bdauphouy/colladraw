@@ -2,7 +2,7 @@
   <img width="100%" src="public/cover.png" />
 </p>
 
-### <p align="center"> Colladraw • <a href="https://colladraw.fun" > colladraw.fun </a> </p>
+### <p align="center">Colladraw</p>
 
 ## Installation
 
